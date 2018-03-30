@@ -6,7 +6,15 @@
         xmlns:local="clr-namespace:FoodTruck"
         mc:Ignorable="d"
         Title="Food Truck Invoice" Height="350" Width="525">
-    <Grid>
-        
-    </Grid>
+    <StackPanel Orientation="Vertical">
+        <DockPanel>
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Header="_Edit Inventory"/>
+                <MenuItem Header="_Search Invoices"/>
+            </Menu>
+        </DockPanel>
+        <Grid>
+            
+        </Grid>
+    </StackPanel>
 </Window>
