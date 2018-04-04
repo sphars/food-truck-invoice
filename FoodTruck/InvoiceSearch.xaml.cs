@@ -10,26 +10,27 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace FoodTruck
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for InvoiceSearch.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class InvoiceSearch : Window
     {
-        public MainWindow()
+        public InvoiceSearch()
         {
             InitializeComponent();
         }
 
-        private void EditInventoryOnClick(object sender, RoutedEventArgs e) {
-
-        }
-
-        private void SearchInvoicesOnClick(object sender, RoutedEventArgs e) {
+        /// <summary>
+        /// Handles the resetting the form to a default value
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnReset_Click(object sender, RoutedEventArgs e)
+        {
 
         }
     }
