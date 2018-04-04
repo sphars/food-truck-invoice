@@ -24,5 +24,13 @@ namespace FoodTruck
         {
             InitializeComponent();
         }
+
+        private void EditInventoryOnClick(object sender, RoutedEventArgs e) {
+
+        }
+
+        private void SearchInvoicesOnClick(object sender, RoutedEventArgs e) {
+
+        }
     }
 }
