@@ -70,6 +70,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DataAccess.cs" />
     <Compile Include="InvoiceSearch.xaml.cs">
       <DependentUpon>InvoiceSearch.xaml</DependentUpon>
     </Compile>

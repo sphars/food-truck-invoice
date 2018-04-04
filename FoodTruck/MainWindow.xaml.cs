@@ -26,11 +26,13 @@ namespace FoodTruck
         }
 
         private void EditInventoryOnClick(object sender, RoutedEventArgs e) {
-
+            var window = new ItemEntry();
+            window.ShowDialog();
         }
 
         private void SearchInvoicesOnClick(object sender, RoutedEventArgs e) {
-
+            var window = new InvoiceSearch();
+            window.ShowDialog();
         }
     }
 }
