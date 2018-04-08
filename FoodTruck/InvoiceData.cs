@@ -69,7 +69,7 @@ namespace FoodTruck
         /// <summary>
         /// Object for accessing the database
         /// </summary>
-        DataAccess da;
+        DataAccess da = new DataAccess();
 
         #region Methods
 
