@@ -10,7 +10,7 @@ namespace FoodTruck
 {
     /// <summary>
     /// A class for the business logic of the invoice program. 
-    /// SQL statements will reside in this class. Calls DataAccess.cs to get the data.
+    /// SQL statements will reside in this class. Calls DataAccess object to get the data.
     /// </summary>
     class InvoiceData
     {
@@ -219,33 +219,35 @@ namespace FoodTruck
         /// This SQL inserts the data for InvoiceNum, InvoiceDate, TotalCharge
         /// into the database based on whats entered in from the item entry window
         /// </summary>
-        public void insert()
+        /// <param name="sCharge"></param>
+        /// <param name="sDate"></param>
+        public void InsertInvoice(string sDate, string sCharge)
         {
            //inserted date 
-            string date = "tododate";
+            //string date = "tododate";
 
             //inserted charge 
-            string charge = "todoCharge";
+            //string charge = "todoCharge";
   
             //formats the sql with the insert statement 
-            string formattedQuery = String.Format(SQLinsertInvoice, date, charge);
+            string formattedQuery = String.Format(SQLinsertInvoice, sDate, sCharge);
+
+            da.ExecuteNonQuery(formattedQuery);
         }
 
         /// <summary>
         /// This SQL deletes the data for InvoiceNum, InvoiceDate, TotalCharge
         /// from the database from the item entry window
         /// </summary>
-        public void delete (int invoiceNum)
+        /// <param name="sInvoiceNum">The number of the invoice to remove</param>
+        public void DeleteInvoice(string sInvoiceNum)
         {
             //formats the sql with the delete statement 
-            string formattedQuery = String.Format(SQLdeleteInvoice, invoiceNum);
+            string formattedQuery = String.Format(SQLdeleteInvoice, sInvoiceNum);
 
             // TODO EXECUTE QUERY
-
+            da.ExecuteNonQuery(formattedQuery);
         }
-
- 
-
 
         #endregion
     }
