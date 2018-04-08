@@ -71,6 +71,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DataAccess.cs" />
+    <Compile Include="Delegates.cs" />
     <Compile Include="InvoiceData.cs" />
     <Compile Include="InvoiceSearch.xaml.cs">
       <DependentUpon>InvoiceSearch.xaml</DependentUpon>
