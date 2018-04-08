@@ -23,7 +23,8 @@ namespace FoodTruck
         private object invoice;
 
         //Matches delegate declaration for ReturnInvoice
-        public void setInvoice(object invoice) {
+        public void setInvoice(object invoice)
+        {
             this.invoice = invoice;
         }
         
@@ -32,12 +33,24 @@ namespace FoodTruck
             InitializeComponent();
         }
 
-        private void EditInventoryOnClick(object sender, RoutedEventArgs e) {
+        /// <summary>
+        /// This event handler for the menu item opens an ItemEntry window in dialog mode.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void EditInventoryOnClick(object sender, RoutedEventArgs e)
+        {
             var window = new ItemEntry();
             window.ShowDialog();
         }
 
-        private void SearchInvoicesOnClick(object sender, RoutedEventArgs e) {
+        /// <summary>
+        /// This event handler for the menu item displays the Invoice Search window in dialog mode.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SearchInvoicesOnClick(object sender, RoutedEventArgs e)
+        {
             // Passing delegate method to setInvoice as part of the constructor.
             var window = new InvoiceSearch(setInvoice);
             window.ShowDialog();

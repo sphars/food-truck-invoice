@@ -18,7 +18,7 @@ namespace FoodTruck {
     /// </summary>
     public partial class InvoiceSearch : Window {
         /// <summary>
-        /// This is how we will return the invoice to the MainWindow.  Call callback() with the invoice.
+        /// This is how we will return the invoice to the MainWindow.  Call callback() with the invoice object.  Invoice class is To Be Implemented
         /// </summary>
         private ReturnInvoice callback;
 
@@ -28,7 +28,7 @@ namespace FoodTruck {
         private object selectedInvoice;
 
         /// <summary>
-        /// This constructor accepts a callback delegate that saves the invoice in MainWindow.
+        /// This constructor accepts a callback delegate that returns the invoice to the MainWindow.
         /// </summary>
         /// <param name="callback"></param>
         public InvoiceSearch(ReturnInvoice callback) {
@@ -53,7 +53,7 @@ namespace FoodTruck {
         private void btnSelectInvoice_Click(object sender, RoutedEventArgs e) {
 
             // <Set or get selectedInvoice here>
-            selectedInvoice = null;
+            selectedInvoice = null; // null for now
 
             // Using the delegate callback, send it back to the MainWindow:
             callback(selectedInvoice);
