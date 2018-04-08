@@ -12,16 +12,28 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace FoodTruck
-{
+namespace FoodTruck {
     /// <summary>
     /// Interaction logic for InvoiceSearch.xaml
     /// </summary>
-    public partial class InvoiceSearch : Window
-    {
-        public InvoiceSearch()
-        {
+    public partial class InvoiceSearch : Window {
+        /// <summary>
+        /// This is how we will return the invoice to the MainWindow.  Call callback() with the invoice.
+        /// </summary>
+        private ReturnInvoice callback;
+
+        /// <summary>
+        /// This field is the invoice selected in the UI that will be returned to MainWindow.
+        /// </summary>
+        private object selectedInvoice;
+
+        /// <summary>
+        /// This constructor accepts a callback delegate that saves the invoice in MainWindow.
+        /// </summary>
+        /// <param name="callback"></param>
+        public InvoiceSearch(ReturnInvoice callback) {
             InitializeComponent();
+            this.callback = callback;
         }
 
         /// <summary>
@@ -29,8 +41,7 @@ namespace FoodTruck
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btnReset_Click(object sender, RoutedEventArgs e)
-        {
+        private void btnReset_Click(object sender, RoutedEventArgs e) {
 
         }
 
@@ -39,9 +50,13 @@ namespace FoodTruck
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btnSelectInvoice_Click(object sender, RoutedEventArgs e)
-        {
+        private void btnSelectInvoice_Click(object sender, RoutedEventArgs e) {
 
+            // <Set or get selectedInvoice here>
+            selectedInvoice = null;
+
+            // Using the delegate callback, send it back to the MainWindow:
+            callback(selectedInvoice);
         }
 
         /// <summary>
@@ -49,8 +64,7 @@ namespace FoodTruck
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void cboInvoiceNumber_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
+        private void cboInvoiceNumber_SelectionChanged(object sender, SelectionChangedEventArgs e) {
 
         }
 
@@ -59,8 +73,7 @@ namespace FoodTruck
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void cboInvoiceDate_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
+        private void cboInvoiceDate_SelectionChanged(object sender, SelectionChangedEventArgs e) {
 
         }
 
@@ -69,8 +82,7 @@ namespace FoodTruck
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void cboInvoiceTotal_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
+        private void cboInvoiceTotal_SelectionChanged(object sender, SelectionChangedEventArgs e) {
 
         }
     }

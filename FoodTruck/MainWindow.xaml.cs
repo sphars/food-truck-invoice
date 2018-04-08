@@ -20,6 +20,13 @@ namespace FoodTruck
     /// </summary>
     public partial class MainWindow : Window
     {
+        private object invoice;
+
+        //Matches delegate declaration for ReturnInvoice
+        public void setInvoice(object invoice) {
+            this.invoice = invoice;
+        }
+        
         public MainWindow()
         {
             InitializeComponent();
@@ -31,8 +38,10 @@ namespace FoodTruck
         }
 
         private void SearchInvoicesOnClick(object sender, RoutedEventArgs e) {
-            var window = new InvoiceSearch();
+            // Passing delegate method to setInvoice as part of the constructor.
+            var window = new InvoiceSearch(setInvoice);
             window.ShowDialog();
+            // When it returns, the invoice object should be set now, thanks to the delegate passed into the constructor.
         }
     }
 }
