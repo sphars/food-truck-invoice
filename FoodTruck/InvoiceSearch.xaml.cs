@@ -25,7 +25,7 @@ namespace FoodTruck
         }
 
         /// <summary>
-        /// Handles the resetting the form to a default value
+        /// Resets the window to default state. Clears filters.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -34,17 +34,42 @@ namespace FoodTruck
 
         }
 
-        private void cboInvoiceDate_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        /// <summary>
+        /// Selects the chosen invoice from the datagrid and sends it back to the main window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnSelectInvoice_Click(object sender, RoutedEventArgs e)
         {
 
         }
 
+        /// <summary>
+        /// Handles the changing of the selected invoice number combobox
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cboInvoiceNumber_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }
 
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        /// <summary>
+        /// Handles the changing of the selected invoice date combobox
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cboInvoiceDate_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        /// <summary>
+        /// Handles the changing of the selected invoice date combobox
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cboInvoiceTotal_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }
