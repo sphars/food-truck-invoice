@@ -58,9 +58,11 @@ namespace FoodTruck
 
         /// <summary>
         /// This SQL statement deletes data back from the invoice table
-        /// from the item entry window
+        /// from the invoice
         /// </summary>
         string SQLdeleteInvoice = @"Delete FROM INVOICES WHERE InvoiceNum = %d";
+
+     
 
         #endregion
 
@@ -119,6 +121,8 @@ namespace FoodTruck
             // TODO EXECUTE QUERY
 
         }
+
+ 
 
 
         #endregion
