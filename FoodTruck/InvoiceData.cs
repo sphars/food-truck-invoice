@@ -50,11 +50,17 @@ namespace FoodTruck
 
 
         /// <summary>
-        /// This SQL statement inserts data back into the invoce table
+        /// This SQL statement inserts data back into the invoice table
         /// from the item entry window
         /// </summary>
         string SQLinsertInvoice = @"INSERT INTO INVOICES (InvoiceDate, TotalCharge) 
         VALUES (%s, %s) ";
+
+        /// <summary>
+        /// This SQL statement deletes data back from the invoice table
+        /// from the item entry window
+        /// </summary>
+        string SQLdeleteInvoice = @"Delete FROM INVOICES WHERE InvoiceNum = %d";
 
         #endregion
 
@@ -100,6 +106,21 @@ namespace FoodTruck
             //formats the sql with the insert statement 
             string formattedQuery = String.Format(SQLinsertInvoice, date, charge);
         }
+
+        /// <summary>
+        /// This SQL deletes the data for InvoiceNum, InvoiceDate, TotalCharge
+        /// from the database from the item entry window
+        /// </summary>
+        public void delete (int invoiceNum)
+        {
+            //formats the sql with the delete statement 
+            string formattedQuery = String.Format(SQLdeleteInvoice, invoiceNum);
+
+            // TODO EXECUTE QUERY
+
+        }
+
+
         #endregion
     }
 }
