@@ -85,11 +85,19 @@ namespace FoodTruck
             return sInvoice; //return the invoice
         }
 
+        /// <summary>
+        /// This SQL inserts the data for InvoiceNum, InvoiceDate, TotalCharge
+        /// into the database based on whats entered in from the item entry window
+        /// </summary>
         public void insert()
         {
+           //inserted date 
             string date = "tododate";
-            string charge = "todoCharge";
 
+            //inserted charge 
+            string charge = "todoCharge";
+  
+            //formats the sql with the insert statement 
             string formattedQuery = String.Format(SQLinsertInvoice, date, charge);
         }
         #endregion
