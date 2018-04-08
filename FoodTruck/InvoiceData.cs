@@ -48,6 +48,14 @@ namespace FoodTruck
         /// </summary>
         string SQLGetInvoices = "SELECT * FROM Invoices;";
 
+
+        /// <summary>
+        /// This SQL statement inserts data back into the invoce table
+        /// from the item entry window
+        /// </summary>
+        string SQLinsertInvoice = @"INSERT INTO INVOICES (InvoiceDate, TotalCharge) 
+        VALUES (%s, %s) ";
+
         #endregion
 
         /// <summary>
@@ -75,6 +83,14 @@ namespace FoodTruck
             string sInvoice = ds.Tables[0].Rows.ToString(); //get the first row of the dataset
 
             return sInvoice; //return the invoice
+        }
+
+        public void insert()
+        {
+            string date = "tododate";
+            string charge = "todoCharge";
+
+            string formattedQuery = String.Format(SQLinsertInvoice, date, charge);
         }
         #endregion
     }
