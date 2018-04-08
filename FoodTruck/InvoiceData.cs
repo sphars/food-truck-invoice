@@ -94,6 +94,128 @@ namespace FoodTruck
         }
 
         /// <summary>
+        /// Method to get invoice numbers. Used for Invoice Search dropdown.
+        /// </summary>
+        /// <returns>A list of invoice numbers</returns>
+        public List<string> GetInvoiceNums()
+        {
+            List<string> lInvoiceNums = new List<string>();
+
+            DataSet dsInvoiceNums = new DataSet();
+            int iRetRows = 0;
+
+            dsInvoiceNums = da.ExecuteSQLStatement(SQLGetInvoicesNum, ref iRetRows);
+
+            foreach (DataRow dr in dsInvoiceNums.Tables[0].Rows)
+            {
+                string sInvoiceNum = dr[0].ToString();
+                lInvoiceNums.Add(sInvoiceNum);
+            }
+
+            return lInvoiceNums;
+        }
+
+
+        /// <summary>
+        /// Method to get invoice dates. Used for Invoice Search date dropdown
+        /// </summary>
+        /// <returns>List of invoice dates</returns>
+        public List<string> GetInvoiceDates()
+        {
+            List<string> lInvoiceDates = new List<string>();
+
+            DataSet dsInvoiceDates = new DataSet();
+            int iRetRows = 0;
+
+            dsInvoiceDates = da.ExecuteSQLStatement(SQLGetInvoicesDate, ref iRetRows);
+
+            foreach (DataRow dr in dsInvoiceDates.Tables[0].Rows)
+            {
+                string sInvoiceDate = dr[0].ToString();
+                lInvoiceDates.Add(sInvoiceDate);
+            }
+
+            return lInvoiceDates;
+        }
+
+
+        /// <summary>
+        /// Method to get invoice amounts. Used for Invoice Search dropdown
+        /// </summary>
+        /// <returns>List of invoice amounts</returns>
+        public List<string> GetInvoiceAmounts()
+        {
+            List<string> lInvoiceAmounts = new List<string>();
+
+            DataSet dsInvoiceAmounts = new DataSet();
+            int iRetRows = 0;
+
+            dsInvoiceAmounts = da.ExecuteSQLStatement(SQLGetInvoicesTotalCharge, ref iRetRows);
+
+            foreach (DataRow dr in dsInvoiceAmounts.Tables[0].Rows)
+            {
+                string sInvoiceAmount = dr[0].ToString();
+                lInvoiceAmounts.Add(sInvoiceAmount);
+            }
+
+            return lInvoiceAmounts;
+        }
+
+        /// <summary>
+        /// Gets a list of line items for a given invoice number
+        /// </summary>
+        /// <param name="sInvoiceNum">The invoice number</param>
+        /// <returns>List of line items</returns>
+        public List<string> GetInvoiceLineItems(string sInvoiceNum)
+        {
+            List<string> lInvoiceLineItems = new List<string>(); //This should be a list of Item objects, eventually
+
+            DataSet dsInvoiceLineItems = new DataSet();
+            int iRetRows = 0;
+
+            SQLGetLineItemsForInvoice += sInvoiceNum; //add the invoice num to the query string
+
+            dsInvoiceLineItems = da.ExecuteSQLStatement(SQLGetLineItemsForInvoice, ref iRetRows);
+
+            foreach (DataRow dr in dsInvoiceLineItems.Tables[0].Rows)
+            {
+                string sInvoiceNumber = dr[0].ToString();
+                string sLineItemNumber = dr[1].ToString();
+                string sItemCode = dr[2].ToString();
+
+                lInvoiceLineItems.Add(sInvoiceNumber + " " + sLineItemNumber + " " + sItemCode);
+            }
+
+            return lInvoiceLineItems;
+        }
+
+
+        /// <summary>
+        /// Gets a list of all invoices
+        /// </summary>
+        /// <returns>List of invoices</returns>
+        public List<string> GetInvoices()
+        {
+            List<string> lInvoices = new List<string>(); //This should be a list of Invoice objects, eventually
+
+            DataSet dsInvoices = new DataSet();
+            int iRetRows = 0;
+
+            dsInvoices = da.ExecuteSQLStatement(SQLGetInvoices, ref iRetRows);
+
+            foreach (DataRow dr in dsInvoices.Tables[0].Rows)
+            {
+                string sInvoiceNum = dr[0].ToString();
+                string sInvoiceDate = dr[1].ToString();
+                string sTotalCharge = dr[2].ToString();
+
+                lInvoices.Add(sInvoiceNum + " " + sInvoiceDate + " " + sTotalCharge);
+            }
+
+            return lInvoices;
+        }
+
+        /// <summary>
         /// This SQL inserts the data for InvoiceNum, InvoiceDate, TotalCharge
         /// into the database based on whats entered in from the item entry window
         /// </summary>
