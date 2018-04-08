@@ -28,8 +28,6 @@ namespace FoodTruck {
         /// </summary>
         string SQLGetInvoicesTotalCharge = "SELECT TotalCharge FROM Invoices;";
 
-
-
         /// <summary>
         /// This SQL statement selects all the rows from line items
         /// </summary>
@@ -39,5 +37,8 @@ namespace FoodTruck {
         /// This SQL statement selects all of the invoices from the invoice table 
         /// </summary>
         string SQLGetInvoices = "SELECT * FROM Invoices;";
+
+        //string sSQL = "INSERT INTO INVOICES (InvoiceNum, InvoiceDate, TotalCharge)
+       // VALUES(')
     }
 }
