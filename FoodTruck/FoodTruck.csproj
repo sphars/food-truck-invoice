@@ -73,6 +73,12 @@
     <Compile Include="DataAccess.cs" />
     <Compile Include="Delegates.cs" />
     <Compile Include="InvoiceData.cs" />
+    <Compile Include="Items\clsItemsLogic.cs" />
+    <Compile Include="Items\clsItemsSQL.cs" />
+    <Compile Include="Main\clsMainLogic.cs" />
+    <Compile Include="Main\clsMainSQL.cs" />
+    <Compile Include="Search\clsSearchLogic.cs" />
+    <Compile Include="Search\clsSearchSQL.cs" />
     <Compile Include="Search\InvoiceSearch.xaml.cs">
       <DependentUpon>InvoiceSearch.xaml</DependentUpon>
     </Compile>
