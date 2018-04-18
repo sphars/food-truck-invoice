@@ -25,9 +25,9 @@
         <TextBlock Text="Invoices" Grid.Row="1" FontSize="24" TextAlignment="Center"/>
         <!-- Create/Edit/Delete Buttons -->
         <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Button Content="Create" Width="100" Margin="0,0,5,0"/>
-            <Button Content="Edit" Width="100" Margin="0,0,5,0"/>
-            <Button Content="Delete" Width="100"/>
+            <Button x:Name="btnCreateInvoice" Content="Create" Width="100" Margin="0,0,5,0"/>
+            <Button x:Name="btnEditInvoice" Content="Edit" Width="100" Margin="0,0,5,0"/>
+            <Button x:Name="btnDeleteInvoice" Content="Delete" Width="100"/>
         </StackPanel>
         <!-- PLACEHOLDER for the invoice editor-->
         <DataGrid x:Name="dtgLineItems" Grid.Row="3" />
