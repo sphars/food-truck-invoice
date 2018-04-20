@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FoodTruck.Main;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -139,7 +140,8 @@ namespace FoodTruck {
         }
 
         private void LoadItems() {
-
+            var items = clsMainLogic.GetAllItemDescs();
+            cbItemList.ItemsSource = items;
         }
     }
 }
