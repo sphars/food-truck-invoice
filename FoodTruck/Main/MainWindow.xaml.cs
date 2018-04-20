@@ -47,6 +47,10 @@ namespace FoodTruck {
 
             btnCreateInvoice.IsEnabled = true;
             dtgLineItems.ItemsSource = null;
+
+            spEditPanel.IsEnabled = false;
+            spEditPanel.Visibility = Visibility.Hidden;
+            tbInvoiceNum.Text = "TBD";
         }
 
         /// <summary>
@@ -56,7 +60,6 @@ namespace FoodTruck {
         /// <param name="e"></param>
         private void EditInventoryOnClick(object sender, RoutedEventArgs e) {
             var window = new ItemEntry();
-
             window.ShowDialog();
         }
 
