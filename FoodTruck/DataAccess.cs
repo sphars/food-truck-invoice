@@ -148,4 +148,29 @@ public class DataAccess
             throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
         }
     }
+
+    /// <summary>
+    /// This method takes an insert statement, executes it, and returns the ID/primary key of the resulting row.
+    /// </summary>
+    /// <param name="sSQL">The SQL INSERT statement to be executed.</param>
+    /// <returns>Returns the AutoNumber field of the inserted row</returns>
+    public int ExecuteInsert(string sSQL) {
+        sSQL = sSQL.Trim();
+        if(!sSQL.StartsWith("INSERT", StringComparison.InvariantCultureIgnoreCase))
+            throw new Exception("SQL statement must start with \"INSERT\"");
+
+        try {
+            using(OleDbConnection connection = new OleDbConnection(sConnectionString)) {
+                connection.Open();
+                OleDbCommand command = new OleDbCommand(sSQL, connection);
+                command.CommandTimeout = 0;
+                command.ExecuteNonQuery();
+                command.CommandText = "SELECT @@IDENTITY";
+                return (int)command.ExecuteScalar();
+            }
+        } catch(Exception ex) {
+            throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+        }
+    }
 }
