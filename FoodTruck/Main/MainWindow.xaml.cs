@@ -46,11 +46,12 @@ namespace FoodTruck {
             btnEditInvoice.IsEnabled = false;
 
             btnCreateInvoice.IsEnabled = true;
-            dtgLineItems.ItemsSource = null;
+            lvLineItems.ItemsSource = null;
 
             spEditPanel.IsEnabled = false;
             spEditPanel.Visibility = Visibility.Hidden;
             tbInvoiceNum.Text = "TBD";
+            dpInvoiceDate.SelectedDate = DateTime.Now;
         }
 
         /// <summary>

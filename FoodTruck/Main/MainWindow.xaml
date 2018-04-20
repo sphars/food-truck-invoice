@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FoodTruck"
         mc:Ignorable="d"
-        Title="Food Truck Invoice Manager" Height="350" Width="525" WindowStartupLocation="CenterScreen">
+        Title="Food Truck Invoice Manager" Height="450" Width="600" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -30,14 +30,18 @@
             <Button x:Name="btnEditInvoice" Content="Edit" Width="100" Margin="0,0,5,0" IsEnabled="False"/>
             <Button x:Name="btnDeleteInvoice" Content="Delete" Width="100" IsEnabled="False"/>
         </StackPanel>
-        <StackPanel x:Name="spEditPanel" Orientation="Horizontal" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Hidden" IsEnabled="False">
+        <!--Invoice info-->
+        <StackPanel x:Name="spEditPanel" Orientation="Horizontal" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center">
             <TextBlock Text="Invoice No:" Margin="0,0,5,0" VerticalAlignment="Center"/>
-            <TextBlock x:Name="tbInvoiceNum" Text="####" Margin="0,0,20,0" VerticalAlignment="Center"/>
+            <TextBlock x:Name="tbInvoiceNum" Text="####" Margin="0,0,10,0" VerticalAlignment="Center"/>
+
+            <TextBlock Text="Date:" Margin="0,0,5,0" VerticalAlignment="Center"/>
+            <DatePicker x:Name="dpInvoiceDate"  VerticalAlignment="Center" Margin="0,0,30,0"/>
             <TextBlock Text="Items:" Margin="0,0,5,0" VerticalAlignment="Center"/>
-            <ComboBox x:Name="cbItemList" MinWidth="150" Margin="0,0,20,0" VerticalAlignment="Center"/>
+            <ComboBox x:Name="cbItemList" MinWidth="150" Margin="0,0,5,0" VerticalAlignment="Center"/>
             <Button Content="Add to Invoice" x:Name="btnAddToInvoice" VerticalAlignment="Center"/>
         </StackPanel>
-        <DataGrid x:Name="dtgLineItems" Grid.Row="4" IsEnabled="False" />
+        <ListView x:Name="lvLineItems" Grid.Row="4" IsEnabled="False" />
         <StackPanel Orientation="Horizontal" Grid.Row="5" Margin="0,0,50,0" HorizontalAlignment="Right" VerticalAlignment="Center">
             <Button x:Name="btnClear" Content="Clear" Width="100" Margin="0,0,5,0" IsEnabled="False"/>
             <Button x:Name="btnSave" Content="Save" Width="100" IsEnabled="False"/>
