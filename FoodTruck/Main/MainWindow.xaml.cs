@@ -13,24 +13,40 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace FoodTruck
-{
+namespace FoodTruck {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
-    {
-        private object invoice;
+    public partial class MainWindow : Window {
+        /// <summary>
+        /// Invoice this window has created or Invoice passed by the search Window.
+        /// </summary>
+        private Invoice invoice;
 
-        //Matches delegate declaration for ReturnInvoice
-        public void setInvoice(object invoice)
-        {
-            this.invoice = invoice;
-        }
-        
-        public MainWindow()
-        {
+        /// <summary>
+        /// Use this constructor for the launch, or for when an invoice IS NOT being provided.
+        /// The Search window should use the parameterized constructor.
+        /// </summary>
+        public MainWindow() {
             InitializeComponent();
+
+            ResetForm();
+        }
+
+        public MainWindow(Invoice invoice) : this() {
+            this.invoice = invoice;
+
+            //LoadInvoice();
+        }
+
+        private void ResetForm() {
+            btnClear.IsEnabled = false;
+            btnSave.IsEnabled = false;
+            btnDeleteInvoice.IsEnabled = false;
+            btnEditInvoice.IsEnabled = false;
+
+            btnCreateInvoice.IsEnabled = true;
+            dtgLineItems.ItemsSource = null;
         }
 
         /// <summary>
@@ -38,9 +54,9 @@ namespace FoodTruck
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void EditInventoryOnClick(object sender, RoutedEventArgs e)
-        {
+        private void EditInventoryOnClick(object sender, RoutedEventArgs e) {
             var window = new ItemEntry();
+
             window.ShowDialog();
         }
 
@@ -49,12 +65,11 @@ namespace FoodTruck
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void SearchInvoicesOnClick(object sender, RoutedEventArgs e)
-        {
+        private void SearchInvoicesOnClick(object sender, RoutedEventArgs e) {
             // Passing delegate method to setInvoice as part of the constructor.
-            var window = new InvoiceSearch(setInvoice);
-            window.ShowDialog();
-            // When it returns, the invoice object should be set now, thanks to the delegate passed into the constructor.
+            var window = new InvoiceSearch();
+            window.Show();
+            this.Close();
         }
     }
 }

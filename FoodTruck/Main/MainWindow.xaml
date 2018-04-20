@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FoodTruck"
         mc:Ignorable="d"
-        Title="Food Truck Invoice" Height="350" Width="525">
+        Title="Food Truck Invoice" Height="350" Width="525" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -25,15 +25,15 @@
         <TextBlock Text="Invoices" Grid.Row="1" FontSize="24" TextAlignment="Center"/>
         <!-- Create/Edit/Delete Buttons -->
         <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Button x:Name="btnCreateInvoice" Content="Create" Width="100" Margin="0,0,5,0"/>
-            <Button x:Name="btnEditInvoice" Content="Edit" Width="100" Margin="0,0,5,0"/>
-            <Button x:Name="btnDeleteInvoice" Content="Delete" Width="100"/>
+            <Button x:Name="btnCreateInvoice" Content="Create" Width="100" Margin="0,0,5,0" IsEnabled="False"/>
+            <Button x:Name="btnEditInvoice" Content="Edit" Width="100" Margin="0,0,5,0" IsEnabled="False"/>
+            <Button x:Name="btnDeleteInvoice" Content="Delete" Width="100" IsEnabled="False"/>
         </StackPanel>
         <!-- PLACEHOLDER for the invoice editor-->
-        <DataGrid x:Name="dtgLineItems" Grid.Row="3" />
+        <DataGrid x:Name="dtgLineItems" Grid.Row="3" IsEnabled="False" />
         <StackPanel Orientation="Horizontal" Grid.Row="4" Margin="0,0,50,0" HorizontalAlignment="Right" VerticalAlignment="Center">
-            <Button x:Name="btnClear" Content="Clear" Width="100" Margin="0,0,5,0"/>
-            <Button x:Name="btnSave" Content="Save" Width="100"/>
+            <Button x:Name="btnClear" Content="Clear" Width="100" Margin="0,0,5,0" IsEnabled="False"/>
+            <Button x:Name="btnSave" Content="Save" Width="100" IsEnabled="False"/>
         </StackPanel>
     </Grid>
 </Window>

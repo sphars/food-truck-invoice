@@ -18,14 +18,9 @@ namespace FoodTruck {
     /// </summary>
     public partial class InvoiceSearch : Window {
         /// <summary>
-        /// This is how we will return the invoice to the MainWindow.  Call callback() with the invoice object.  Invoice class is To Be Implemented
-        /// </summary>
-        private ReturnInvoice callback;
-
-        /// <summary>
         /// This field is the invoice selected in the UI that will be returned to MainWindow.
         /// </summary>
-        private object selectedInvoice;
+        private Invoice selectedInvoice;
 
         /// <summary>
         /// The object for the business logic
@@ -33,12 +28,10 @@ namespace FoodTruck {
         private InvoiceData id = new InvoiceData();
 
         /// <summary>
-        /// This constructor accepts a callback delegate that returns the invoice to the MainWindow.
+        /// Constructor for the Search Window.
         /// </summary>
-        /// <param name="callback"></param>
-        public InvoiceSearch(ReturnInvoice callback) {
+        public InvoiceSearch() {
             InitializeComponent();
-            this.callback = callback;
 
             //Populate the dropdown boxes
             GetInvoiceNumbers();
@@ -66,9 +59,9 @@ namespace FoodTruck {
 
             // <Set or get selectedInvoice here>
             selectedInvoice = null; // null for now
-
-            // Using the delegate callback, send it back to the MainWindow:
-            callback(selectedInvoice);
+            var window = new MainWindow(selectedInvoice);
+            window.Show();
+            this.Close();
         }
 
         /// <summary>
