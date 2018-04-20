@@ -26,7 +26,7 @@
         <TextBlock Text="Food Truck Invoices" Grid.Row="1" FontSize="24" TextAlignment="Center"/>
         <!-- Create/Edit/Delete Buttons -->
         <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Button x:Name="btnCreateInvoice" Content="Create" Width="100" Margin="0,0,5,0" IsEnabled="False"/>
+            <Button x:Name="btnCreateInvoice" Content="Create" Width="100" Margin="0,0,5,0" IsEnabled="False" Click="btnCreateInvoice_Click"/>
             <Button x:Name="btnEditInvoice" Content="Edit" Width="100" Margin="0,0,5,0" IsEnabled="False"/>
             <Button x:Name="btnDeleteInvoice" Content="Delete" Width="100" IsEnabled="False"/>
         </StackPanel>
