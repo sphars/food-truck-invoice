@@ -9,13 +9,19 @@ namespace FoodTruck.Main {
     /// <summary>
     /// This class is the business logic for the MainWindow
     /// </summary>
-    public static class clsMainLogic {
+    public class clsMainLogic {
+
+        private Invoice invoice;
+
+        public clsMainLogic(Invoice invoice) {
+            this.invoice = invoice;
+        }
 
         /// <summary>
         /// Gets all the ItemDesc rows from the table.
         /// </summary>
         /// <returns>Returns a List of ItemDesc objects</returns>
-        public static List<ItemDesc> GetAllItemDescs() {
+        public List<ItemDesc> GetAllItemDescs() {
             var dataAccess = new DataAccess();
             int rows = -1;
             var dataSet = dataAccess.ExecuteSQLStatement(clsMainSQL.S_IDESC, ref rows);
@@ -31,5 +37,6 @@ namespace FoodTruck.Main {
             }
             return list;
         }
+        
     }
 }

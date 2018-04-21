@@ -23,7 +23,12 @@ namespace FoodTruck {
         /// <summary>
         /// Invoice this window has created or Invoice passed by the search Window.
         /// </summary>
-        private Invoice invoice;
+        private Invoice initialInvoice;
+
+        /// <summary>
+        /// This is the class that manages creating and editing an Invoice.
+        /// </summary>
+        private clsMainLogic businessLogic;
 
         /// <summary>
         /// This private field indicates whether the window is creating or modifying an Invoice.
@@ -42,6 +47,7 @@ namespace FoodTruck {
         public MainWindow() {
             InitializeComponent();
             this.Closing += OnClosing;
+
             ResetWindow();
         }
 
@@ -51,8 +57,8 @@ namespace FoodTruck {
         /// </summary>
         /// <param name="invoice">Invoice object with a proper InvoiceNum pointing to the database.</param>
         public MainWindow(Invoice invoice) : this() {
-            this.invoice = invoice;
-
+            initialInvoice = invoice;
+            businessLogic = new clsMainLogic(invoice);
             LoadInvoice();
         }
 
@@ -170,7 +176,8 @@ namespace FoodTruck {
         /// Creates a new invoice and allows the user to edit it.
         /// </summary>
         private void CreateInvoice() {
-            invoice = new Invoice();
+            initialInvoice = new Invoice();
+            businessLogic = new clsMainLogic(initialInvoice);
             LoadInvoice();
         }
 
@@ -178,7 +185,7 @@ namespace FoodTruck {
         /// This enables and shows the controls for the user to edit the Invoice.
         /// </summary>
         private void LoadInvoice() {
-            if(invoice == null) {
+            if(initialInvoice == null) {
                 return;
             }
 
@@ -187,16 +194,16 @@ namespace FoodTruck {
 
             UpdateTotal();
 
-            tbInvoiceNum.Text = invoice.InvoiceNum == -1 ? "TBD" : invoice.InvoiceNum.ToString();
-            dpInvoiceDate.SelectedDate = invoice.InvoiceDate;
+            tbInvoiceNum.Text = initialInvoice.InvoiceNum == -1 ? "TBD" : initialInvoice.InvoiceNum.ToString();
+            dpInvoiceDate.SelectedDate = initialInvoice.InvoiceDate;
 
             LoadItems();
         }
 
         private void UpdateTotal() {
-            if(invoice == null)
+            if(initialInvoice == null)
                 tbTotal.Text = "$0.00";
-            else tbTotal.Text = $"{invoice.TotalCharge:C}";
+            else tbTotal.Text = $"{initialInvoice.TotalCharge:C}";
         }
 
         private void ShowEditPanels() {
@@ -217,7 +224,7 @@ namespace FoodTruck {
         /// This method fills the ComboBox to allow the user to add LineItems to the invoice.
         /// </summary>
         private void LoadItems() {
-            var items = clsMainLogic.GetAllItemDescs();
+            var items = businessLogic.GetAllItemDescs();
             cbItemList.ItemsSource = items;
         }
 
