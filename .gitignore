@@ -288,3 +288,6 @@ __pycache__/
 *.xsd.cs
 .DS_Store
 food-truck-invoice.zip
+
+# Lock file for Access file:
+*.ldb
