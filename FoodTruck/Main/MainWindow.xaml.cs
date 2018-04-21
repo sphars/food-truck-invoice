@@ -125,12 +125,6 @@ namespace FoodTruck {
             }
         }
 
-        private void UpdateLineItems() {
-            dgLineItems.ItemsSource = null;
-            dgLineItems.ItemsSource = invoiceManager.GetLineItems();
-            UpdateTotal();
-        }
-
         /// <summary>
         /// This event handler is used to enable or disable btnAddToInvoice, depending on if the item is valid or not.
         /// </summary>
@@ -167,13 +161,26 @@ namespace FoodTruck {
             LoadInvoice();
         }
 
+        private void btnClear_Click(object sender, RoutedEventArgs e) {
+            ResetWindow();
+            if(initialInvoice != null) {
+                LoadInvoice();
+            }
+        }
+
         #endregion
 
+        private void UpdateLineItems() {
+            dgLineItems.ItemsSource = null;
+            dgLineItems.ItemsSource = invoiceManager.GetLineItems();
+            UpdateTotal();
+        }
 
         private void DeleteInvoice() {
             if(invoiceManager != null) {
                 invoiceManager.DeleteInvoice();
             }
+            initialInvoice = null;
         }
 
         /// <summary>
@@ -247,8 +254,8 @@ namespace FoodTruck {
         /// Creates a new invoice and allows the user to edit it.
         /// </summary>
         private void CreateInvoice() {
-            initialInvoice = new Invoice();
-            invoiceManager = new InvoiceManager(initialInvoice);
+            initialInvoice = null;
+            invoiceManager = new InvoiceManager(new Invoice());
             LoadInvoice();
         }
 
@@ -256,14 +263,16 @@ namespace FoodTruck {
         /// This enables and shows the controls for the user to edit the Invoice.
         /// </summary>
         private void LoadInvoice() {
-            if(initialInvoice == null) {
-                return;
-            }
 
             invoiceManager = new InvoiceManager(initialInvoice);
 
-            btnDeleteInvoice.IsEnabled = true;
-            btnEditInvoice.IsEnabled = true;
+            if(initialInvoice != null) {
+                btnDeleteInvoice.IsEnabled = true;
+                btnEditInvoice.IsEnabled = true;
+                dpInvoiceDate.SelectedDate = initialInvoice.InvoiceDate;
+            } else {
+                dpInvoiceDate.SelectedDate = DateTime.Now;
+            }
 
             ShowEditPanels();
             spTotalAmount.Visibility = Visibility.Visible;
@@ -271,8 +280,10 @@ namespace FoodTruck {
             ShowLineItems();
             UpdateTotal();
 
-            tbInvoiceNum.Text = initialInvoice.InvoiceNum == -1 ? "TBD" : initialInvoice.InvoiceNum.ToString();
-            dpInvoiceDate.SelectedDate = initialInvoice.InvoiceDate;
+            if(invoiceManager.CurrentInvoice.InvoiceNum == -1)
+                tbInvoiceNum.Text = "TBD";
+            else
+                tbInvoiceNum.Text = invoiceManager.CurrentInvoice.InvoiceNum.ToString();
         }
 
         private void ShowLineItems() {
@@ -282,12 +293,15 @@ namespace FoodTruck {
         }
 
         private void UpdateTotal() {
-            if(initialInvoice == null)
+            if(initialInvoice == null && invoiceManager == null) {
                 tbTotal.Text = "$0.00";
-            else if(invoiceManager == null)
-                tbTotal.Text = $"{initialInvoice.TotalCharge:C}";
-            else
+            } else if(initialInvoice == null && invoiceManager != null) {
                 tbTotal.Text = $"{invoiceManager.CurrentInvoice.TotalCharge:C}";
+            } else if(initialInvoice != null && invoiceManager == null) {
+                tbTotal.Text = $"{initialInvoice.TotalCharge:C}";
+            } else {
+                tbTotal.Text = $"{invoiceManager.CurrentInvoice.TotalCharge:C}";
+            }
         }
 
         /// <summary>
