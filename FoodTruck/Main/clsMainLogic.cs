@@ -11,6 +11,10 @@ namespace FoodTruck.Main {
     /// </summary>
     public static class clsMainLogic {
 
+        /// <summary>
+        /// Gets all the ItemDesc rows from the table.
+        /// </summary>
+        /// <returns>Returns a List of ItemDesc objects</returns>
         public static List<ItemDesc> GetAllItemDescs() {
             var dataAccess = new DataAccess();
             int rows = -1;
@@ -19,8 +23,8 @@ namespace FoodTruck.Main {
             if(rows > 0) {
                 foreach(DataRow row in dataSet.Tables[0].Rows) {
                     list.Add(new ItemDesc() {
-                        ItemCode = row[0].ToString(),
-                        Desc = row[1].ToString(),
+                        ItemCode = (string)row[0],
+                        Desc = (string)row[1],
                         Cost = (decimal)row[2]
                     });
                 }

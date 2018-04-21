@@ -114,7 +114,7 @@ namespace FoodTruck {
             if(IsEditMode) {
                 var result = MessageBox.Show("There are unsaved changes.  Are you sure you want to close this window?",
                     "Discard changes and close?", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
-                if(result == MessageBoxResult.Cancel || result == MessageBoxResult.None) {
+                if(result != MessageBoxResult.OK) {
                     e.Cancel = true;
                 }
             }
@@ -142,6 +142,10 @@ namespace FoodTruck {
         private void LoadItems() {
             var items = clsMainLogic.GetAllItemDescs();
             cbItemList.ItemsSource = items;
+        }
+
+        private void btnAddToInvoice_Click(object sender, RoutedEventArgs e) {
+
         }
     }
 }

@@ -29,7 +29,7 @@
         /// SELECT statement for retrieving a specific Item from ItemDesc by specified ItemCode.
         /// </summary>
         public static readonly string S_IDESC_P_CODE =
-            "SELECT ItemCode, ItemDesc, Cost FROM ItemDesc WHERE ItemCode = @CODE";
+            "SELECT ItemCode, ItemDesc, Cost FROM ItemDesc WHERE ItemCode = @CODE;";
 
         /// <summary>
         /// INSERT statement for a new Invoice with parameters InvoiceDate and TotalCharge.

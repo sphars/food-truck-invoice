@@ -39,7 +39,7 @@
             <DatePicker x:Name="dpInvoiceDate"  VerticalAlignment="Center" Margin="0,0,30,0"/>
             <TextBlock Text="Items:" Margin="0,0,5,0" VerticalAlignment="Center"/>
             <ComboBox x:Name="cbItemList" MinWidth="150" Margin="0,0,5,0" VerticalAlignment="Center"/>
-            <Button Content="Add to Invoice" x:Name="btnAddToInvoice" VerticalAlignment="Center"/>
+            <Button Content="Add to Invoice" x:Name="btnAddToInvoice" VerticalAlignment="Center" Click="btnAddToInvoice_Click"/>
         </StackPanel>
         <ListView x:Name="lvLineItems" Grid.Row="4" IsEnabled="False" />
         <StackPanel Orientation="Horizontal" Grid.Row="5" Margin="0,0,50,0" HorizontalAlignment="Right" VerticalAlignment="Center">
