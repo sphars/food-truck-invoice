@@ -40,6 +40,8 @@ namespace FoodTruck {
     public class ItemDesc {
         public string ItemCode { get; set; } = "";
         public string Desc { get; set; } = "";
+
+
         public Decimal Cost { get; set; } = 0m;
 
         public override string ToString() {
@@ -47,3 +49,4 @@ namespace FoodTruck {
         }
     }
 }
+
