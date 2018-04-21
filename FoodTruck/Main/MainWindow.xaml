@@ -46,7 +46,7 @@
             <Button Content="Add to Invoice" x:Name="btnAddToInvoice" VerticalAlignment="Center" Click="btnAddToInvoice_Click" Width="95"/>
         </StackPanel>
         <DataGrid x:Name="dgLineItems" Grid.Row="5" IsEnabled="False" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="False"
-                  CanUserSortColumns="False" CanUserAddRows="False" IsReadOnly="True" VerticalGridLinesBrush="#FFB8B8B8" HorizontalGridLinesBrush="#FFB8B8B8">
+                  CanUserSortColumns="False" CanUserAddRows="False" IsReadOnly="True" VerticalGridLinesBrush="#FFB8B8B8" HorizontalGridLinesBrush="#FFB8B8B8" SelectionMode="Single">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Item Code" Binding="{Binding ItemCode}" Width="*"/>
                 <DataGridTextColumn Header="Item Description" Binding="{Binding Desc}" Width="3*"/>
