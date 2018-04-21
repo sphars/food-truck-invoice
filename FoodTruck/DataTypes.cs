@@ -21,6 +21,12 @@ namespace FoodTruck
             InvoiceNum = old.InvoiceNum;
             InvoiceDate = old.InvoiceDate;
             TotalCharge = old.TotalCharge;
+
+        }
+
+        public Invoice()
+        {
+
         }
     }
 
