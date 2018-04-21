@@ -133,8 +133,17 @@ namespace FoodTruck {
             btnAddToInvoice.IsEnabled = cbItemList.SelectedItem is ItemDesc;
         }
 
+        /// <summary>
+        /// This event handler prompts the user about deleting the invoice.  If the user clicks ok, it deletes the invoice.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnDeleteInvoice_Click(object sender, RoutedEventArgs e) {
-
+            var result = MessageBox.Show("Are you sure you want to delete this invoice?",
+                "Permanently delete invoice?", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
+            if(result == MessageBoxResult.OK) {
+                DeleteInvoice();
+            }
         }
 
         private void btnEditInvoice_Click(object sender, RoutedEventArgs e) {
@@ -143,6 +152,12 @@ namespace FoodTruck {
 
         #endregion
 
+
+        private void DeleteInvoice() {
+            if(invoiceManager != null) {
+                invoiceManager.DeleteInvoice();
+            }
+        }
 
         /// <summary>
         /// This method resets the appearance of the window to an initial state.
