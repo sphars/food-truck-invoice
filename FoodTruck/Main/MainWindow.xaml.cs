@@ -58,7 +58,6 @@ namespace FoodTruck {
         /// <param name="invoice">Invoice object with a proper InvoiceNum pointing to the database.</param>
         public MainWindow(Invoice invoice) : this() {
             initialInvoice = invoice;
-            invoiceManager = new InvoiceManager(invoice);
             LoadInvoice();
         }
 
@@ -120,7 +119,17 @@ namespace FoodTruck {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnAddToInvoice_Click(object sender, RoutedEventArgs e) {
+            if(cbItemList.SelectedItem is ItemDesc item) {
+                invoiceManager.AddLineItem(item);
+                UpdateLineItems();
+            }
+        }
 
+        private void UpdateLineItems() {
+            lvLineItems.ItemsSource = null;
+            lvLineItems.ItemsSource = invoiceManager.GetLineItems();
+            lvLineItems.InvalidateVisual();
+            UpdateTotal();
         }
 
         /// <summary>
@@ -143,11 +152,20 @@ namespace FoodTruck {
                 "Permanently delete invoice?", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
             if(result == MessageBoxResult.OK) {
                 DeleteInvoice();
+                ResetWindow();
             }
         }
 
         private void btnEditInvoice_Click(object sender, RoutedEventArgs e) {
             EditMode();
+        }
+
+        private void btnSave_Click(object sender, RoutedEventArgs e) {
+            invoiceManager.SetInvoiceDate(dpInvoiceDate.SelectedDate ?? initialInvoice.InvoiceDate);
+            invoiceManager.SaveInvoice();
+            initialInvoice = invoiceManager.CurrentInvoice;
+            ResetWindow();
+            LoadInvoice();
         }
 
         #endregion
@@ -164,6 +182,7 @@ namespace FoodTruck {
         /// </summary>
         private void ResetWindow() {
             IsEditMode = false;
+            invoiceManager = null;
 
             btnClear.IsEnabled = false;
             btnSave.IsEnabled = false;
@@ -175,6 +194,7 @@ namespace FoodTruck {
 
             btnCreateInvoice.IsEnabled = true;
             lvLineItems.ItemsSource = null;
+            lvLineItems.IsEnabled = false;
 
             HideEditPanels();
             spTotalAmount.Visibility = Visibility.Hidden;
@@ -241,6 +261,8 @@ namespace FoodTruck {
                 return;
             }
 
+            invoiceManager = new InvoiceManager(initialInvoice);
+
             btnDeleteInvoice.IsEnabled = true;
             btnEditInvoice.IsEnabled = true;
 
@@ -257,12 +279,16 @@ namespace FoodTruck {
         private void ShowLineItems() {
             var lineItems = invoiceManager.GetLineItems();
             lvLineItems.ItemsSource = lineItems;
+            lvLineItems.IsEnabled = true;
         }
 
         private void UpdateTotal() {
             if(initialInvoice == null)
                 tbTotal.Text = "$0.00";
-            else tbTotal.Text = $"{initialInvoice.TotalCharge:C}";
+            else if(invoiceManager == null)
+                tbTotal.Text = $"{initialInvoice.TotalCharge:C}";
+            else
+                tbTotal.Text = $"{invoiceManager.CurrentInvoice.TotalCharge:C}";
         }
 
         /// <summary>
@@ -287,7 +313,7 @@ namespace FoodTruck {
         /// This method fills the ComboBox to allow the user to add LineItems to the invoice.
         /// </summary>
         private void LoadItems() {
-            var items = invoiceManager.GetAllItemDescs();
+            var items = InvoiceManager.GetAllItemDescs();
             cbItemList.ItemsSource = items;
         }
     }
