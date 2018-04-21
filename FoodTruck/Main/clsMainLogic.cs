@@ -11,10 +11,14 @@ namespace FoodTruck.Main {
     /// </summary>
     public class InvoiceManager {
 
-        private Invoice invoice;
+        public Invoice CurrentInvoice { get; private set; }
 
         public InvoiceManager(Invoice invoice) {
-            this.invoice = invoice;
+            if(invoice != null) {
+                CurrentInvoice = new Invoice(invoice);
+            } else {
+                throw new ArgumentNullException("Invoice cannot be null");
+            }
         }
 
         /// <summary>
@@ -37,6 +41,45 @@ namespace FoodTruck.Main {
             }
             return list;
         }
-        
+
+        /// <summary>
+        /// This method returns a list of ItemDesc that represents the LineItems of the current invoice.
+        /// </summary>
+        /// <returns>Returns a list of ItemDesc objects, not a list of LineItems</returns>
+        public List<ItemDesc> GetLineItems() {
+            // First get a list of the LineItems in the DataBase.
+            var sql = clsMainSQL.S_LI_P_NUM.Replace("@NUM", CurrentInvoice.InvoiceNum.ToString());
+            var dataAccess = new DataAccess();
+            int rows = -1;
+            var dataSet = dataAccess.ExecuteSQLStatement(sql, ref rows);
+            var LineItemList = new List<LineItem>();
+            if(rows > 0) {
+                foreach(DataRow row in dataSet.Tables[0].Rows) {
+                    LineItemList.Add(new LineItem() {
+                        InvoiceNum = (int)row[0],
+                        LineItemNum = (int)row[1],
+                        ItemCode = (string)row[2]
+                    });
+                }
+            }
+
+            // Get all the ItemDesc from the table
+            var AllItemDescs = GetAllItemDescs();
+
+            // This is the list that will be returned.
+            var ItemDescList = new List<ItemDesc>();
+
+            foreach(var lineItem in LineItemList) {
+                ItemDescList.Add(AllItemDescs.First(i => i.ItemCode == lineItem.ItemCode));
+            }
+
+            return ItemDescList;
+        }
+
+        public void SetInvoiceDate(DateTime date) {
+            if(date != null) {
+                CurrentInvoice.InvoiceDate = date.Date;
+            }
+        }
     }
 }

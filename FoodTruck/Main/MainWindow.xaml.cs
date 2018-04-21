@@ -62,29 +62,7 @@ namespace FoodTruck {
             LoadInvoice();
         }
 
-        /// <summary>
-        /// This method resets the appearance of the window to an initial state.
-        /// </summary>
-        private void ResetWindow() {
-            IsEditMode = false;
-
-            btnClear.IsEnabled = false;
-            btnSave.IsEnabled = false;
-            btnDeleteInvoice.IsEnabled = false;
-            btnEditInvoice.IsEnabled = false;
-            btnAddToInvoice.IsEnabled = false;
-            cbItemList.ItemsSource = null;
-            cbItemList.IsEnabled = false;
-
-            btnCreateInvoice.IsEnabled = true;
-            lvLineItems.ItemsSource = null;
-
-            HideEditPanels();
-            spTotalAmount.Visibility = Visibility.Hidden;
-
-            tbInvoiceNum.Text = "TBD";
-            dpInvoiceDate.SelectedDate = DateTime.Now;
-        }
+        #region EventHandlers
 
         /// <summary>
         /// This event handler for the menu item opens an ItemEntry.
@@ -125,6 +103,72 @@ namespace FoodTruck {
         }
 
         /// <summary>
+        /// This event handler runs when the user is trying to close the window.  If the window is in edit mode, they're prompted before closing.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnClosing(object sender, CancelEventArgs e) {
+            bool closeNow = EnsureClose();
+            if(!closeNow) {
+                e.Cancel = true;
+            }
+        }
+
+        /// <summary>
+        /// This event handler adds the selected item in cbItemList to the invoice.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnAddToInvoice_Click(object sender, RoutedEventArgs e) {
+
+        }
+
+        /// <summary>
+        /// This event handler is used to enable or disable btnAddToInvoice, depending on if the item is valid or not.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cbItemList_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            // Button is enabled when the selected item is an ItemDesc object, disabled if false.
+            btnAddToInvoice.IsEnabled = cbItemList.SelectedItem is ItemDesc;
+        }
+
+        private void btnDeleteInvoice_Click(object sender, RoutedEventArgs e) {
+
+        }
+
+        private void btnEditInvoice_Click(object sender, RoutedEventArgs e) {
+            EditMode();
+        }
+
+        #endregion
+
+
+        /// <summary>
+        /// This method resets the appearance of the window to an initial state.
+        /// </summary>
+        private void ResetWindow() {
+            IsEditMode = false;
+
+            btnClear.IsEnabled = false;
+            btnSave.IsEnabled = false;
+            btnDeleteInvoice.IsEnabled = false;
+            btnEditInvoice.IsEnabled = false;
+            btnAddToInvoice.IsEnabled = false;
+            cbItemList.ItemsSource = null;
+            cbItemList.IsEnabled = false;
+
+            btnCreateInvoice.IsEnabled = true;
+            lvLineItems.ItemsSource = null;
+
+            HideEditPanels();
+            spTotalAmount.Visibility = Visibility.Hidden;
+
+            tbInvoiceNum.Text = "TBD";
+            dpInvoiceDate.SelectedDate = DateTime.Now;
+        }
+
+        /// <summary>
         /// This method enables Edit Mode.
         /// It disables the Create, Edit, Delete buttons.
         /// </summary>
@@ -141,18 +185,6 @@ namespace FoodTruck {
             spAddItems.IsEnabled = true;
 
             LoadItems();
-        }
-
-        /// <summary>
-        /// This event handler runs when the user is trying to close the window.  If the window is in edit mode, they're prompted before closing.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void OnClosing(object sender, CancelEventArgs e) {
-            bool closeNow = EnsureClose();
-            if(!closeNow) {
-                e.Cancel = true;
-            }
         }
 
         /// <summary>
@@ -194,13 +226,22 @@ namespace FoodTruck {
                 return;
             }
 
+            btnDeleteInvoice.IsEnabled = true;
+            btnEditInvoice.IsEnabled = true;
+
             ShowEditPanels();
             spTotalAmount.Visibility = Visibility.Visible;
 
+            ShowLineItems();
             UpdateTotal();
 
             tbInvoiceNum.Text = initialInvoice.InvoiceNum == -1 ? "TBD" : initialInvoice.InvoiceNum.ToString();
             dpInvoiceDate.SelectedDate = initialInvoice.InvoiceDate;
+        }
+
+        private void ShowLineItems() {
+            var lineItems = invoiceManager.GetLineItems();
+            lvLineItems.ItemsSource = lineItems;
         }
 
         private void UpdateTotal() {
@@ -233,25 +274,6 @@ namespace FoodTruck {
         private void LoadItems() {
             var items = invoiceManager.GetAllItemDescs();
             cbItemList.ItemsSource = items;
-        }
-
-        /// <summary>
-        /// This event handler adds the selected item in cbItemList to the invoice.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnAddToInvoice_Click(object sender, RoutedEventArgs e) {
-
-        }
-
-        /// <summary>
-        /// This event handler is used to enable or disable btnAddToInvoice, depending on if the item is valid or not.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void cbItemList_SelectionChanged(object sender, SelectionChangedEventArgs e) {
-            // Button is enabled when the selected item is an ItemDesc object, disabled if false.
-            btnAddToInvoice.IsEnabled = cbItemList.SelectedItem is ItemDesc;
         }
     }
 }

@@ -29,8 +29,8 @@
         <!-- Create/Edit/Delete Buttons -->
         <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,10">
             <Button x:Name="btnCreateInvoice" Content="Create" Width="100" Margin="0,0,5,0" IsEnabled="False" Click="btnCreateInvoice_Click"/>
-            <Button x:Name="btnEditInvoice" Content="Edit" Width="100" Margin="0,0,5,0" IsEnabled="False"/>
-            <Button x:Name="btnDeleteInvoice" Content="Delete" Width="100" IsEnabled="False"/>
+            <Button x:Name="btnEditInvoice" Content="Edit" Width="100" Margin="0,0,5,0" IsEnabled="False" Click="btnEditInvoice_Click"/>
+            <Button x:Name="btnDeleteInvoice" Content="Delete" Width="100" IsEnabled="False" Click="btnDeleteInvoice_Click"/>
         </StackPanel>
         <!--Invoice info-->
         <StackPanel x:Name="spInvoiceNumDate" Orientation="Horizontal" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,5">
