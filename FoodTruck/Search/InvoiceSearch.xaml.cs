@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FoodTruck.Search;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,7 +24,7 @@ namespace FoodTruck {
         private Invoice selectedInvoice;
 
         /// <summary>
-        /// The object for the business logic
+        /// The object for the general business logic
         /// </summary>
         private InvoiceData id = new InvoiceData();
 
@@ -33,13 +34,28 @@ namespace FoodTruck {
         public InvoiceSearch() {
             InitializeComponent();
 
-            //Populate the dropdown boxes
+            ResetForm();            
+        }
+
+        #region Methods
+
+        /// <summary>
+        /// Resets the window to the initial state, populating the datagrid with all invoices
+        /// </summary>
+        private void ResetForm()
+        {
+            selectedInvoice = null;
+            btnSelectInvoice.IsEnabled = false;
+
+            dtgInvoices.ItemsSource = null;
+            dtgInvoices.Items.Clear();
+            dtgInvoices.ItemsSource = clsSearchLogic.GetAllInvoices();
+
+            //Populate the comboboxes
             GetInvoiceNumbers();
             GetInvoiceDates();
             GetInvoiceAmounts();
         }
-
-        #region Methods
         
         /// <summary>
         /// Resets the window to default state. Clears filters.
@@ -47,7 +63,7 @@ namespace FoodTruck {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnReset_Click(object sender, RoutedEventArgs e) {
-
+            ResetForm();
         }
 
         /// <summary>
@@ -55,13 +71,16 @@ namespace FoodTruck {
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btnSelectInvoice_Click(object sender, RoutedEventArgs e) {
-
-            // <Set or get selectedInvoice here>
-            selectedInvoice = null; // null for now
-            var window = new MainWindow(selectedInvoice);
-            window.Show();
-            this.Close();
+        private void btnSelectInvoice_Click(object sender, RoutedEventArgs e)
+        {
+            // Set the selected invoice
+            selectedInvoice = (Invoice)dtgInvoices.SelectedItem;
+            if(selectedInvoice != null)
+            {
+                var window = new MainWindow(selectedInvoice);
+                window.Show();
+                this.Close();
+            }            
         }
 
         /// <summary>
@@ -96,10 +115,9 @@ namespace FoodTruck {
         /// </summary>
         private void GetInvoiceNumbers()
         {
-            List<string> lInvoiceNums = new List<string>();
-            lInvoiceNums = id.GetInvoiceNums();
-
-            cboInvoiceNumber.ItemsSource = lInvoiceNums;
+            cboInvoiceNumber.ItemsSource = null;
+            cboInvoiceNumber.Items.Clear();
+            cboInvoiceNumber.ItemsSource = clsSearchLogic.GetInvoiceNumbers();
         }
 
         /// <summary>
@@ -107,23 +125,32 @@ namespace FoodTruck {
         /// </summary>
         private void GetInvoiceDates()
         {
-            List<string> lInvoiceDates = new List<string>();
-            lInvoiceDates = id.GetInvoiceDates();
-
-            cboInvoiceDate.ItemsSource = lInvoiceDates;
+            cboInvoiceDate.ItemsSource = null;
+            cboInvoiceDate.Items.Clear();
+            cboInvoiceDate.ItemsSource = clsSearchLogic.GetInvoiceDates();
         }
 
         /// <summary>
-        /// Gets a list of invoice amounts and populates combobox
+        /// Gets a list of invoice total charge amounts and populates combobox
         /// </summary>
         private void GetInvoiceAmounts()
         {
-            List<string> lInvoiceAmounts = new List<string>();
-            lInvoiceAmounts = id.GetInvoiceAmounts();
+            cboInvoiceTotal.ItemsSource = null;
+            cboInvoiceTotal.Items.Clear();
+            cboInvoiceTotal.ItemsSource = clsSearchLogic.GetTotalCharges();
+        }
 
-            cboInvoiceTotal.ItemsSource = lInvoiceAmounts;
+        /// <summary>
+        /// Handles the selection of the item in the datagrid
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void dtgInvoices_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            btnSelectInvoice.IsEnabled = true;
         }
 
         #endregion
+
     }
 }

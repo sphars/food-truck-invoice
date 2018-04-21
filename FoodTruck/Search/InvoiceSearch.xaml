@@ -36,7 +36,13 @@
         </StackPanel>
 
         <!-- Datagrid for listing invoices -->
-        <DataGrid x:Name="dtgInvoices" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="2" Grid.ColumnSpan="3"/>
+        <DataGrid x:Name="dtgInvoices" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="2" Grid.ColumnSpan="3" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True" SelectionChanged="dtgInvoices_SelectionChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Invoice Number" Binding="{Binding InvoiceNum}" Width="*"/>
+                <DataGridTextColumn Header="Invoice Date" Binding="{Binding InvoiceDate}" Width="*"/>
+                <DataGridTextColumn Header="Total Charge" Binding="{Binding TotalCharge}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
 
         <!-- Button for selecting invoice -->
         <Button x:Name="btnSelectInvoice" Content="Select Invoice"  Grid.Row="3" Grid.Column="1" Margin="10" Width="100" Height="30" Click="btnSelectInvoice_Click" />
