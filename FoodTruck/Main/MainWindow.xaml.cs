@@ -169,7 +169,6 @@ namespace FoodTruck {
 
         #endregion
 
-
         private void DeleteInvoice() {
             if(invoiceManager != null) {
                 invoiceManager.DeleteInvoice();
@@ -318,11 +317,63 @@ namespace FoodTruck {
 
         }
 
+        private void ShowLineItems() {
+            var lineItems = invoiceManager.GetLineItems();
+            dgLineItems.ItemsSource = lineItems;
+            dgLineItems.IsEnabled = true;
+        }
+
+
+        private void UpdateTotal() {
+            if(initialInvoice == null)
+                tbTotal.Text = "$0.00";
+            else if(invoiceManager == null)
+                tbTotal.Text = $"{initialInvoice.TotalCharge:C}";
+            else
+                tbTotal.Text = $"{invoiceManager.CurrentInvoice.TotalCharge:C}";
+        }
+
+
+
+
+
+        /// <summary>
+        /// This method only shows the panels, it doesn't enable them.
+        /// </summary>
+        private void ShowEditPanels() {
+            spAddItems.Visibility = Visibility.Visible;
+            spInvoiceNumDate.Visibility = Visibility.Visible;
+        }
+        
+
+        /// <summary>
+        /// Hides AND disables the panels.
+        /// </summary>
+        private void HideEditPanels() {
+            spAddItems.IsEnabled = false;
+            spAddItems.Visibility = Visibility.Hidden;
+            spInvoiceNumDate.IsEnabled = false;
+            spInvoiceNumDate.Visibility = Visibility.Hidden;
+        }
+
+
+        /// <summary>
+        /// This method fills the ComboBox to allow the user to add LineItems to the invoice.
+        /// </summary>
+        private void LoadItems() {
+            var items = InvoiceManager.GetAllItemDescs();
+            cbItemList.ItemsSource = items;
+
+        }
+
+
         /// <summary>
         /// This enables and shows the controls for the user to edit the Invoice.
         /// </summary>
-        private void LoadInvoice() {
-            if(initialInvoice == null) {
+        private void LoadInvoice()
+        {
+            if (initialInvoice == null)
+            {
                 return;
             }
 
@@ -341,46 +392,34 @@ namespace FoodTruck {
             dpInvoiceDate.SelectedDate = initialInvoice.InvoiceDate;
         }
 
-        private void ShowLineItems() {
-            var lineItems = invoiceManager.GetLineItems();
-            dgLineItems.ItemsSource = lineItems;
-            dgLineItems.IsEnabled = true;
-        }
 
-        private void UpdateTotal() {
-            if(initialInvoice == null)
-                tbTotal.Text = "$0.00";
-            else if(invoiceManager == null)
-                tbTotal.Text = $"{initialInvoice.TotalCharge:C}";
-            else
-                tbTotal.Text = $"{invoiceManager.CurrentInvoice.TotalCharge:C}";
-        }
 
-        /// <summary>
-        /// This method only shows the panels, it doesn't enable them.
-        /// </summary>
-        private void ShowEditPanels() {
-            spAddItems.Visibility = Visibility.Visible;
-            spInvoiceNumDate.Visibility = Visibility.Visible;
-        }
+        ///// <summary>
+        ///// This enables and shows the controls for the user to edit the Invoice.
+        ///// </summary>
+        //private void LoadInvoice() {
+        //    if(initialInvoice == null) {
+        //        return;
+        //    }
 
-        /// <summary>
-        /// Hides AND disables the panels.
-        /// </summary>
-        private void HideEditPanels() {
-            spAddItems.IsEnabled = false;
-            spAddItems.Visibility = Visibility.Hidden;
-            spInvoiceNumDate.IsEnabled = false;
-            spInvoiceNumDate.Visibility = Visibility.Hidden;
-        }
+        //    invoiceManager = new InvoiceManager(initialInvoice);
 
-        /// <summary>
-        /// This method fills the ComboBox to allow the user to add LineItems to the invoice.
-        /// </summary>
-        private void LoadItems() {
-            var items = InvoiceManager.GetAllItemDescs();
-            cbItemList.ItemsSource = items;
-        }
+        //    btnDeleteInvoice.IsEnabled = true;
+        //    btnEditInvoice.IsEnabled = true;
+
+        //    ShowEditPanels();
+        //    spTotalAmount.Visibility = Visibility.Visible;
+
+        //    ShowLineItems();
+        //    UpdateTotal();
+
+        //    tbInvoiceNum.Text = initialInvoice.InvoiceNum == -1 ? "TBD" : initialInvoice.InvoiceNum.ToString();
+        //    dpInvoiceDate.SelectedDate = initialInvoice.InvoiceDate;
+        //}
+
+
+
+
 
         private void dtgLineItems_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
