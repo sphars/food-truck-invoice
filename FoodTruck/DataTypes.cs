@@ -15,6 +15,13 @@ namespace FoodTruck
         public DateTime InvoiceDate { get; set; } = DateTime.Now;
 
         public Decimal TotalCharge { get; set; } = 0m;
+
+        // Copy constructor
+        public Invoice(Invoice old) {
+            InvoiceNum = old.InvoiceNum;
+            InvoiceDate = old.InvoiceDate;
+            TotalCharge = old.TotalCharge;
+        }
     }
 
     /// <summary>
