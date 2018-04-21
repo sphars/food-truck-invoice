@@ -1,6 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace FoodTruck {
+namespace FoodTruck
+{
     /// <summary>
     /// This class represents an Invoice as stored in the database.
     /// </summary>
@@ -37,18 +42,17 @@ namespace FoodTruck {
     /// <summary>
     /// This class represents an Item as stored in the database.
     /// </summary>
-    public class ItemDesc {
+    public class ItemDesc
+    {
         public string ItemCode { get; set; } = "";
         public string Desc { get; set; } = "";
-        public Decimal Cost { get; set; } = 0m;
-    }
 
 
         public Decimal Cost { get; set; } = 0m;
 
-        public override string ToString() {
-            return $"({ItemCode}, {Cost:C}): {Desc}";
-        }
+}
+
+
     }
 
 

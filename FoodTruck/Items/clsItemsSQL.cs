@@ -25,5 +25,7 @@ namespace FoodTruck.Items
         /// </summary>
         public static readonly string All_Items =
             "SELECT ItemCode, ItemDesc, Cost FROM ItemDesc;";
+
+
     }
 }
