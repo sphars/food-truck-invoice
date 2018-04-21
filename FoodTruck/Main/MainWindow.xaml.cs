@@ -73,8 +73,9 @@ namespace FoodTruck {
             btnCreateInvoice.IsEnabled = true;
             lvLineItems.ItemsSource = null;
 
-            spEditPanel.IsEnabled = false;
-            spEditPanel.Visibility = Visibility.Hidden;
+            HideEditPanels();
+            spTotalAmount.Visibility = Visibility.Hidden;
+
             tbInvoiceNum.Text = "TBD";
             dpInvoiceDate.SelectedDate = DateTime.Now;
         }
@@ -181,13 +182,35 @@ namespace FoodTruck {
                 return;
             }
 
-            spEditPanel.IsEnabled = true;
-            spEditPanel.Visibility = Visibility.Visible;
+            ShowEditPanels();
+            spTotalAmount.Visibility = Visibility.Visible;
+
+            UpdateTotal();
 
             tbInvoiceNum.Text = invoice.InvoiceNum == -1 ? "TBD" : invoice.InvoiceNum.ToString();
             dpInvoiceDate.SelectedDate = invoice.InvoiceDate;
 
             LoadItems();
+        }
+
+        private void UpdateTotal() {
+            if(invoice == null)
+                tbTotal.Text = "$0.00";
+            else tbTotal.Text = $"{invoice.TotalCharge:C}";
+        }
+
+        private void ShowEditPanels() {
+            spAddItems.IsEnabled = true;
+            spAddItems.Visibility = Visibility.Visible;
+            spInvoiceNumDate.IsEnabled = true;
+            spInvoiceNumDate.Visibility = Visibility.Visible;
+        }
+
+        private void HideEditPanels() {
+            spAddItems.IsEnabled = false;
+            spAddItems.Visibility = Visibility.Hidden;
+            spInvoiceNumDate.IsEnabled = false;
+            spInvoiceNumDate.Visibility = Visibility.Hidden;
         }
 
         /// <summary>
