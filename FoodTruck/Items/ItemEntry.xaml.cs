@@ -30,9 +30,9 @@ namespace FoodTruck
 
         public object DataSource { get; set; }
 
-
-    //    private DataGridView dataGridView1 = new DataGridView();
-    //private BindingSource bindingSource1 = new BindingSource();
+        bool isAdd = false;
+        private BindingListCollectionView ItemView;
+        //CustomerDataContext dc = new CustomerDataContext();
 
         //holds info in the databse
         DataSet ds;
@@ -43,6 +43,9 @@ namespace FoodTruck
         {
 
             InitializeComponent();
+            var items = ds.GetChanges();
+            this.DataContext = items;
+            this.ItemView = (BindingListCollectionView)(CollectionViewSource.GetDefaultView(items));
         }
 
         /// <summary>
@@ -52,6 +55,45 @@ namespace FoodTruck
         /// <param name="e"></param>
         private void AddNewButton_Click(object sender, RoutedEventArgs e)
         {
+
+            ItemModel itemModel = new ItemModel();
+            itemModel.ItemCode = "NewItemCode";
+            itemModel.Desc = "New Item";
+            itemModel.Cost = (decimal)100.00;
+
+            //DataSet ds = db.ExecuteInsert(clsItemsSQL.D_INV_P_NUM, string );
+
+            //isAdd = true;
+
+            //this.ItemView.CommitNew();
+            //DataGridItemEntry.ScrollIntoView(items);
+
+
+
+            //List<ItemModel> itemModels = new List<ItemModel>();
+            //foreach (DataRow dr in ds.Tables[0].Rows)
+            //{
+            //    ItemModel itemModel = new ItemModel();
+            //    itemModel.ItemCode = dr[0].ToString();
+            //    itemModel.Desc = dr[1].ToString();
+            //    itemModel.Cost = (decimal)dr[2];
+            //    itemModels.Add(itemModel);
+            //}
+
+            //DataGridItemEntry.ItemsSource = itemModels;
+            //DataGridItemEntry.ColumnCount = 3;
+            //DataGridItemEntry.Columns[0].Name = "Product ID";
+            //DataGridItemEntry.Columns[1].Name = "Product Name";
+            //DataGridItemEntry.Columns[2].Name = "Product Price";
+
+            //string[] row = new string[] { "1", "Product 1", "1000" };
+            //DataGridItemEntry.Rows.Add(row);
+            //row = new string[] { "2", "Product 2", "2000" };
+            //DataGridItemEntry.Rows.Add(row);
+            //row = new string[] { "3", "Product 3", "3000" };
+            //DataGridItemEntry.Rows.Add(row);
+            //row = new string[] { "4", "Product 4", "4000" };
+            //DataGridItemEntry.Rows.Add(row);
 
         }
 
@@ -72,7 +114,21 @@ namespace FoodTruck
         /// <param name="e"></param>
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
+            //{
 
+            //    if (e.Command == DataGridItemEntry.DeleteCommand)
+
+            //    {
+            //        if (!(MessageBox.Show("Are you sure you want to delete?", "Please confirm.", MessageBoxButton.YesNo) == MessageBoxResult.Yes))
+            //        {
+            //            // Cancel Delete
+            //            e.Handled = true;
+
+            //        }
+
+            //    }
+
+            //}
         }
 
         /// <summary>
@@ -82,19 +138,6 @@ namespace FoodTruck
         /// <param name="e"></param>
         private void IDreadOnlyButton_Click(object sender, RoutedEventArgs e)
         {
-
-            // selectedItem = (ItemDesc)DataGridItemEntry.SelectedItem;
-
-            //DataGridItemEntry.ItemsSource = ds.DefaultViewManager;
-
-            DataTable dt = new DataTable("ItemDesc");
-
-            // DataGridItemEntry.DataSource = ds;
-            // DataGridItemEntry.DataBind();
-
-            // DataAccess db = new DataAccess("ItemDesc");
-
-
             try
             {
                 //Number of return values
@@ -113,20 +156,12 @@ namespace FoodTruck
                     itemModels.Add(itemModel);
                 }
 
-                int debugger = 0;
                 DataGridItemEntry.ItemsSource = itemModels;
-
             }
             catch (Exception ex)
             {
                 //MessageBox.Show(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
-
-
-
-
-            DataGridItemEntry.Background = Brushes.Red;
-
         }
 
         /// <summary>
@@ -156,7 +191,34 @@ namespace FoodTruck
         /// <param name="e"></param>
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
+            //this.ds.SubmitChanges();
+            isAdd = false;
+        }
+
+        public void Save()
+
+        {
+
+            // Ask the Model or the DAL to persist me...
 
         }
+
+
+
+        /// <summary>
+
+        /// Deletes a Formula 1 Driver.
+
+        /// </summary>
+
+        public void Delete()
+
+        {
+
+            // Ask the Model or the DAL to delete me...
+
+        }
+
+        
     }
 }
