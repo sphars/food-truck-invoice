@@ -196,16 +196,25 @@ namespace FoodTruck {
         private void LoadItems() {
             var items = clsMainLogic.GetAllItemDescs();
             cbItemList.ItemsSource = items;
-            btnAddToInvoice.IsEnabled = true;
         }
 
         /// <summary>
-        /// This event handler adds 
+        /// This event handler adds the selected item in cbItemList to the invoice.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnAddToInvoice_Click(object sender, RoutedEventArgs e) {
 
+        }
+
+        /// <summary>
+        /// This event handler is used to enable or disable btnAddToInvoice, depending on if the item is valid or not.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cbItemList_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            // Button is enabled when the selected item is an ItemDesc object, disabled if false.
+            btnAddToInvoice.IsEnabled = cbItemList.SelectedItem is ItemDesc;
         }
     }
 }
