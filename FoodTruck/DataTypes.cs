@@ -42,13 +42,17 @@ namespace FoodTruck
     /// <summary>
     /// This class represents an Item as stored in the database.
     /// </summary>
-    public class ItemDesc {
+    public class ItemDesc
+    {
         public string ItemCode { get; set; } = "";
         public string Desc { get; set; } = "";
-     
+
+
         public Decimal Cost { get; set; } = 0m;
+
+}
 
 
     }
-}
+
 
