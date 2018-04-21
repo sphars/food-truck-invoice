@@ -162,11 +162,16 @@ public class DataAccess
         try {
             using(OleDbConnection connection = new OleDbConnection(sConnectionString)) {
                 connection.Open();
+                OleDbTransaction transaction = connection.BeginTransaction();
                 OleDbCommand command = new OleDbCommand(sSQL, connection);
+                command.Connection = connection;
+                command.Transaction = transaction;
                 command.CommandTimeout = 0;
-                command.ExecuteNonQuery();
+                object resultObj = command.ExecuteNonQuery();
                 command.CommandText = "SELECT @@IDENTITY";
-                return (int)command.ExecuteScalar();
+                int result = (int)command.ExecuteScalar();
+                transaction.Commit();
+                return result;
             }
         } catch(Exception ex) {
             throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +

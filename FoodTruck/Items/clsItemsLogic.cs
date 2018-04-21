@@ -7,12 +7,13 @@ using System.Threading.Tasks;
 using System.Reflection;
 
 
+
 namespace FoodTruck.Items
 {
     class clsItemsLogic
     {
         ////Used to access the database
-        //DataAccess db = new DataAccess();
+        private static DataAccess db = new DataAccess();
 
         ////holds info in the databse
         //DataSet ds;
@@ -43,26 +44,59 @@ namespace FoodTruck.Items
         //      }
 
 
-        public static List<ItemDesc> GetAllItems()
+        public static void UpdateItem(ItemModel itemModel)
         {
-            var dataAccess = new DataAccess();
-            int iRows = 0;
-            var dataSet = dataAccess.ExecuteSQLStatement(clsItemsSQL.All_Items, ref iRows);
-            var list = new List<ItemDesc>();
-            if (iRows > 0)
+
+        }
+        public static void DeleteItem(ItemModel itemModel)
+        {
+
+        }
+
+        public static void InsertItems(ItemModel itemModel)
+        {
+            try
             {
-                foreach (DataRow row in dataSet.Tables[0].Rows)
+                string sql = clsItemsSQL.INSERT_ITEM
+                    .Replace("@ItemCode", itemModel.ItemCode)
+                    .Replace("@Desc", itemModel.Desc)
+                    .Replace("@Cost", itemModel.Cost.ToString());
+                int response = db.ExecuteInsert(sql);
+                //int debug = 0;
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        public static List<ItemModel> GetAllItems()
+        {
+            try
+            {
+                //Number of return values
+                int iRet = 0;
+
+                //Execute the statement and get the data
+                DataSet ds = db.ExecuteSQLStatement(clsItemsSQL.All_Items, ref iRet);
+
+                List<ItemModel> itemModels = new List<ItemModel>();
+                foreach (DataRow dr in ds.Tables[0].Rows)
                 {
-                    list.Add(new ItemDesc()
-                    {
-                        ItemCode = (string)row[0],
-                        Desc = (string)row[1],
-                        //Cost = (decimal)row[2]
-                    });
+                    ItemModel itemModel = new ItemModel();
+                    itemModel.ItemCode = dr[0].ToString();
+                    itemModel.Desc = dr[1].ToString();
+                    itemModel.Cost = (decimal)dr[2];
+                    itemModels.Add(itemModel);
                 }
+                return itemModels;
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+                return new List<ItemModel>();
             }
 
-            return list;
         }
     }
 }

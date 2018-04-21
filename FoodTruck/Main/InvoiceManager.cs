@@ -20,7 +20,8 @@ namespace FoodTruck.Main {
                 // Copy of the old invoice so it doesn't overwrite the original in case the user cancels their edits.
                 CurrentInvoice = new Invoice(invoice);
             } else {
-                throw new ArgumentNullException("Invoice cannot be null");
+                // Must be a new invoice.
+                CurrentInvoice = new Invoice();
             }
         }
 
