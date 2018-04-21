@@ -87,33 +87,45 @@ namespace FoodTruck
 
             //DataGridItemEntry.ItemsSource = ds.DefaultViewManager;
 
-            DataTable ds = new DataTable("ItemDesc");
+            DataTable dt = new DataTable("ItemDesc");
 
-           // DataGridItemEntry.DataSource = ds;
-           // DataGridItemEntry.DataBind();
+            // DataGridItemEntry.DataSource = ds;
+            // DataGridItemEntry.DataBind();
 
             // DataAccess db = new DataAccess("ItemDesc");
 
 
-            //try
-            //{
-            //    //Create a DataSet to hold the data
-            //    DataSet ds;
+            try
+            {
+                //Number of return values
+                int iRet = 0;
 
-            //    //Number of return values
-            //    int iRet = 0;
+                //Execute the statement and get the data
+                DataSet ds = db.ExecuteSQLStatement(clsItemsSQL.All_Items, ref iRet);
+                
+                List<ItemModel> itemModels = new List<ItemModel>();
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    ItemModel itemModel = new ItemModel();
+                    itemModel.ItemCode = dr[0].ToString();
+                    itemModel.Desc = dr[1].ToString();
+                    itemModel.Cost = (decimal)dr[2];
+                    itemModels.Add(itemModel);
+                }
 
-            //    //Execute the statement and get the data
-            //    ds = db.ExecuteSQLStatement(clsItemsSQL.All_Items, ref iRet);
+                int debugger = 0;
+                DataGridItemEntry.ItemsSource = itemModels;
 
-            //    //Show the data
-            //    DataGridItemEntry.DataSource = ds.Tables[0];
-            //    DataGridItemEntry.DataMember = ds.Tables[0].TableName;
-            //}
-            //catch (Exception ex)
-            //{
-            //    //MessageBox.Show(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
-            //}
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+
+
+
+
+            DataGridItemEntry.Background = Brushes.Red;
 
         }
 
