@@ -161,7 +161,7 @@ namespace FoodTruck {
             LoadInvoice();
         }
 
-        private void btnClear_Click(object sender, RoutedEventArgs e) {
+        private void btnRevert_Click(object sender, RoutedEventArgs e) {
             ResetWindow();
             if(initialInvoice != null) {
                 LoadInvoice();
@@ -190,7 +190,7 @@ namespace FoodTruck {
             IsEditMode = false;
             invoiceManager = null;
 
-            btnClear.IsEnabled = false;
+            btnRevert.IsEnabled = false;
             btnSave.IsEnabled = false;
             btnDeleteInvoice.IsEnabled = false;
             btnEditInvoice.IsEnabled = false;
@@ -218,7 +218,7 @@ namespace FoodTruck {
             btnCreateInvoice.IsEnabled = false;
             btnDeleteInvoice.IsEnabled = false;
             btnEditInvoice.IsEnabled = false;
-            btnClear.IsEnabled = true;
+            btnRevert.IsEnabled = true;
             btnSave.IsEnabled = true;
             cbItemList.IsEnabled = true;
 

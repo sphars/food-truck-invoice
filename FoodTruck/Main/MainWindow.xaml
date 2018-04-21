@@ -28,9 +28,9 @@
         <TextBlock Text="Food Truck Invoices" Grid.Row="1" FontSize="24" TextAlignment="Center" Margin="0,0,0,20"/>
         <!-- Create/Edit/Delete Buttons -->
         <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,10">
-            <Button x:Name="btnCreateInvoice" Content="Create" Width="100" Margin="0,0,5,0" IsEnabled="False" Click="btnCreateInvoice_Click"/>
-            <Button x:Name="btnEditInvoice" Content="Edit" Width="100" Margin="0,0,5,0" IsEnabled="False" Click="btnEditInvoice_Click"/>
-            <Button x:Name="btnDeleteInvoice" Content="Delete" Width="100" IsEnabled="False" Click="btnDeleteInvoice_Click"/>
+            <Button x:Name="btnCreateInvoice" Content="Create Invoice" Width="100" Margin="0,0,5,0" IsEnabled="False" Click="btnCreateInvoice_Click"/>
+            <Button x:Name="btnEditInvoice" Content="Edit Invoice" Width="100" Margin="0,0,5,0" IsEnabled="False" Click="btnEditInvoice_Click"/>
+            <Button x:Name="btnDeleteInvoice" Content="Delete Invoice" Width="100" IsEnabled="False" Click="btnDeleteInvoice_Click"/>
         </StackPanel>
         <!--Invoice info-->
         <StackPanel x:Name="spInvoiceNumDate" Orientation="Horizontal" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,5">
@@ -58,8 +58,8 @@
             <TextBox Text="$0.00" x:Name="tbTotal" VerticalAlignment="Center" FontSize="16" Width="100" TextAlignment="Right" BorderThickness="0" IsReadOnly="True"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="7" Margin="0,0,50,0" HorizontalAlignment="Right" VerticalAlignment="Center">
-            <Button x:Name="btnClear" Content="Clear" Width="100" Margin="0,0,5,0" IsEnabled="False" Click="btnClear_Click"/>
-            <Button x:Name="btnSave" Content="Save" Width="100" IsEnabled="False" Click="btnSave_Click"/>
+            <Button x:Name="btnRevert" Content="Revert Changes" Width="100" Margin="0,0,5,0" IsEnabled="False" Click="btnRevert_Click"/>
+            <Button x:Name="btnSave" Content="Save Invoice" Width="100" IsEnabled="False" Click="btnSave_Click"/>
         </StackPanel>
     </Grid>
 </Window>
