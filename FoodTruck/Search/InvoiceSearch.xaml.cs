@@ -24,11 +24,6 @@ namespace FoodTruck {
         private Invoice selectedInvoice;
 
         /// <summary>
-        /// The object for the general business logic
-        /// </summary>
-        private InvoiceData id = new InvoiceData();
-
-        /// <summary>
         /// Constructor for the Search Window.
         /// </summary>
         public InvoiceSearch() {
@@ -46,15 +41,31 @@ namespace FoodTruck {
         {
             selectedInvoice = null;
             btnSelectInvoice.IsEnabled = false;
+            lblMessage.Content = "";
 
             dtgInvoices.ItemsSource = null;
             dtgInvoices.Items.Clear();
+
+            //Fill the grid with every invoice
             dtgInvoices.ItemsSource = clsSearchLogic.GetAllInvoices();
 
             //Populate the comboboxes
             GetInvoiceNumbers();
             GetInvoiceDates();
             GetInvoiceAmounts();
+
+            UpdateInvoiceGrid();
+        }
+
+        private void UpdateInvoiceGrid()
+        {
+            if (dtgInvoices.Items.IsEmpty)
+                lblMessage.Content = "There are no invoices to be displayed. Please adjust your filters.";
+            else
+            {
+                dtgInvoices.Items.Refresh();
+                lblMessage.Content = "";
+            }
         }
         
         /// <summary>
@@ -89,7 +100,7 @@ namespace FoodTruck {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void cboInvoiceNumber_SelectionChanged(object sender, SelectionChangedEventArgs e) {
-
+            UpdateInvoiceGrid();
         }
 
         /// <summary>
@@ -98,7 +109,7 @@ namespace FoodTruck {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void cboInvoiceDate_SelectionChanged(object sender, SelectionChangedEventArgs e) {
-
+            UpdateInvoiceGrid();
         }
 
         /// <summary>
@@ -107,7 +118,7 @@ namespace FoodTruck {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void cboInvoiceTotal_SelectionChanged(object sender, SelectionChangedEventArgs e) {
-
+            UpdateInvoiceGrid();
         }
 
         /// <summary>
