@@ -126,9 +126,8 @@ namespace FoodTruck {
         }
 
         private void UpdateLineItems() {
-            lvLineItems.ItemsSource = null;
-            lvLineItems.ItemsSource = invoiceManager.GetLineItems();
-            lvLineItems.InvalidateVisual();
+            dgLineItems.ItemsSource = null;
+            dgLineItems.ItemsSource = invoiceManager.GetLineItems();
             UpdateTotal();
         }
 
@@ -193,8 +192,8 @@ namespace FoodTruck {
             cbItemList.IsEnabled = false;
 
             btnCreateInvoice.IsEnabled = true;
-            lvLineItems.ItemsSource = null;
-            lvLineItems.IsEnabled = false;
+            dgLineItems.ItemsSource = null;
+            dgLineItems.IsEnabled = false;
 
             HideEditPanels();
             spTotalAmount.Visibility = Visibility.Hidden;
@@ -278,8 +277,8 @@ namespace FoodTruck {
 
         private void ShowLineItems() {
             var lineItems = invoiceManager.GetLineItems();
-            lvLineItems.ItemsSource = lineItems;
-            lvLineItems.IsEnabled = true;
+            dgLineItems.ItemsSource = lineItems;
+            dgLineItems.IsEnabled = true;
         }
 
         private void UpdateTotal() {
