@@ -40,6 +40,8 @@ namespace FoodTruck {
     public class ItemDesc {
         public string ItemCode { get; set; } = "";
         public string Desc { get; set; } = "";
+        public Decimal Cost { get; set; } = 0m;
+    }
 
 
         public Decimal Cost { get; set; } = 0m;
@@ -48,5 +50,5 @@ namespace FoodTruck {
             return $"({ItemCode}, {Cost:C}): {Desc}";
         }
     }
-}
+
 

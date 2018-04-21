@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Data;
+using System.Reflection;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +25,5 @@ namespace FoodTruck.Items
         /// </summary>
         public static readonly string All_Items =
             "SELECT ItemCode, ItemDesc, Cost FROM ItemDesc;";
-
     }
 }
