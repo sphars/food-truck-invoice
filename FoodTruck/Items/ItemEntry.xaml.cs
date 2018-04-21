@@ -43,9 +43,9 @@ namespace FoodTruck
         {
 
             InitializeComponent();
-            var items = ds.GetChanges();
-            this.DataContext = items;
-            this.ItemView = (BindingListCollectionView)(CollectionViewSource.GetDefaultView(items));
+            //var items = ds.GetChanges();
+            //this.DataContext = items;
+            //this.ItemView = (BindingListCollectionView)(CollectionViewSource.GetDefaultView(items));
         }
 
         /// <summary>

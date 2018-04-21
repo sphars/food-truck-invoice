@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Data;
+using System.Reflection;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -65,6 +67,9 @@ namespace FoodTruck.Items
         /// </summary>
         public static readonly string D_INV_P_NUM =
             "DELETE FROM Invoices WHERE InvoiceNum = @NUM;";
+
+
+
     }
 
 }
