@@ -9,11 +9,11 @@ namespace FoodTruck.Main {
     /// <summary>
     /// This class is the business logic for the MainWindow
     /// </summary>
-    public class clsMainLogic {
+    public class InvoiceManager {
 
         private Invoice invoice;
 
-        public clsMainLogic(Invoice invoice) {
+        public InvoiceManager(Invoice invoice) {
             this.invoice = invoice;
         }
 

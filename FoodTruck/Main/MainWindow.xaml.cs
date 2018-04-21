@@ -28,7 +28,7 @@ namespace FoodTruck {
         /// <summary>
         /// This is the class that manages creating and editing an Invoice.
         /// </summary>
-        private clsMainLogic businessLogic;
+        private InvoiceManager invoiceManager;
 
         /// <summary>
         /// This private field indicates whether the window is creating or modifying an Invoice.
@@ -58,7 +58,7 @@ namespace FoodTruck {
         /// <param name="invoice">Invoice object with a proper InvoiceNum pointing to the database.</param>
         public MainWindow(Invoice invoice) : this() {
             initialInvoice = invoice;
-            businessLogic = new clsMainLogic(invoice);
+            invoiceManager = new InvoiceManager(invoice);
             LoadInvoice();
         }
 
@@ -136,6 +136,11 @@ namespace FoodTruck {
             btnClear.IsEnabled = true;
             btnSave.IsEnabled = true;
             cbItemList.IsEnabled = true;
+
+            spInvoiceNumDate.IsEnabled = true;
+            spAddItems.IsEnabled = true;
+
+            LoadItems();
         }
 
         /// <summary>
@@ -177,7 +182,7 @@ namespace FoodTruck {
         /// </summary>
         private void CreateInvoice() {
             initialInvoice = new Invoice();
-            businessLogic = new clsMainLogic(initialInvoice);
+            invoiceManager = new InvoiceManager(initialInvoice);
             LoadInvoice();
         }
 
@@ -196,8 +201,6 @@ namespace FoodTruck {
 
             tbInvoiceNum.Text = initialInvoice.InvoiceNum == -1 ? "TBD" : initialInvoice.InvoiceNum.ToString();
             dpInvoiceDate.SelectedDate = initialInvoice.InvoiceDate;
-
-            LoadItems();
         }
 
         private void UpdateTotal() {
@@ -206,13 +209,17 @@ namespace FoodTruck {
             else tbTotal.Text = $"{initialInvoice.TotalCharge:C}";
         }
 
+        /// <summary>
+        /// This method only shows the panels, it doesn't enable them.
+        /// </summary>
         private void ShowEditPanels() {
-            spAddItems.IsEnabled = true;
             spAddItems.Visibility = Visibility.Visible;
-            spInvoiceNumDate.IsEnabled = true;
             spInvoiceNumDate.Visibility = Visibility.Visible;
         }
 
+        /// <summary>
+        /// Hides AND disables the panels.
+        /// </summary>
         private void HideEditPanels() {
             spAddItems.IsEnabled = false;
             spAddItems.Visibility = Visibility.Hidden;
@@ -224,7 +231,7 @@ namespace FoodTruck {
         /// This method fills the ComboBox to allow the user to add LineItems to the invoice.
         /// </summary>
         private void LoadItems() {
-            var items = businessLogic.GetAllItemDescs();
+            var items = invoiceManager.GetAllItemDescs();
             cbItemList.ItemsSource = items;
         }
 

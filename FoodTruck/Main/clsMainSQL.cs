@@ -1,6 +1,6 @@
 ﻿namespace FoodTruck.Main {
     /// <summary>
-    /// This class contains the SQL statements used by clsMainLogic.
+    /// This class contains the SQL statements used by InvoiceManager.
     /// </summary>
     public static class clsMainSQL {
 
