@@ -58,8 +58,10 @@ namespace FoodTruck {
         /// <param name="invoice">Invoice object with a proper InvoiceNum pointing to the database.</param>
         public MainWindow(Invoice invoice) : this() {
             try {
-                initialInvoice = invoice;
-                LoadInvoice();
+                if(invoice != null) {
+                    initialInvoice = invoice;
+                    LoadInvoice();
+                }
             } catch(Exception) {
                 throw;
             }
@@ -78,7 +80,7 @@ namespace FoodTruck {
             try {
                 bool closeNow = EnsureClose();
                 if(closeNow) {
-                    var window = new ItemEntry();
+                    var window = new ItemEntry(initialInvoice);
                     window.Show();
                     this.Close();
                 }
@@ -97,7 +99,7 @@ namespace FoodTruck {
             try {
                 bool closeNow = EnsureClose();
                 if(closeNow) {
-                    var window = new InvoiceSearch();
+                    var window = new InvoiceSearch(initialInvoice);
                     window.Show();
                     this.Close();
                 }

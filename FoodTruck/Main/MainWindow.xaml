@@ -58,7 +58,7 @@
 
                 <DataGridTextColumn Header="Item Code" Binding="{Binding ItemCode}" Width="*"/>
                 <DataGridTextColumn Header="Item Description" Binding="{Binding Desc}" Width="3*"/>
-                <DataGridTextColumn Header="Item Cost" Binding="{Binding Cost}" Width="*"/>
+                <DataGridTextColumn Header="Item Cost" Binding="{Binding Cost, StringFormat=C}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel x:Name="spTotalAmount" Orientation="Horizontal" Grid.Row="6" HorizontalAlignment="Right" Margin="0,0,50,5">

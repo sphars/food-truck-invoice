@@ -30,13 +30,17 @@ namespace FoodTruck
     
         public object DataSource { get; set; }
 
-        
+        /// <summary>
+        /// This invoice was being displayed by the MainWindow.  When recreating MainWindow, pass it back.
+        /// </summary>
+        private Invoice storedInvoice;
 
-        public ItemEntry()
+        public ItemEntry(Invoice invoice)
         {
 
             InitializeComponent();
             DataGridItemEntry.ItemsSource = clsItemsLogic.GetAllItems();
+            storedInvoice = invoice;
 
         }
 
@@ -127,7 +131,7 @@ namespace FoodTruck
 
         private void Close_Item_Entry(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            var window = new MainWindow();
+            var window = new MainWindow(storedInvoice);
             window.Show();
         }
     }

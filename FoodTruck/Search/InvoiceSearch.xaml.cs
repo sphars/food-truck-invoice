@@ -30,12 +30,18 @@ namespace FoodTruck {
         private List<Invoice> lInvoices;
 
         /// <summary>
+        /// If the MainWindow was displaying an invoice, this field allows the MainWindow to display it again on recreate.
+        /// </summary>
+        private Invoice previousInvoice;
+
+        /// <summary>
         /// Constructor for the Search Window.
         /// </summary>
-        public InvoiceSearch() {
+        /// <param name="previousInvoice">Invoice that MainWindow was displaying before the open of this window.</param>
+        public InvoiceSearch(Invoice previousInvoice) {
             InitializeComponent();
-
-            ResetForm();            
+            this.previousInvoice = previousInvoice;
+            ResetForm();
         }
 
         #region Methods
@@ -204,7 +210,7 @@ namespace FoodTruck {
             {
                 if (selectedInvoice == null)
                 {
-                    var window = new MainWindow();
+                    var window = new MainWindow(previousInvoice);
                     window.Show();
                 }
                 else return;
