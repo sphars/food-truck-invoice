@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FoodTruck"
         mc:Ignorable="d"
-        Title="Food Truck Invoice Manager" Height="450" Width="550" WindowStartupLocation="CenterScreen"
+        Title="Food Truck Invoice Manager" Height="600" Width="550" WindowStartupLocation="CenterScreen"
         
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -37,9 +37,9 @@
         <TextBlock Text="Food Truck Invoices" Grid.Row="1" FontSize="24" TextAlignment="Center" Margin="0,0,0,20"/>
         <!-- Create/Edit/Delete Buttons -->
         <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,10">
-            <Button x:Name="btnCreateInvoice" Content="Create Invoice" Width="100" Margin="0,0,5,0" IsEnabled="False" Click="btnCreateInvoice_Click" ToolTip="Create a new invoice"/>
-            <Button x:Name="btnEditInvoice" Content="Edit Invoice" Width="100" Margin="0,0,5,0" IsEnabled="False" Click="btnEditInvoice_Click" ToolTip="Edit the displayed invoice"/>
-            <Button x:Name="btnDeleteInvoice" Content="Delete Invoice" Width="100" IsEnabled="False" Click="btnDeleteInvoice_Click" ToolTip="Delete the displayed invoice"/>
+            <Button x:Name="btnCreateInvoice" Content="Create Invoice" Width="130" Margin="0,0,5,0" IsEnabled="False" Click="btnCreateInvoice_Click" ToolTip="Create a new invoice"/>
+            <Button x:Name="btnEditInvoice" Content="Edit Invoice" Width="130" Margin="0,0,5,0" IsEnabled="False" Click="btnEditInvoice_Click" ToolTip="Edit the displayed invoice"/>
+            <Button x:Name="btnDeleteInvoice" Content="Delete Invoice" Width="130" IsEnabled="False" Click="btnDeleteInvoice_Click" ToolTip="Delete the displayed invoice"/>
         </StackPanel>
         <!--Invoice info-->
         <StackPanel x:Name="spInvoiceNumDate" Orientation="Horizontal" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,5">
@@ -51,8 +51,8 @@
         </StackPanel>
         <StackPanel x:Name="spAddItems"  Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,5">
             <TextBlock Text="Items:" Margin="0,0,5,0" VerticalAlignment="Center"/>
-            <ComboBox x:Name="cbItemList" MinWidth="150" Margin="0,0,5,0" VerticalAlignment="Center" SelectionChanged="cbItemList_SelectionChanged" Width="300" ToolTip=""/>
-            <Button Content="Add to Invoice" x:Name="btnAddToInvoice" VerticalAlignment="Center" Click="btnAddToInvoice_Click" Width="95" ToolTip="Add the displayed item to the current invoice"/>
+            <ComboBox x:Name="cbItemList" MinWidth="170" Margin="0,0,5,0" VerticalAlignment="Center" SelectionChanged="cbItemList_SelectionChanged" Width="300" ToolTip=""/>
+            <Button Content="Add to Invoice" x:Name="btnAddToInvoice" VerticalAlignment="Center" Click="btnAddToInvoice_Click" Width="125" ToolTip="Add the displayed item to the current invoice"/>
         </StackPanel>
         <DataGrid x:Name="dgLineItems" SelectionMode="Single" SelectionUnit="FullRow" Grid.Row="5" IsEnabled="False" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="False"
                   CanUserSortColumns="False" CanUserAddRows="False" IsReadOnly="True" VerticalGridLinesBrush="#FFB8B8B8" HorizontalGridLinesBrush="#FFB8B8B8">
@@ -75,8 +75,8 @@
             <TextBox Text="$0.00" x:Name="tbTotal" VerticalAlignment="Center" FontSize="16" Width="100" TextAlignment="Right" BorderThickness="0" IsReadOnly="True"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="7" Margin="0,0,50,0" HorizontalAlignment="Right" VerticalAlignment="Center">
-            <Button x:Name="btnRevert" Content="Revert Changes" Width="100" Margin="0,0,5,0" IsEnabled="False" Click="btnRevert_Click" ToolTip="Revert the changes to the current invoice"/>
-            <Button x:Name="btnSave" Content="Save Invoice" Width="100" IsEnabled="False" Click="btnSave_Click" ToolTip="Save the invoice as-is to the database"/>
+            <Button x:Name="btnRevert" Content="Revert Changes" Width="130" Margin="0,0,5,0" IsEnabled="False" Click="btnRevert_Click" ToolTip="Revert the changes to the current invoice"/>
+            <Button x:Name="btnSave" Content="Save Invoice" Width="120" IsEnabled="False" Click="btnSave_Click" ToolTip="Save the invoice as-is to the database"/>
         </StackPanel>
     </Grid>
 </Window>

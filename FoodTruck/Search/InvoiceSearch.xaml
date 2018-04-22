@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FoodTruck"
         mc:Ignorable="d"
-        Title="Food Truck Invoice Search" Height="400" Width="500" Closing="Window_Closing" WindowStartupLocation="CenterScreen"
+        Title="Food Truck Invoice Search" Height="500" Width="500" Closing="Window_Closing" WindowStartupLocation="CenterScreen"
         
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -22,13 +22,13 @@
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height=".75*"/>
-            <RowDefinition Height="1.25*"/>
-            <RowDefinition Height="2.75*"/>
+            <RowDefinition Height=".5*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="3*"/>
             <RowDefinition Height=".75*"/>
         </Grid.RowDefinitions>
 
-        <Button x:Name="btnReset" Content="Reset" Grid.Row="0" Grid.Column="2" Width="60" Height="22" Click="btnReset_Click"/>
+        <Button x:Name="btnReset" Content="Reset" Grid.Row="0" Grid.Column="2" Width="80" Height="24" Click="btnReset_Click" VerticalAlignment="Center" HorizontalAlignment="Center" ToolTip="Show all invoices"/>
 
         <Grid Grid.Row="1" Grid.ColumnSpan="3">
             <Grid.ColumnDefinitions>
@@ -44,15 +44,15 @@
             <!-- Comboboxes for filtering -->
             <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Label Content="Invoice Number" HorizontalAlignment="Center" />
-                <ComboBox x:Name="cboInvoiceNumber" VerticalAlignment="Top" Width="100" Height="22" SelectionChanged="UpdateInvoiceGrid" />
+                <ComboBox x:Name="cboInvoiceNumber" VerticalAlignment="Top" Width="120" Height="22" SelectionChanged="UpdateInvoiceGrid" />
             </StackPanel>
             <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Label Content="Invoice Date" HorizontalAlignment="Center" />
-                <ComboBox x:Name="cboInvoiceDate" VerticalAlignment="Top" Width="100" Height="22" SelectionChanged="UpdateInvoiceGrid" />
+                <ComboBox x:Name="cboInvoiceDate" VerticalAlignment="Top" Width="120" Height="22" SelectionChanged="UpdateInvoiceGrid" />
             </StackPanel>
             <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Label Content="Invoice Total" HorizontalAlignment="Center" />
-                <ComboBox x:Name="cboInvoiceTotal" VerticalAlignment="Top" Width="100" Height="22" SelectionChanged="UpdateInvoiceGrid" />
+                <ComboBox x:Name="cboInvoiceTotal" VerticalAlignment="Top" Width="120" Height="22" SelectionChanged="UpdateInvoiceGrid" />
             </StackPanel>
 
             <Label x:Name="lblMessage" Grid.Row="1" Grid.ColumnSpan="3" HorizontalAlignment="Center" FontSize="10" />
@@ -76,7 +76,7 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <Button x:Name="btnSelectInvoice" Content="Select Invoice"  Grid.Row="3" Grid.Column="1" Width="100" Height="30" Click="btnSelectInvoice_Click" />
+        <Button x:Name="btnSelectInvoice" Content="Select Invoice"  Grid.Row="3" Grid.Column="1" Width="120" Click="btnSelectInvoice_Click" VerticalAlignment="Center" HorizontalAlignment="Center" ToolTip="Choose the currently selected invoice"/>
 
     </Grid>
 </Window>

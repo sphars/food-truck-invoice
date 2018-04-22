@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FoodTruck"
         mc:Ignorable="d"
-        Title="Food Truck Items" Height="360" Width="630" Closing="Close_Item_Entry" WindowStartupLocation="CenterScreen"
+        Title="Food Truck Items" Height="400" Width="800" Closing="Close_Item_Entry" WindowStartupLocation="CenterScreen"
         
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -15,19 +15,40 @@
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}">
-    <Canvas Margin="0,0,0,66">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width=".75*"/>
+            <ColumnDefinition Width="1*"/>            
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height=".5*"></RowDefinition>
+            <RowDefinition Height="3*"></RowDefinition>
+        </Grid.RowDefinitions>
 
-        <Label Content="Item Entry" HorizontalAlignment="Left" VerticalAlignment="Top" Height="45" Width="159" FontSize="22" FontWeight="Bold" RenderTransformOrigin="0.782,0.595" Grid.Column="4" Canvas.Left="217" Canvas.Top="10" FontFamily="Microsoft YaHei UI"/>
-        <Button x:Name="AddNewButton" Content="Add New" HorizontalAlignment="Left" VerticalAlignment="Top" Width="76" Height="29" RenderTransformOrigin="1.771,-4.237" Grid.Column="4" Canvas.Left="20" Canvas.Top="256" Click="AddNewButton_Click"/>
-        <Button x:Name="EditItemButton" Content="Edit Item" HorizontalAlignment="Left" VerticalAlignment="Top" Width="76" Height="29" RenderTransformOrigin="1.771,-4.237" Canvas.Left="101" Canvas.Top="256" Click="EditItemButton_Click"/>
-        <Button x:Name="DeleteButton" Content="Delete" Canvas.Left="182" Canvas.Top="256" Width="72" Height="29" Click="DeleteButton_Click"/>
-        <DataGrid ItemsSource="{Binding}" IsSynchronizedWithCurrentItem="True" Grid.Row="0" x:Name="DataGridItemEntry" RenderTransformOrigin="2.667,4.538" Height="249" Width="339" Canvas.Top="61" Canvas.Left="269" SelectionChanged="selectionchanged" CanUserAddRows="False"/>
-        <Label x:Name="ItemCodeLabel" Content="Item Code " Canvas.Left="29" Canvas.Top="87" FontWeight="Bold" Height="25" Width="86" FontFamily="Verdana"/>
-        <Label x:Name="ItemDescLabel" Content="Description" Canvas.Left="24" Canvas.Top="131" FontWeight="Bold" Height="23" Width="91" FontFamily="Verdana" RenderTransformOrigin="0.484,1.87"/>
-        <Label x:Name="Cost" Content="Cost" Canvas.Left="29" Canvas.Top="199" FontWeight="Bold" Height="24" Width="76" FontFamily="Verdana"/>
-        <TextBox x:Name="ItemCodeBox" Height="23" Canvas.Left="125" TextWrapping="Wrap" Canvas.Top="90" Width="120"/>
-        <TextBox x:Name="ItemDescBox" Height="56" Canvas.Left="125" TextWrapping="Wrap" Canvas.Top="131" Width="120"/>
-        <TextBox x:Name="CostBox" Height="23" Canvas.Left="123" TextWrapping="Wrap" Canvas.Top="202" Width="120"/>
+        <Label Content="Item Entry" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22" FontWeight="Bold" />
 
-    </Canvas>
+        <StackPanel Orientation="Vertical" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0">
+            <Label Content="Add New Item" HorizontalContentAlignment="Center" FontWeight="Bold" FontSize="16"></Label>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,10">
+                <Label x:Name="ItemCodeLabel" Content="Item Code" Width="90" HorizontalContentAlignment="Right" FontWeight="Bold"/>
+                <TextBox x:Name="ItemCodeBox" TextWrapping="Wrap" Width="80"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,10">
+                <Label x:Name="ItemDescLabel" Content="Description" Width="90" HorizontalContentAlignment="Right" FontWeight="Bold"/>
+                <TextBox x:Name="ItemDescBox" TextWrapping="Wrap" Width="200"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,10">
+                <Label x:Name="Cost" Content="Cost" Width="90" HorizontalContentAlignment="Right" FontWeight="Bold"/>
+                <TextBox x:Name="CostBox" TextWrapping="Wrap" Width="60" />
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" Margin="10">
+                <Button x:Name="AddNewButton" Content="Add New" Margin="5,0" Click="AddNewButton_Click"/>
+                <Button x:Name="EditItemButton" Content="Edit Item" Margin="5,0" Click="EditItemButton_Click"/>
+                <Button x:Name="DeleteButton" Content="Delete" Margin="5,0" Click="DeleteButton_Click"/>
+            </StackPanel>
+        </StackPanel>
+        
+        <DataGrid ItemsSource="{Binding}" Grid.Row="1" Grid.Column="1" IsSynchronizedWithCurrentItem="True" x:Name="DataGridItemEntry" SelectionChanged="selectionchanged" CanUserAddRows="False"/>
+    </Grid>
 </Window>
