@@ -86,7 +86,7 @@ namespace FoodTruck.Items
         /// DELETE statement for deleting an Invoice by specified Item code
         /// </summary>
         public static readonly string DELETE_FROM_ITEM =
-            "DELETE FROM ItemDesc WHERE ItemDesc = '@ItemDesc'  ;";
+            "DELETE FROM ItemDesc WHERE ItemCode = '@ItemCode'  ;";
 
 
 

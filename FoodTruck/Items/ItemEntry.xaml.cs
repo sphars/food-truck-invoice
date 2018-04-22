@@ -27,17 +27,8 @@ namespace FoodTruck
     {
         //Used to access the database
         DataAccess db = new DataAccess();
-
+    
         public object DataSource { get; set; }
-
-        //bool isAdd = false;
-        //private BindingListCollectionView ItemView;
-        //CustomerDataContext dc = new CustomerDataContext();
-
-        //holds info in the databse
-       // DataSet ds;
-
-        //private ItemDesc selectedItem;
 
         public ItemEntry()
         {
@@ -45,9 +36,6 @@ namespace FoodTruck
             InitializeComponent();
             DataGridItemEntry.ItemsSource = clsItemsLogic.GetAllItems();
 
-            //var items = ds.GetChanges();
-            //this.DataContext = items;
-            //this.ItemView = (BindingListCollectionView)(CollectionViewSource.GetDefaultView(items));
         }
 
         /// <summary>
@@ -107,21 +95,7 @@ namespace FoodTruck
             DataGridItemEntry.ItemsSource = null;
             DataGridItemEntry.ItemsSource = clsItemsLogic.GetAllItems();
             DataGridItemEntry.SelectionChanged += selectionchanged;
-            //{
-
-            //    if (e.Command == DataGridItemEntry.DeleteCommand)
-
-            //    {
-            //        if (!(MessageBox.Show("Are you sure you want to delete?", "Please confirm.", MessageBoxButton.YesNo) == MessageBoxResult.Yes))
-            //        {
-            //            // Cancel Delete
-            //            e.Handled = true;
-
-            //        }
-
-            //    }
-
-            //}
+            
         }
 
         /// <summary>
@@ -134,30 +108,6 @@ namespace FoodTruck
             DataGridItemEntry.ItemsSource = clsItemsLogic.GetAllItems();
         }
 
-
-        public void Save()
-
-        {
-
-            // Ask the Model or the DAL to persist me...
-
-        }
-
-
-
-        /// <summary>
-
-        /// Deletes a Formula 1 Driver.
-
-        /// </summary>
-
-        public void Delete()
-
-        {
-
-            // Ask the Model or the DAL to delete me...
-
-        }
 
         private void selectionchanged(object sender, SelectionChangedEventArgs e)
         {
