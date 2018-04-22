@@ -10,6 +10,8 @@ namespace FoodTruck {
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window {
+
+        #region Fields
         /// <summary>
         /// Invoice this window has created or Invoice passed by the search Window.
         /// </summary>
@@ -28,9 +30,13 @@ namespace FoodTruck {
         /// <summary>
         /// This is so EnsureClose() doesn't prompt again.
         /// </summary>
-        private bool CloseNow;
+        private bool CloseNow; 
+        #endregion
+
+        #region Constructors
 
         /// <summary>
+        /// Constructor for a humble Invoice program.
         /// Use this constructor for the launch, or for when an invoice IS NOT being provided.
         /// The Search window should use the parameterized constructor.
         /// </summary>
@@ -58,6 +64,8 @@ namespace FoodTruck {
                 throw;
             }
         }
+
+        #endregion
 
         #region EventHandlers
 
@@ -100,7 +108,8 @@ namespace FoodTruck {
         }
 
         /// <summary>
-        /// Event handler for the Create button's Click event.
+        /// Event handler for the Create Invoice button's Click event.
+        /// Creates a new invoice and enters the Window into Edit Mode.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -164,7 +173,7 @@ namespace FoodTruck {
         }
 
         /// <summary>
-        /// This event handler prompts the user about deleting the invoice.  If the user clicks ok, it deletes the invoice.
+        /// This event handler prompts the user about deleting the displayed invoice.  If the user clicks ok, it deletes the invoice.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -182,6 +191,11 @@ namespace FoodTruck {
             }
         }
 
+        /// <summary>
+        /// This event handler allows the user to edit the display invoice.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnEditInvoice_Click(object sender, RoutedEventArgs e) {
             try {
                 EditMode();
@@ -190,7 +204,12 @@ namespace FoodTruck {
                     MethodBase.GetCurrentMethod().Name, ex.Message);
             }
         }
-
+        
+        /// <summary>
+        /// This event handler saves to the database the changes to the current invoice.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSave_Click(object sender, RoutedEventArgs e) {
             try {
                 invoiceManager.SetInvoiceDate(dpInvoiceDate.SelectedDate ?? initialInvoice.InvoiceDate);
@@ -204,6 +223,11 @@ namespace FoodTruck {
             }
         }
 
+        /// <summary>
+        /// This event handler undoes any changes the user has done (but not saved) to the invoice.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnRevert_Click(object sender, RoutedEventArgs e) {
             try {
                 ResetWindow();
@@ -216,6 +240,11 @@ namespace FoodTruck {
             }
         }
 
+        /// <summary>
+        /// This event handler is called by the Remove buttons in the DataGrid.  It removes the associated LineItem from the Invoice.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void RemoveLineItem_Click(object sender, RoutedEventArgs e) {
             try {
                 var button = (Button)sender;
@@ -230,6 +259,9 @@ namespace FoodTruck {
         
         #endregion
 
+        /// <summary>
+        /// This method updates the displayed list of LineItems and the Running Total.
+        /// </summary>
         private void UpdateLineItems() {
             try {
                 dgLineItems.ItemsSource = null;
@@ -240,6 +272,9 @@ namespace FoodTruck {
             }
         }
 
+        /// <summary>
+        /// This method does the actual deleting of the displayed invoice.
+        /// </summary>
         private void DeleteInvoice() {
             try {
                 if(invoiceManager != null) {
@@ -284,6 +319,7 @@ namespace FoodTruck {
         /// <summary>
         /// This method enables Edit Mode.
         /// It disables the Create, Edit, Delete buttons.
+        /// It enables the Revert and Save buttons.
         /// </summary>
         private void EditMode() {
             try {
@@ -299,7 +335,7 @@ namespace FoodTruck {
                 spAddItems.IsEnabled = true;
 
                 LoadItems();
-            } catch(Exception ex) {
+            } catch(Exception) {
                 throw;
             }
         }
@@ -309,6 +345,8 @@ namespace FoodTruck {
         /// </summary>
         /// <returns>Returns true if the user wants to close the window, false otherwise.</returns>
         private bool EnsureClose() {
+
+            // In case this method is called again by the Closing event handler, short circuit.
             if(CloseNow)
                 return true;
 
@@ -364,6 +402,7 @@ namespace FoodTruck {
                 ShowLineItems();
                 UpdateTotal();
 
+                // If the invoice is completely new, display TBD instead of -1.
                 if(invoiceManager.CurrentInvoice.InvoiceNum == -1)
                     tbInvoiceNum.Text = "TBD";
                 else
@@ -373,6 +412,9 @@ namespace FoodTruck {
             }
         }
 
+        /// <summary>
+        /// This method fills the DataGrid with the LineItems from the InvoiceManager.
+        /// </summary>
         private void ShowLineItems() {
             try {
                 var lineItems = invoiceManager.GetLineItems();
@@ -383,6 +425,9 @@ namespace FoodTruck {
             }
         }
 
+        /// <summary>
+        /// This method updates the running total of the displayed Invoice.
+        /// </summary>
         private void UpdateTotal() {
             try {
                 if(initialInvoice == null && invoiceManager == null) {
@@ -400,7 +445,8 @@ namespace FoodTruck {
         }
 
         /// <summary>
-        /// This method only shows the panels, it doesn't enable them.
+        /// This method displays the edit panels for the Invoice Date and adding line items.
+        /// It only shows the panels, but doesn't enable them.
         /// </summary>
         private void ShowEditPanels() {
             try {
@@ -412,7 +458,7 @@ namespace FoodTruck {
         }
 
         /// <summary>
-        /// Hides AND disables the panels.
+        /// This method hides AND disables the edit panels.
         /// </summary>
         private void HideEditPanels() {
             try {
