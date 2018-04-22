@@ -15,58 +15,86 @@ namespace FoodTruck.Items
         ////Used to access the database
         private static DataAccess db = new DataAccess();
 
-        ////holds info in the databse
-        //DataSet ds;
-
-        ////Tells if user is deleting a row
-        //bool IsDeleting = false;
-
-        //public static List<Items> GetAllItems()
-        //  { 
-        //  try
-        //      {
-        //          //Create a DataSet to hold the data
-        //          DataSet ds;
-
-        //          //Number of return values
-        //          int iRet = 0;
-
-        //          //Execute the statement and get the data
-        //          ds = db.ExecuteSQLStatement(txtQuery.Text, ref iRet);
-
-        //          //Show the data
-        //          dataGridView1.DataSource = ds;
-        //          dataGridView1.DataMember = ds.Tables[0].TableName;
-        //      }
-        //      catch (Exception ex)
-        //      {
-        //          MessageBox.Show(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
-        //      }
-
-
         public static void UpdateItem(ItemModel itemModel)
         {
+            //asks user whether or not they wanting to edit 
+            var result = System.Windows.MessageBox.Show("Are you sure you want to edit " + itemModel.Desc + " from the item entry", "Item Entry", System.Windows.MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Question, System.Windows.MessageBoxResult.Yes);
+
+            //the user clicks yes
+            if (result == System.Windows.MessageBoxResult.Yes)
+            {
+
+                try
+                {
+                    //grabs the sql from clsItemsSQL class
+                    string sql = clsItemsSQL.UPDATE_ITEM_DESC
+                        .Replace("@ItemCode", itemModel.ItemCode)
+                        .Replace("@ItemDesc", itemModel.Desc)
+                        .Replace("@Cost", itemModel.Cost.ToString());
+                    int response = db.ExecuteUpdate(sql);
+
+                }
+                catch (Exception ex)
+                {
+                    //throws error message
+                    System.Windows.MessageBox.Show(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+
+                }
+            }
 
         }
         public static void DeleteItem(ItemModel itemModel)
         {
+            //asks user whether or not they wanting to delete
+            System.Windows.MessageBoxResult result = System.Windows.MessageBox.Show("Are you sure you want to delete " + itemModel.Desc + " from the item entry", "Item Entry", System.Windows.MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Question, System.Windows.MessageBoxResult.Yes);
+
+            //the user clicks yes
+            if (result == System.Windows.MessageBoxResult.Yes)
+            {
+
+                try
+                {
+                    //grabs the sql from clsItemsSQL class
+                    string sql = clsItemsSQL.DELETE_FROM_ITEM
+                        .Replace("@ItemCode", itemModel.ItemCode)
+                        .Replace("@ItemDesc", itemModel.Desc)
+                        .Replace("@Cost", itemModel.Cost.ToString());
+                    int response = db.ExecuteDelete(sql);
+
+                }
+                catch (Exception ex)
+                {
+                    //throw error message if they are trying to delete a primary key referenced to a table
+                    System.Windows.MessageBox.Show("You cannot delete an Item that still has references.");
+                }
+            }
 
         }
 
         public static void InsertItems(ItemModel itemModel)
         {
-            try
+            //asks user whether or not they wanting to insert
+            System.Windows.MessageBoxResult result = System.Windows.MessageBox.Show("Are you sure you want to add this item to the item entry?", "Item Entry", System.Windows.MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Question, System.Windows.MessageBoxResult.Yes);
+
+            //the user clicks yes
+            if (result == System.Windows.MessageBoxResult.Yes)
             {
-                string sql = clsItemsSQL.INSERT_ITEM
-                    .Replace("@ItemCode", itemModel.ItemCode)
-                    .Replace("@Desc", itemModel.Desc)
-                    .Replace("@Cost", itemModel.Cost.ToString());
-                int response = db.ExecuteInsert(sql);
-                //int debug = 0;
-            }
-            catch (Exception ex)
-            {
-                System.Windows.MessageBox.Show(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+                try
+                {
+                    //grabs the sql from clsItemsSQL class
+                    string sql = clsItemsSQL.INSERT_ITEM
+                        .Replace("@ItemCode", itemModel.ItemCode)
+                        .Replace("@Desc", itemModel.Desc)
+                        .Replace("@Cost", itemModel.Cost.ToString());
+                    int response = db.ExecuteInsert(sql);
+
+                }
+                catch (Exception ex)
+                {
+                    //throw an error message
+                    System.Windows.MessageBox.Show("You cannot add item code " + itemModel.ItemCode + " because it already exists!");
+
+                }
             }
         }
 
@@ -93,7 +121,8 @@ namespace FoodTruck.Items
             }
             catch (Exception ex)
             {
-                //MessageBox.Show(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+                //throw error message
+                System.Windows.MessageBox.Show(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
                 return new List<ItemModel>();
             }
 
