@@ -247,6 +247,9 @@ namespace FoodTruck {
         /// <param name="e"></param>
         private void RemoveLineItem_Click(object sender, RoutedEventArgs e) {
             try {
+                if(!IsEditMode)
+                    return;
+
                 var button = (Button)sender;
                 ItemDesc lineItem = (ItemDesc)button.DataContext;
 
