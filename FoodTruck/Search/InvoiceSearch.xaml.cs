@@ -24,6 +24,11 @@ namespace FoodTruck {
         private Invoice selectedInvoice;
 
         /// <summary>
+        /// The list of all the invoices from the database
+        /// </summary>
+        private List<Invoice> lInvoices;
+
+        /// <summary>
         /// Constructor for the Search Window.
         /// </summary>
         public InvoiceSearch() {
@@ -47,27 +52,44 @@ namespace FoodTruck {
             dtgInvoices.Items.Clear();
 
             //Fill the grid with every invoice
-            dtgInvoices.ItemsSource = clsSearchLogic.GetAllInvoices();
+            lInvoices = clsSearchLogic.GetAllInvoices();
+
+            //UpdateInvoiceGrid();
+            dtgInvoices.ItemsSource = lInvoices;
 
             //Populate the comboboxes
-            GetInvoiceNumbers();
-            GetInvoiceDates();
-            GetInvoiceAmounts();
-
-            UpdateInvoiceGrid();
+            FillComboboxes();
         }
 
-        private void UpdateInvoiceGrid()
+        /// <summary>
+        /// Update the datagrid of invoices
+        /// </summary>
+        private void UpdateInvoiceGrid(object sender, SelectionChangedEventArgs e)
         {
+            lblMessage.Content = "";
+
+            //an enumerable list of all invoices
+            IEnumerable<Invoice> filtered = lInvoices;
+
+            //filter the list of invoices based on the selected dropdown box
+            if (cboInvoiceNumber.SelectedItem != null)
+                filtered = filtered.Where(a => a.InvoiceNum == (int)cboInvoiceNumber.SelectedItem);
+            if (cboInvoiceDate.SelectedItem != null)
+                filtered = filtered.Where(a => a.InvoiceDate.Date == (DateTime)cboInvoiceDate.SelectedItem);
+            if (cboInvoiceTotal.SelectedItem != null)
+                filtered = filtered.Where(a => a.TotalCharge == (decimal)cboInvoiceTotal.SelectedItem);
+
+            //set the datagrid to the filtered list
+            dtgInvoices.ItemsSource = filtered.ToList();
+
+            //refresh the datagrid
+            dtgInvoices.Items.Refresh();
+
+            //check if there was any invoice returned
             if (dtgInvoices.Items.IsEmpty)
                 lblMessage.Content = "There are no invoices to be displayed. Please adjust your filters.";
-            else
-            {
-                dtgInvoices.Items.Refresh();
-                lblMessage.Content = "";
-            }
         }
-        
+
         /// <summary>
         /// Resets the window to default state. Clears filters.
         /// </summary>
@@ -85,70 +107,13 @@ namespace FoodTruck {
         private void btnSelectInvoice_Click(object sender, RoutedEventArgs e)
         {
             // Set the selected invoice
-            selectedInvoice = (Invoice)dtgInvoices.SelectedItem;
+            //selectedInvoice = (Invoice)dtgInvoices.SelectedItem;
             if(selectedInvoice != null)
             {
                 var window = new MainWindow(selectedInvoice);
                 window.Show();
                 this.Close();
             }            
-        }
-
-        /// <summary>
-        /// Handles the changing of the selected invoice number combobox
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void cboInvoiceNumber_SelectionChanged(object sender, SelectionChangedEventArgs e) {
-            UpdateInvoiceGrid();
-        }
-
-        /// <summary>
-        /// Handles the changing of the selected invoice date combobox
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void cboInvoiceDate_SelectionChanged(object sender, SelectionChangedEventArgs e) {
-            UpdateInvoiceGrid();
-        }
-
-        /// <summary>
-        /// Handles the changing of the selected invoice date combobox
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void cboInvoiceTotal_SelectionChanged(object sender, SelectionChangedEventArgs e) {
-            UpdateInvoiceGrid();
-        }
-
-        /// <summary>
-        /// Gets a list of invoice numbers and populates combobox
-        /// </summary>
-        private void GetInvoiceNumbers()
-        {
-            cboInvoiceNumber.ItemsSource = null;
-            cboInvoiceNumber.Items.Clear();
-            cboInvoiceNumber.ItemsSource = clsSearchLogic.GetInvoiceNumbers();
-        }
-
-        /// <summary>
-        /// Gets a list of invoice dates and populates combobox
-        /// </summary>
-        private void GetInvoiceDates()
-        {
-            cboInvoiceDate.ItemsSource = null;
-            cboInvoiceDate.Items.Clear();
-            cboInvoiceDate.ItemsSource = clsSearchLogic.GetInvoiceDates();
-        }
-
-        /// <summary>
-        /// Gets a list of invoice total charge amounts and populates combobox
-        /// </summary>
-        private void GetInvoiceAmounts()
-        {
-            cboInvoiceTotal.ItemsSource = null;
-            cboInvoiceTotal.Items.Clear();
-            cboInvoiceTotal.ItemsSource = clsSearchLogic.GetTotalCharges();
         }
 
         /// <summary>
@@ -159,6 +124,40 @@ namespace FoodTruck {
         private void dtgInvoices_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             btnSelectInvoice.IsEnabled = true;
+            selectedInvoice = (Invoice)dtgInvoices.SelectedItem;
+        }
+
+        /// <summary>
+        /// Clears the comboboxes and fills them with data from the database
+        /// </summary>
+        private void FillComboboxes()
+        {
+            cboInvoiceNumber.ItemsSource = null;
+            cboInvoiceNumber.Items.Clear();
+            cboInvoiceNumber.ItemsSource = clsSearchLogic.GetInvoiceNumbers();
+
+            cboInvoiceDate.ItemsSource = null;
+            cboInvoiceDate.Items.Clear();
+            cboInvoiceDate.ItemsSource = clsSearchLogic.GetInvoiceDates();
+
+            cboInvoiceTotal.ItemsSource = null;
+            cboInvoiceTotal.Items.Clear();
+            cboInvoiceTotal.ItemsSource = clsSearchLogic.GetTotalCharges();
+        }
+
+        /// <summary>
+        /// Handles when the user chooses to close the window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (selectedInvoice == null)
+            {
+                var window = new MainWindow();
+                window.Show();
+            }
+            else return;
         }
 
         #endregion
