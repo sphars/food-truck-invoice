@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Reflection;
 
 namespace FoodTruck {
     /// <summary>
@@ -44,24 +45,31 @@ namespace FoodTruck {
         /// </summary>
         private void ResetForm()
         {
-            selectedInvoice = null;
-            btnSelectInvoice.IsEnabled = false;
-            lblMessage.Content = "";
+            try
+            {
+                selectedInvoice = null;
+                btnSelectInvoice.IsEnabled = false;
+                lblMessage.Content = "";
 
-            dtgInvoices.ItemsSource = null;
-            dtgInvoices.Items.Clear();
+                dtgInvoices.ItemsSource = null;
+                dtgInvoices.Items.Clear();
 
-            //Fill the grid with every invoice
-            lInvoices = clsSearchLogic.GetAllInvoices();
+                //Fill the grid with every invoice
+                lInvoices = clsSearchLogic.GetAllInvoices();
 
-            //UpdateInvoiceGrid();
-            dtgInvoices.ItemsSource = lInvoices;
+                //UpdateInvoiceGrid();
+                dtgInvoices.ItemsSource = lInvoices;
 
-            if (dtgInvoices.Items.IsEmpty)
-                lblMessage.Content = "There are no invoices to display. Check the database is correct.";
+                if (dtgInvoices.Items.IsEmpty)
+                    lblMessage.Content = "There are no invoices to display. Check the database is correct.";
 
-            //Populate the comboboxes
-            FillComboboxes();
+                //Populate the comboboxes
+                FillComboboxes();
+            }
+            catch (Exception ex)
+            {
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name, MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
         }
 
         /// <summary>
@@ -69,28 +77,35 @@ namespace FoodTruck {
         /// </summary>
         private void UpdateInvoiceGrid(object sender, SelectionChangedEventArgs e)
         {
-            lblMessage.Content = "";
+            try
+            {
+                lblMessage.Content = "";
 
-            //an enumerable list of all invoices
-            IEnumerable<Invoice> filtered = lInvoices;
+                //an enumerable list of all invoices
+                IEnumerable<Invoice> filtered = lInvoices;
 
-            //filter the list of invoices based on the selected dropdown box
-            if (cboInvoiceNumber.SelectedItem != null)
-                filtered = filtered.Where(a => a.InvoiceNum == (int)cboInvoiceNumber.SelectedItem);
-            if (cboInvoiceDate.SelectedItem != null)
-                filtered = filtered.Where(a => a.InvoiceDate.Date == (DateTime)cboInvoiceDate.SelectedItem);
-            if (cboInvoiceTotal.SelectedItem != null)
-                filtered = filtered.Where(a => a.TotalCharge == (decimal)cboInvoiceTotal.SelectedItem);
+                //filter the list of invoices based on the selected dropdown box
+                if (cboInvoiceNumber.SelectedItem != null)
+                    filtered = filtered.Where(a => a.InvoiceNum == (int)cboInvoiceNumber.SelectedItem);
+                if (cboInvoiceDate.SelectedItem != null)
+                    filtered = filtered.Where(a => a.InvoiceDate.Date == (DateTime)cboInvoiceDate.SelectedItem);
+                if (cboInvoiceTotal.SelectedItem != null)
+                    filtered = filtered.Where(a => a.TotalCharge == (decimal)cboInvoiceTotal.SelectedItem);
 
-            //set the datagrid to the filtered list
-            dtgInvoices.ItemsSource = filtered.ToList();
+                //set the datagrid to the filtered list
+                dtgInvoices.ItemsSource = filtered.ToList();
 
-            //refresh the datagrid
-            dtgInvoices.Items.Refresh();
+                //refresh the datagrid
+                dtgInvoices.Items.Refresh();
 
-            //check if there was any invoice returned
-            if (dtgInvoices.Items.IsEmpty)
-                lblMessage.Content = "There are no invoices to be displayed. Please adjust your filters.";
+                //check if there was any invoice returned
+                if (dtgInvoices.Items.IsEmpty)
+                    lblMessage.Content = "There are no invoices to be displayed. Please adjust your filters.";
+            }
+            catch (Exception ex)
+            {
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name, MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
         }
 
         /// <summary>
@@ -99,7 +114,14 @@ namespace FoodTruck {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnReset_Click(object sender, RoutedEventArgs e) {
-            ResetForm();
+            try
+            {
+                ResetForm();
+            }
+            catch (Exception ex)
+            {
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name, MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
         }
 
         /// <summary>
@@ -109,14 +131,23 @@ namespace FoodTruck {
         /// <param name="e"></param>
         private void btnSelectInvoice_Click(object sender, RoutedEventArgs e)
         {
-            // Set the selected invoice
-            //selectedInvoice = (Invoice)dtgInvoices.SelectedItem;
-            if(selectedInvoice != null)
+            try
             {
-                var window = new MainWindow(selectedInvoice);
-                window.Show();
-                this.Close();
-            }            
+                // Set the selected invoice
+                //selectedInvoice = (Invoice)dtgInvoices.SelectedItem;
+                if (selectedInvoice != null)
+                {
+                    var window = new MainWindow(selectedInvoice);
+                    window.Show();
+                    this.Close();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name, MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
+
         }
 
         /// <summary>
@@ -126,8 +157,15 @@ namespace FoodTruck {
         /// <param name="e"></param>
         private void dtgInvoices_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            btnSelectInvoice.IsEnabled = true;
-            selectedInvoice = (Invoice)dtgInvoices.SelectedItem;
+            try
+            {
+                btnSelectInvoice.IsEnabled = true;
+                selectedInvoice = (Invoice)dtgInvoices.SelectedItem;
+            }
+            catch (Exception ex)
+            {
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name, MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
         }
 
         /// <summary>
@@ -135,17 +173,24 @@ namespace FoodTruck {
         /// </summary>
         private void FillComboboxes()
         {
-            cboInvoiceNumber.ItemsSource = null;
-            cboInvoiceNumber.Items.Clear();
-            cboInvoiceNumber.ItemsSource = clsSearchLogic.GetInvoiceNumbers();
+            try
+            {
+                cboInvoiceNumber.ItemsSource = null;
+                cboInvoiceNumber.Items.Clear();
+                cboInvoiceNumber.ItemsSource = clsSearchLogic.GetInvoiceNumbers();
 
-            cboInvoiceDate.ItemsSource = null;
-            cboInvoiceDate.Items.Clear();
-            cboInvoiceDate.ItemsSource = clsSearchLogic.GetInvoiceDates();
+                cboInvoiceDate.ItemsSource = null;
+                cboInvoiceDate.Items.Clear();
+                cboInvoiceDate.ItemsSource = clsSearchLogic.GetInvoiceDates();
 
-            cboInvoiceTotal.ItemsSource = null;
-            cboInvoiceTotal.Items.Clear();
-            cboInvoiceTotal.ItemsSource = clsSearchLogic.GetTotalCharges();
+                cboInvoiceTotal.ItemsSource = null;
+                cboInvoiceTotal.Items.Clear();
+                cboInvoiceTotal.ItemsSource = clsSearchLogic.GetTotalCharges();
+            }
+            catch (Exception ex)
+            {
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name, MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
         }
 
         /// <summary>
@@ -155,12 +200,38 @@ namespace FoodTruck {
         /// <param name="e"></param>
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (selectedInvoice == null)
+            try
             {
-                var window = new MainWindow();
-                window.Show();
+                if (selectedInvoice == null)
+                {
+                    var window = new MainWindow();
+                    window.Show();
+                }
+                else return;
+
             }
-            else return;
+            catch (Exception ex)
+            {
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name, MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// exception handler that shows the error
+        /// </summary>
+        /// <param name="sClass">the class</param>
+        /// <param name="sMethod">the method</param>
+        /// <param name="sMessage">the error message</param>
+        private void HandleError(string sClass, string sMethod, string sMessage)
+        {
+            try
+            {
+                MessageBox.Show(sClass + "." + sMethod + " -> " + sMessage);
+            }
+            catch (System.Exception ex)
+            {
+                System.IO.File.AppendAllText("C:\\Error.txt", Environment.NewLine + "HandleError Exception: " + ex.Message);
+            }
         }
 
         #endregion

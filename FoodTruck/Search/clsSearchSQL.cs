@@ -27,30 +27,6 @@ namespace FoodTruck.Search
             "SELECT InvoiceNum, InvoiceDate, TotalCharge FROM Invoices;";
 
         /// <summary>
-        /// SELECT statement for retrieving all invoices that match the filters
-        /// </summary>
-        //public static readonly string S_INV_P_INUM_IDATE_TC =
-        //    "SELECT InvoiceNum, InvoiceDate, TotalCharge FROM Invoices WHERE InvoiceNum = @INUM AND InvoiceDate = @DATE AND TotalCharge = @CHARGE;";
-
-        /// <summary>
-        /// SELECT statement for retrieving all invoices that match the given invoice number
-        /// </summary>
-        //public static readonly string S_INV_P_INUM =
-        //    "SELECT InvoiceNum, InvoiceDate, TotalCharge FROM Invoices WHERE InvoiceNum = @INUM;";
-
-        /// <summary>
-        /// SELECT statement for retrieving all invoices that match the given invoice date
-        /// </summary>
-        //public static readonly string S_INV_P_DATE =
-        //    "SELECT InvoiceNum, InvoiceDate, TotalCharge FROM Invoices WHERE InvoiceDate = @DATE;";
-
-        /// <summary>
-        /// SELECT statement for retrieving all invoices that match the given total charge
-        /// </summary>
-        //public static readonly string S_INV_P_TC =
-        //    "SELECT InvoiceNum, InvoiceDate, TotalCharge FROM Invoices WHERE TotalCharge = @CHARGE;";
-
-        /// <summary>
         /// SELECT statement for retrieving all invoice numbers in the Invoices table
         /// </summary>
         public static readonly string S_INVNUM =

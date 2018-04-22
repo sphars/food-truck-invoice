@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data;
+using System.Reflection;
 
 namespace FoodTruck.Search
 {
@@ -18,24 +19,31 @@ namespace FoodTruck.Search
         /// <returns>List of invoices</returns>
         public static List<Invoice> GetAllInvoices()
         {
-            var dataAccess = new DataAccess();
-            int iRows = 0;
-            var dataSet = dataAccess.ExecuteSQLStatement(clsSearchSQL.S_INVOICES, ref iRows);
-            var list = new List<Invoice>();
-            if(iRows > 0)
+            try
             {
-                foreach(DataRow row in dataSet.Tables[0].Rows)
+                var dataAccess = new DataAccess();
+                int iRows = 0;
+                var dataSet = dataAccess.ExecuteSQLStatement(clsSearchSQL.S_INVOICES, ref iRows);
+                var list = new List<Invoice>();
+                if (iRows > 0)
                 {
-                    list.Add(new Invoice()
+                    foreach (DataRow row in dataSet.Tables[0].Rows)
                     {
-                        InvoiceNum = (int)row[0],
-                        InvoiceDate = (DateTime)row[1],
-                        TotalCharge = (decimal)row[2]
-                    });
+                        list.Add(new Invoice()
+                        {
+                            InvoiceNum = (int)row[0],
+                            InvoiceDate = (DateTime)row[1],
+                            TotalCharge = (decimal)row[2]
+                        });
+                    }
                 }
-            }
 
-            return list;
+                return list;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
         }
 
         /// <summary>
@@ -44,16 +52,23 @@ namespace FoodTruck.Search
         /// <returns>List of invoice numbers</returns>
         public static List<int> GetInvoiceNumbers()
         {
-            var dataAccess = new DataAccess();
-            int iRows = 0;
-            var dataSet = dataAccess.ExecuteSQLStatement(clsSearchSQL.S_INVNUM, ref iRows);
-            var list = new List<int>();
-            
-            if(iRows > 0)
-                foreach(DataRow row in dataSet.Tables[0].Rows)
-                    list.Add((int)row[0]);
+            try
+            {
+                var dataAccess = new DataAccess();
+                int iRows = 0;
+                var dataSet = dataAccess.ExecuteSQLStatement(clsSearchSQL.S_INVNUM, ref iRows);
+                var list = new List<int>();
 
-            return list;
+                if (iRows > 0)
+                    foreach (DataRow row in dataSet.Tables[0].Rows)
+                        list.Add((int)row[0]);
+
+                return list;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
         }
 
         /// <summary>
@@ -62,16 +77,23 @@ namespace FoodTruck.Search
         /// <returns>List of invoice dates</returns>
         public static List<DateTime> GetInvoiceDates()
         {
-            var dataAccess = new DataAccess();
-            int iRows = 0;
-            var dataSet = dataAccess.ExecuteSQLStatement(clsSearchSQL.S_INVDATE, ref iRows);
-            var list = new List<DateTime>();
+            try
+            {
+                var dataAccess = new DataAccess();
+                int iRows = 0;
+                var dataSet = dataAccess.ExecuteSQLStatement(clsSearchSQL.S_INVDATE, ref iRows);
+                var list = new List<DateTime>();
 
-            if (iRows > 0)
-                foreach (DataRow row in dataSet.Tables[0].Rows)
-                    list.Add((DateTime)row[0]);
+                if (iRows > 0)
+                    foreach (DataRow row in dataSet.Tables[0].Rows)
+                        list.Add((DateTime)row[0]);
 
-            return list;
+                return list;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
         }
 
         /// <summary>
@@ -80,16 +102,24 @@ namespace FoodTruck.Search
         /// <returns>List of invoice total charges</returns>
         public static List<decimal> GetTotalCharges()
         {
-            var dataAccess = new DataAccess();
-            int iRows = 0;
-            var dataSet = dataAccess.ExecuteSQLStatement(clsSearchSQL.S_TOTCHA, ref iRows);
-            var list = new List<decimal>();
+            try
+            {
+                var dataAccess = new DataAccess();
+                int iRows = 0;
+                var dataSet = dataAccess.ExecuteSQLStatement(clsSearchSQL.S_TOTCHA, ref iRows);
+                var list = new List<decimal>();
 
-            if (iRows > 0)
-                foreach (DataRow row in dataSet.Tables[0].Rows)
-                    list.Add((decimal)row[0]);
+                if (iRows > 0)
+                    foreach (DataRow row in dataSet.Tables[0].Rows)
+                        list.Add((decimal)row[0]);
 
-            return list;
+                return list;
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
         }
     }
 }
