@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FoodTruck"
         mc:Ignorable="d"
-        Title="Invoice Search" Height="400" Width="500" Closing="Window_Closing">
+        Title="Food Truck Invoice Search" Height="400" Width="500" Closing="Window_Closing" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
@@ -63,7 +63,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Invoice Number" Binding="{Binding InvoiceNum}" Width="*"/>
                 <DataGridTextColumn Header="Invoice Date" Binding="{Binding InvoiceDate, StringFormat=d}" Width="*"/>
-                <DataGridTextColumn Header="Total Charge" Binding="{Binding TotalCharge}" Width="*"/>
+                <DataGridTextColumn Header="Total Charge" Binding="{Binding TotalCharge, StringFormat=C}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
 

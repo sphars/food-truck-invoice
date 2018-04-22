@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FoodTruck"
         mc:Ignorable="d"
-        Title="ItemEntry" Height="357.388" Width="632.305" Closing="Close_Item_Entry">
+        Title="Food Truck Items" Height="360" Width="630" Closing="Close_Item_Entry" WindowStartupLocation="CenterScreen">
     <Canvas Margin="0,0,0,66">
 
         <Label Content="Item Entry" HorizontalAlignment="Left" VerticalAlignment="Top" Height="45" Width="159" FontSize="22" FontWeight="Bold" RenderTransformOrigin="0.782,0.595" Grid.Column="4" Canvas.Left="217" Canvas.Top="10" FontFamily="Microsoft YaHei UI"/>
