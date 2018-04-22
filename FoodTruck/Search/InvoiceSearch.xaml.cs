@@ -57,6 +57,9 @@ namespace FoodTruck {
             //UpdateInvoiceGrid();
             dtgInvoices.ItemsSource = lInvoices;
 
+            if (dtgInvoices.Items.IsEmpty)
+                lblMessage.Content = "There are no invoices to display. Check the database is correct.";
+
             //Populate the comboboxes
             FillComboboxes();
         }

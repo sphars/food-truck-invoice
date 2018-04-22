@@ -62,7 +62,7 @@
                   SelectionChanged="dtgInvoices_SelectionChanged">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Invoice Number" Binding="{Binding InvoiceNum}" Width="*"/>
-                <DataGridTextColumn Header="Invoice Date" Binding="{Binding InvoiceDate}" Width="*"/>
+                <DataGridTextColumn Header="Invoice Date" Binding="{Binding InvoiceDate, StringFormat=d}" Width="*"/>
                 <DataGridTextColumn Header="Total Charge" Binding="{Binding TotalCharge}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>

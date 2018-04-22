@@ -13,11 +13,6 @@ namespace FoodTruck.Search
     public static class clsSearchLogic
     {
         /// <summary>
-        /// The list of invoices that will be shown in the datagrid
-        /// </summary>
-        //public static List<Invoice> lInvoices;
-
-        /// <summary>
         /// Fetches invoices from the database
         /// </summary>
         /// <returns>List of invoices</returns>
