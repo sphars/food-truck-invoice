@@ -35,10 +35,14 @@ namespace FoodTruck {
         /// The Search window should use the parameterized constructor.
         /// </summary>
         public MainWindow() {
-            InitializeComponent();
-            this.Closing += OnClosing;
+            try {
+                InitializeComponent();
+                this.Closing += OnClosing;
 
-            ResetWindow();
+                ResetWindow();
+            } catch(Exception) {
+                throw;
+            }
         }
 
         /// <summary>
@@ -47,8 +51,12 @@ namespace FoodTruck {
         /// </summary>
         /// <param name="invoice">Invoice object with a proper InvoiceNum pointing to the database.</param>
         public MainWindow(Invoice invoice) : this() {
-            initialInvoice = invoice;
-            LoadInvoice();
+            try {
+                initialInvoice = invoice;
+                LoadInvoice();
+            } catch(Exception) {
+                throw;
+            }
         }
 
         #region EventHandlers
