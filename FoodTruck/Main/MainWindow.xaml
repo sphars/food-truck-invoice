@@ -45,9 +45,17 @@
             <ComboBox x:Name="cbItemList" MinWidth="150" Margin="0,0,5,0" VerticalAlignment="Center" SelectionChanged="cbItemList_SelectionChanged" Width="300"/>
             <Button Content="Add to Invoice" x:Name="btnAddToInvoice" VerticalAlignment="Center" Click="btnAddToInvoice_Click" Width="95"/>
         </StackPanel>
-        <DataGrid x:Name="dgLineItems" Grid.Row="5" IsEnabled="False" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="False"
-                  CanUserSortColumns="False" CanUserAddRows="False" IsReadOnly="True" VerticalGridLinesBrush="#FFB8B8B8" HorizontalGridLinesBrush="#FFB8B8B8" SelectionMode="Single">
+        <DataGrid x:Name="dgLineItems" SelectionMode="Single" SelectionUnit="FullRow" Grid.Row="5" IsEnabled="False" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="False"
+                  CanUserSortColumns="False" CanUserAddRows="False" IsReadOnly="True" VerticalGridLinesBrush="#FFB8B8B8" HorizontalGridLinesBrush="#FFB8B8B8">
             <DataGrid.Columns>
+                <DataGridTemplateColumn Width="20">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Click="RemoveLineItem_Click" ToolTip="Remove this LineItem from the Invoice">X</Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
                 <DataGridTextColumn Header="Item Code" Binding="{Binding ItemCode}" Width="*"/>
                 <DataGridTextColumn Header="Item Description" Binding="{Binding Desc}" Width="3*"/>
                 <DataGridTextColumn Header="Item Cost" Binding="{Binding Cost}" Width="*"/>

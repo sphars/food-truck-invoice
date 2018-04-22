@@ -168,6 +168,10 @@ namespace FoodTruck {
             }
         }
 
+        private void RemoveLineItem_Click(object sender, RoutedEventArgs e) {
+            Console.WriteLine("Click of remove button: " + sender.ToString() + " Events: " + e.ToString());
+        }
+
         #endregion
 
         private void UpdateLineItems() {
