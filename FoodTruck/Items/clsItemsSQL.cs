@@ -57,6 +57,14 @@ namespace FoodTruck.Items
             "INSERT INTO LineItems (InvoiceNum, LineItemNum, ItemCode) VALUES(@INUM, @LNUM, @CODE);";
 
         /// <summary>
+        /// UPDATE statement for an existing Invoice with parameters item code, item desc, cost
+        /// </summary>
+        public static readonly string UPDATE_ITEM_DESC =
+            "UPDATE ItemDesc SET ItemDesc = '@ItemDesc', Cost = @Cost WHERE ItemCode = '@ItemCode';";
+        //ItemCode = '@ItemCode', 
+
+
+        /// <summary>
         /// UPDATE statement for an existing Invoice with parameters InvoiceDate, TotalCharge, and InvoiceNum.
         /// </summary>
         public static readonly string UPDATE_INVOICES =
@@ -74,7 +82,12 @@ namespace FoodTruck.Items
         public static readonly string DELETE_FROM_INVOICES =
             "DELETE FROM Invoices WHERE InvoiceNum = @NUM;";
 
-      
+        /// <summary>
+        /// DELETE statement for deleting an Invoice by specified Item code
+        /// </summary>
+        public static readonly string DELETE_FROM_ITEM =
+            "DELETE FROM ItemDesc WHERE ItemDesc = '@ItemDesc'  ;";
+
 
 
 

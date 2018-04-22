@@ -30,12 +30,12 @@ namespace FoodTruck
 
         public object DataSource { get; set; }
 
-        bool isAdd = false;
-        private BindingListCollectionView ItemView;
+        //bool isAdd = false;
+        //private BindingListCollectionView ItemView;
         //CustomerDataContext dc = new CustomerDataContext();
 
         //holds info in the databse
-        DataSet ds;
+       // DataSet ds;
 
         //private ItemDesc selectedItem;
 
@@ -43,6 +43,8 @@ namespace FoodTruck
         {
 
             InitializeComponent();
+            DataGridItemEntry.ItemsSource = clsItemsLogic.GetAllItems();
+
             //var items = ds.GetChanges();
             //this.DataContext = items;
             //this.ItemView = (BindingListCollectionView)(CollectionViewSource.GetDefaultView(items));
@@ -55,11 +57,16 @@ namespace FoodTruck
         /// <param name="e"></param>
         private void AddNewButton_Click(object sender, RoutedEventArgs e)
         {
-            ItemModel itemModel = (ItemModel)DataGridItemEntry.SelectedItem;
+
+            //Use the object reference to add new items
+            // clsItemsLogic.InsertItems(ItemCodeBox.Text, ItemDescBox.Text, Convert.ToInt32(CostBox.Text));
+            ItemModel itemModel = new ItemModel();
+            itemModel.ItemCode = ItemCodeBox.Text;
+            itemModel.Desc = ItemDescBox.Text;
+            itemModel.Cost = Decimal.Parse(CostBox.Text);
             clsItemsLogic.InsertItems(itemModel);
 
             DataGridItemEntry.ItemsSource = clsItemsLogic.GetAllItems();
-           // int debug = 0;
         }
 
         /// <summary>
@@ -69,7 +76,14 @@ namespace FoodTruck
         /// <param name="e"></param>
         private void EditItemButton_Click(object sender, RoutedEventArgs e)
         {
+            //ItemModel itemModel = (ItemModel)DataGridItemEntry.CurrentItem;
+            ItemModel itemModel = new ItemModel();
+            itemModel.ItemCode = ItemCodeBox.Text;
+            itemModel.Desc = ItemDescBox.Text;
+            itemModel.Cost = Decimal.Parse(CostBox.Text);
 
+            clsItemsLogic.UpdateItem(itemModel);
+            DataGridItemEntry.ItemsSource = clsItemsLogic.GetAllItems();
         }
 
         /// <summary>
@@ -79,6 +93,20 @@ namespace FoodTruck
         /// <param name="e"></param>
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
+
+            //ItemModel itemModel = (ItemModel)DataGridItemEntry.CurrentItem;
+            ItemModel itemModel = new ItemModel();
+            itemModel.ItemCode = ItemCodeBox.Text;
+            itemModel.Desc = ItemDescBox.Text;
+            itemModel.Cost = Decimal.Parse(CostBox.Text);
+
+            clsItemsLogic.DeleteItem(itemModel);
+
+
+            DataGridItemEntry.SelectionChanged -= selectionchanged;
+            DataGridItemEntry.ItemsSource = null;
+            DataGridItemEntry.ItemsSource = clsItemsLogic.GetAllItems();
+            DataGridItemEntry.SelectionChanged += selectionchanged;
             //{
 
             //    if (e.Command == DataGridItemEntry.DeleteCommand)
@@ -106,36 +134,6 @@ namespace FoodTruck
             DataGridItemEntry.ItemsSource = clsItemsLogic.GetAllItems();
         }
 
-        /// <summary>
-        /// The description button pulls up the description 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void DescriptionButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        /// <summary>
-        /// Cost button pulls up the cost 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void CostButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        /// <summary>
-        /// Save button saves the chages that were made 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void SaveButton_Click(object sender, RoutedEventArgs e)
-        {
-            //this.ds.SubmitChanges();
-            isAdd = false;
-        }
 
         public void Save()
 
@@ -161,6 +159,23 @@ namespace FoodTruck
 
         }
 
-        
+        private void selectionchanged(object sender, SelectionChangedEventArgs e)
+        {
+            DataGrid dataGrid = (DataGrid)sender;
+            ItemModel itemModel = (ItemModel)dataGrid.SelectedItem;
+            ItemCodeBox.Text = itemModel.ItemCode;
+            ItemDescBox.Text = itemModel.Desc;
+            CostBox.Text = itemModel.Cost.ToString();
+
+           // int debug = 0;
+        }
+
+        private void Close_Item_Entry(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            var window = new MainWindow();
+            window.Show();
+        }
     }
+
+
 }

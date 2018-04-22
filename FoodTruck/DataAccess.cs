@@ -154,13 +154,16 @@ public class DataAccess
     /// </summary>
     /// <param name="sSQL">The SQL INSERT statement to be executed.</param>
     /// <returns>Returns the AutoNumber field of the inserted row</returns>
-    public int ExecuteInsert(string sSQL) {
+    public int ExecuteInsert(string sSQL)
+    {
         sSQL = sSQL.Trim();
-        if(!sSQL.StartsWith("INSERT", StringComparison.InvariantCultureIgnoreCase))
+        if (!sSQL.StartsWith("INSERT", StringComparison.InvariantCultureIgnoreCase))
             throw new Exception("SQL statement must start with \"INSERT\"");
 
-        try {
-            using(OleDbConnection connection = new OleDbConnection(sConnectionString)) {
+        try
+        {
+            using (OleDbConnection connection = new OleDbConnection(sConnectionString))
+            {
                 connection.Open();
                 OleDbTransaction transaction = connection.BeginTransaction();
                 OleDbCommand command = new OleDbCommand(sSQL, connection);
@@ -173,9 +176,83 @@ public class DataAccess
                 transaction.Commit();
                 return result;
             }
-        } catch(Exception ex) {
+        }
+        catch (Exception ex)
+        {
             throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
                 MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
         }
     }
-}
+
+    /// <summary>
+    /// This method takes an insert statement, executes it, and returns the ID/primary key of the resulting row.
+    /// </summary>
+    /// <param name="sSQL">The SQL INSERT statement to be executed.</param>
+    /// <returns>Returns the AutoNumber field of the inserted row</returns>
+    public int ExecuteDelete(string sSQL)
+    {
+        sSQL = sSQL.Trim();
+        if (!sSQL.StartsWith("Delete", StringComparison.InvariantCultureIgnoreCase))
+            throw new Exception("SQL statement must start with \"Delete\"");
+
+        try
+        {
+            using (OleDbConnection connection = new OleDbConnection(sConnectionString))
+            {
+                connection.Open();
+                OleDbTransaction transaction = connection.BeginTransaction();
+                OleDbCommand command = new OleDbCommand(sSQL, connection);
+                command.Connection = connection;
+                command.Transaction = transaction;
+                command.CommandTimeout = 0;
+                object resultObj = command.ExecuteNonQuery();
+                transaction.Commit();
+                return 1;
+            }
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+        }
+
+
+
+    }
+
+    /// <summary>
+    /// This method takes an insert statement, executes it, and returns the ID/primary key of the resulting row.
+    /// </summary>
+    /// <param name="sSQL">The SQL INSERT statement to be executed.</param>
+    /// <returns>Returns the AutoNumber field of the inserted row</returns>
+    public int ExecuteUpdate(string sSQL)
+    {
+        sSQL = sSQL.Trim();
+        if (!sSQL.StartsWith("UPDATE", StringComparison.InvariantCultureIgnoreCase))
+            throw new Exception("SQL statement must start with \"UPDATE\"");
+
+        try
+        {
+            using (OleDbConnection connection = new OleDbConnection(sConnectionString))
+            {
+                connection.Open();
+                OleDbTransaction transaction = connection.BeginTransaction();
+                OleDbCommand command = new OleDbCommand(sSQL, connection);
+                command.Connection = connection;
+                command.Transaction = transaction;
+                command.CommandTimeout = 0;
+                object resultObj = command.ExecuteNonQuery();
+                transaction.Commit();
+                return 1;
+            }
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+        }
+
+
+      
+            }
+    }

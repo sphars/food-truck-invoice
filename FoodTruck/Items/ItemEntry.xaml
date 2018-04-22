@@ -5,18 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FoodTruck"
         mc:Ignorable="d"
-        Title="ItemEntry" Height="392.388" Width="608.305">
-    <Canvas>
+        Title="ItemEntry" Height="357.388" Width="632.305" Closing="Close_Item_Entry">
+    <Canvas Margin="0,0,0,66">
 
-        <Label Content="Item Entry" HorizontalAlignment="Left" VerticalAlignment="Top" Height="45" Width="121" FontSize="22" FontWeight="Bold" RenderTransformOrigin="0.782,0.595" Grid.Column="4" Canvas.Left="217" Canvas.Top="10"/>
-        <Button x:Name="IDreadOnlyButton" Content="ID (read only)" HorizontalAlignment="Left" VerticalAlignment="Top" Width="135" Height="31" RenderTransformOrigin="-0.158,0.523" Grid.Column="3" Canvas.Left="26" Canvas.Top="315" Click="IDreadOnlyButton_Click"/>
-        <Button x:Name="CostButton" Content="Cost" HorizontalAlignment="Left" VerticalAlignment="Top" Width="122" Height="31" RenderTransformOrigin="0.703,1.141" Grid.Column="4" Grid.ColumnSpan="2" Canvas.Left="296" Canvas.Top="315" Click="CostButton_Click"/>
-        <Button x:Name="DescriptionButton" Content="Description" HorizontalAlignment="Left" VerticalAlignment="Top" Width="125" Height="30" RenderTransformOrigin="-0.025,0.595" Grid.Column="4" Canvas.Left="166" Canvas.Top="316" Click="DescriptionButton_Click"/>
-        <Button x:Name="AddNewButton" Content="Add New" HorizontalAlignment="Left" VerticalAlignment="Top" Width="93" Height="29" RenderTransformOrigin="1.771,-4.237" Grid.Column="4" Canvas.Left="275" Canvas.Top="261" Click="AddNewButton_Click"/>
-        <Button x:Name="SaveButton" Content="Save" Grid.Column="5" HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Height="31" Canvas.Left="423" Canvas.Top="315" Click="SaveButton_Click"/>
-        <Button x:Name="EditItemButton" Content="Edit Item" HorizontalAlignment="Left" VerticalAlignment="Top" Width="93" Height="29" RenderTransformOrigin="1.771,-4.237" Canvas.Left="373" Canvas.Top="261" Click="EditItemButton_Click"/>
-        <Button x:Name="DeleteButton" Content="Delete" Canvas.Left="471" Canvas.Top="261" Width="92" Height="29" Click="DeleteButton_Click"/>
-        <DataGrid ItemsSource="{Binding}" IsSynchronizedWithCurrentItem="True" Grid.Row="0" x:Name="DataGridItemEntry" RenderTransformOrigin="2.667,4.538" Height="187" Width="590" Canvas.Top="55"></DataGrid>
+        <Label Content="Item Entry" HorizontalAlignment="Left" VerticalAlignment="Top" Height="45" Width="159" FontSize="22" FontWeight="Bold" RenderTransformOrigin="0.782,0.595" Grid.Column="4" Canvas.Left="217" Canvas.Top="10" FontFamily="Microsoft YaHei UI"/>
+        <Button x:Name="AddNewButton" Content="Add New" HorizontalAlignment="Left" VerticalAlignment="Top" Width="76" Height="29" RenderTransformOrigin="1.771,-4.237" Grid.Column="4" Canvas.Left="20" Canvas.Top="256" Click="AddNewButton_Click"/>
+        <Button x:Name="EditItemButton" Content="Edit Item" HorizontalAlignment="Left" VerticalAlignment="Top" Width="76" Height="29" RenderTransformOrigin="1.771,-4.237" Canvas.Left="101" Canvas.Top="256" Click="EditItemButton_Click"/>
+        <Button x:Name="DeleteButton" Content="Delete" Canvas.Left="182" Canvas.Top="256" Width="72" Height="29" Click="DeleteButton_Click"/>
+        <DataGrid ItemsSource="{Binding}" IsSynchronizedWithCurrentItem="True" Grid.Row="0" x:Name="DataGridItemEntry" RenderTransformOrigin="2.667,4.538" Height="249" Width="339" Canvas.Top="61" Canvas.Left="269" SelectionChanged="selectionchanged"></DataGrid>
+        <Label x:Name="ItemCodeLabel" Content="Item Code " Canvas.Left="29" Canvas.Top="87" FontWeight="Bold" Height="25" Width="86" FontFamily="Verdana"/>
+        <Label x:Name="ItemDescLabel" Content="Description" Canvas.Left="24" Canvas.Top="131" FontWeight="Bold" Height="23" Width="91" FontFamily="Verdana" RenderTransformOrigin="0.484,1.87"/>
+        <Label x:Name="Cost" Content="Cost" Canvas.Left="29" Canvas.Top="199" FontWeight="Bold" Height="24" Width="76" FontFamily="Verdana"/>
+        <TextBox x:Name="ItemCodeBox" Height="23" Canvas.Left="125" TextWrapping="Wrap" Canvas.Top="90" Width="120"/>
+        <TextBox x:Name="ItemDescBox" Height="56" Canvas.Left="125" TextWrapping="Wrap" Canvas.Top="131" Width="120"/>
+        <TextBox x:Name="CostBox" Height="23" Canvas.Left="123" TextWrapping="Wrap" Canvas.Top="202" Width="120"/>
 
     </Canvas>
 </Window>

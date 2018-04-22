@@ -46,10 +46,37 @@ namespace FoodTruck.Items
 
         public static void UpdateItem(ItemModel itemModel)
         {
+            try
+            {
+                string sql = clsItemsSQL.UPDATE_ITEM_DESC
+                    .Replace("@ItemCode", itemModel.ItemCode)
+                    .Replace("@ItemDesc", itemModel.Desc)
+                    .Replace("@Cost", itemModel.Cost.ToString());
+                int response = db.ExecuteUpdate(sql);
+                //int debug = 0;
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+
+            }
 
         }
         public static void DeleteItem(ItemModel itemModel)
         {
+            try
+            {
+                string sql = clsItemsSQL.DELETE_FROM_ITEM
+                    .Replace("@ItemCode", itemModel.ItemCode)
+                    .Replace("@ItemDesc", itemModel.Desc)
+                    .Replace("@Cost", itemModel.Cost.ToString());
+                int response = db.ExecuteDelete(sql);
+                //int debug = 0;
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show("You cannot delete an Item that still has references.");
+            }
 
         }
 
@@ -66,7 +93,8 @@ namespace FoodTruck.Items
             }
             catch (Exception ex)
             {
-                System.Windows.MessageBox.Show(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+                //System.Windows.MessageBox.Show(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+
             }
         }
 
