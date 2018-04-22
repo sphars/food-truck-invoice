@@ -137,7 +137,7 @@ namespace FoodTruck.Main {
 
                 // First insert:
                 var sqlInsert = clsMainSQL.I_INV_P_DATE_TOTAL
-                    .Replace("@DATE", "#" + CurrentInvoice.InvoiceDate.ToString("MM/dd/yyyy") + "#")
+                    .Replace("@DATE", CurrentInvoice.InvoiceDate.ToString("MM/dd/yyyy"))
                     .Replace("@TOTAL", $"{CurrentInvoice.TotalCharge}");
                 int invoiceNum = dataAccess.ExecuteInsert(sqlInsert);
                 Console.WriteLine($"Inserted Invoice into DB, got InvoiceNum of: {invoiceNum}");
@@ -145,7 +145,7 @@ namespace FoodTruck.Main {
             } else {
                 // Update the invoice that's already there:
                 var sqlUpdate = clsMainSQL.U_INV_P_DATE_TOTAL_NUM
-                    .Replace("@DATE", "#" + CurrentInvoice.InvoiceDate.ToString("MM/dd/yyyy") + "#")
+                    .Replace("@DATE", CurrentInvoice.InvoiceDate.ToString("MM/dd/yyyy"))
                     .Replace("@TOTAL", CurrentInvoice.TotalCharge.ToString())
                     .Replace("@NUM", CurrentInvoice.InvoiceNum.ToString());
                 rowsAffected = dataAccess.ExecuteNonQuery(sqlUpdate);
@@ -164,7 +164,7 @@ namespace FoodTruck.Main {
                 var sqlInsert = clsMainSQL.I_LI_P_INUM_LNUM_CODE
                     .Replace("@INUM", CurrentInvoice.InvoiceNum.ToString())
                     .Replace("@LNUM", $"{listNum++}")
-                    .Replace("@CODE", $"'{itemDesc.ItemCode}'");
+                    .Replace("@CODE", itemDesc.ItemCode);
                 rowsAffected = dataAccess.ExecuteNonQuery(sqlInsert);
                 Console.WriteLine($"Inserted LineItem {listNum - 1}");
             }
