@@ -5,7 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FoodTruck"
         mc:Ignorable="d"
-        Title="Food Truck Items" Height="360" Width="630" Closing="Close_Item_Entry" WindowStartupLocation="CenterScreen">
+        Title="Food Truck Items" Height="360" Width="630" Closing="Close_Item_Entry" WindowStartupLocation="CenterScreen"
+        
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}">
     <Canvas Margin="0,0,0,66">
 
         <Label Content="Item Entry" HorizontalAlignment="Left" VerticalAlignment="Top" Height="45" Width="159" FontSize="22" FontWeight="Bold" RenderTransformOrigin="0.782,0.595" Grid.Column="4" Canvas.Left="217" Canvas.Top="10" FontFamily="Microsoft YaHei UI"/>
