@@ -12,7 +12,7 @@
         <Button x:Name="AddNewButton" Content="Add New" HorizontalAlignment="Left" VerticalAlignment="Top" Width="76" Height="29" RenderTransformOrigin="1.771,-4.237" Grid.Column="4" Canvas.Left="20" Canvas.Top="256" Click="AddNewButton_Click"/>
         <Button x:Name="EditItemButton" Content="Edit Item" HorizontalAlignment="Left" VerticalAlignment="Top" Width="76" Height="29" RenderTransformOrigin="1.771,-4.237" Canvas.Left="101" Canvas.Top="256" Click="EditItemButton_Click"/>
         <Button x:Name="DeleteButton" Content="Delete" Canvas.Left="182" Canvas.Top="256" Width="72" Height="29" Click="DeleteButton_Click"/>
-        <DataGrid ItemsSource="{Binding}" IsSynchronizedWithCurrentItem="True" Grid.Row="0" x:Name="DataGridItemEntry" RenderTransformOrigin="2.667,4.538" Height="249" Width="339" Canvas.Top="61" Canvas.Left="269" SelectionChanged="selectionchanged"></DataGrid>
+        <DataGrid ItemsSource="{Binding}" IsSynchronizedWithCurrentItem="True" Grid.Row="0" x:Name="DataGridItemEntry" RenderTransformOrigin="2.667,4.538" Height="249" Width="339" Canvas.Top="61" Canvas.Left="269" SelectionChanged="selectionchanged" CanUserAddRows="False"/>
         <Label x:Name="ItemCodeLabel" Content="Item Code " Canvas.Left="29" Canvas.Top="87" FontWeight="Bold" Height="25" Width="86" FontFamily="Verdana"/>
         <Label x:Name="ItemDescLabel" Content="Description" Canvas.Left="24" Canvas.Top="131" FontWeight="Bold" Height="23" Width="91" FontFamily="Verdana" RenderTransformOrigin="0.484,1.87"/>
         <Label x:Name="Cost" Content="Cost" Canvas.Left="29" Canvas.Top="199" FontWeight="Bold" Height="24" Width="76" FontFamily="Verdana"/>
