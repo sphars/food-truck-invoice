@@ -1,19 +1,9 @@
 ﻿using FoodTruck.Main;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace FoodTruck {
     /// <summary>
@@ -69,11 +59,16 @@ namespace FoodTruck {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void EditInventoryOnClick(object sender, RoutedEventArgs e) {
-            bool closeNow = EnsureClose();
-            if(closeNow) {
-                var window = new ItemEntry();
-                window.Show();
-                this.Close();
+            try {
+                bool closeNow = EnsureClose();
+                if(closeNow) {
+                    var window = new ItemEntry();
+                    window.Show();
+                    this.Close();
+                }
+            } catch(Exception ex) {
+                HandleError(MethodBase.GetCurrentMethod().DeclaringType.Name,
+                    MethodBase.GetCurrentMethod().Name, ex.Message);
             }
         }
 
@@ -83,11 +78,16 @@ namespace FoodTruck {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void SearchInvoicesOnClick(object sender, RoutedEventArgs e) {
-            bool closeNow = EnsureClose();
-            if(closeNow) {
-                var window = new InvoiceSearch();
-                window.Show();
-                this.Close();
+            try {
+                bool closeNow = EnsureClose();
+                if(closeNow) {
+                    var window = new InvoiceSearch();
+                    window.Show();
+                    this.Close();
+                }
+            } catch(Exception ex) {
+                HandleError(MethodBase.GetCurrentMethod().DeclaringType.Name,
+                    MethodBase.GetCurrentMethod().Name, ex.Message);
             }
         }
 
@@ -97,8 +97,13 @@ namespace FoodTruck {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnCreateInvoice_Click(object sender, RoutedEventArgs e) {
-            CreateInvoice();
-            EditMode();
+            try {
+                CreateInvoice();
+                EditMode();
+            } catch(Exception ex) {
+                HandleError(MethodBase.GetCurrentMethod().DeclaringType.Name,
+                    MethodBase.GetCurrentMethod().Name, ex.Message);
+            }
         }
 
         /// <summary>
@@ -107,9 +112,14 @@ namespace FoodTruck {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void OnClosing(object sender, CancelEventArgs e) {
-            bool closeNow = EnsureClose();
-            if(!closeNow) {
-                e.Cancel = true;
+            try {
+                bool closeNow = EnsureClose();
+                if(!closeNow) {
+                    e.Cancel = true;
+                }
+            } catch(Exception ex) {
+                HandleError(MethodBase.GetCurrentMethod().DeclaringType.Name,
+                    MethodBase.GetCurrentMethod().Name, ex.Message);
             }
         }
 
@@ -119,9 +129,14 @@ namespace FoodTruck {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnAddToInvoice_Click(object sender, RoutedEventArgs e) {
-            if(cbItemList.SelectedItem is ItemDesc item) {
-                invoiceManager.AddLineItem(item);
-                UpdateLineItems();
+            try {
+                if(cbItemList.SelectedItem is ItemDesc item) {
+                    invoiceManager.AddLineItem(item);
+                    UpdateLineItems();
+                }
+            } catch(Exception ex) {
+                HandleError(MethodBase.GetCurrentMethod().DeclaringType.Name,
+                    MethodBase.GetCurrentMethod().Name, ex.Message);
             }
         }
 
@@ -131,8 +146,13 @@ namespace FoodTruck {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void cbItemList_SelectionChanged(object sender, SelectionChangedEventArgs e) {
-            // Button is enabled when the selected item is an ItemDesc object, disabled if false.
-            btnAddToInvoice.IsEnabled = cbItemList.SelectedItem is ItemDesc;
+            try {
+                // Button is enabled when the selected item is an ItemDesc object, disabled if false.
+                btnAddToInvoice.IsEnabled = cbItemList.SelectedItem is ItemDesc;
+            } catch(Exception ex) {
+                HandleError(MethodBase.GetCurrentMethod().DeclaringType.Name,
+                    MethodBase.GetCurrentMethod().Name, ex.Message);
+            }
         }
 
         /// <summary>
@@ -141,79 +161,116 @@ namespace FoodTruck {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnDeleteInvoice_Click(object sender, RoutedEventArgs e) {
-            var result = MessageBox.Show("Are you sure you want to delete this invoice?",
-                "Permanently delete invoice?", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
-            if(result == MessageBoxResult.OK) {
-                DeleteInvoice();
-                ResetWindow();
+            try {
+                var result = MessageBox.Show("Are you sure you want to delete this invoice?",
+                        "Permanently delete invoice?", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
+                if(result == MessageBoxResult.OK) {
+                    DeleteInvoice();
+                    ResetWindow();
+                }
+            } catch(Exception ex) {
+                HandleError(MethodBase.GetCurrentMethod().DeclaringType.Name,
+                    MethodBase.GetCurrentMethod().Name, ex.Message);
             }
         }
 
         private void btnEditInvoice_Click(object sender, RoutedEventArgs e) {
-            EditMode();
+            try {
+                EditMode();
+            } catch(Exception ex) {
+                HandleError(MethodBase.GetCurrentMethod().DeclaringType.Name,
+                    MethodBase.GetCurrentMethod().Name, ex.Message);
+            }
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e) {
-            invoiceManager.SetInvoiceDate(dpInvoiceDate.SelectedDate ?? initialInvoice.InvoiceDate);
-            invoiceManager.SaveInvoice();
-            initialInvoice = invoiceManager.CurrentInvoice;
-            ResetWindow();
-            LoadInvoice();
+            try {
+                invoiceManager.SetInvoiceDate(dpInvoiceDate.SelectedDate ?? initialInvoice.InvoiceDate);
+                invoiceManager.SaveInvoice();
+                initialInvoice = invoiceManager.CurrentInvoice;
+                ResetWindow();
+                LoadInvoice();
+            } catch(Exception ex) {
+                HandleError(MethodBase.GetCurrentMethod().DeclaringType.Name,
+                    MethodBase.GetCurrentMethod().Name, ex.Message);
+            }
         }
 
         private void btnRevert_Click(object sender, RoutedEventArgs e) {
-            ResetWindow();
-            if(initialInvoice != null) {
-                LoadInvoice();
+            try {
+                ResetWindow();
+                if(initialInvoice != null) {
+                    LoadInvoice();
+                }
+            } catch(Exception ex) {
+                HandleError(MethodBase.GetCurrentMethod().DeclaringType.Name,
+                    MethodBase.GetCurrentMethod().Name, ex.Message);
             }
         }
 
         private void RemoveLineItem_Click(object sender, RoutedEventArgs e) {
-            var button = sender as Button;
-            ItemDesc lineItem = (ItemDesc)button.DataContext;
+            try {
+                var button = (Button)sender;
+                ItemDesc lineItem = (ItemDesc)button.DataContext;
 
-            RemoveLineItem(lineItem);
+                RemoveLineItem(lineItem);
+            } catch(Exception ex) {
+                HandleError(MethodBase.GetCurrentMethod().DeclaringType.Name,
+                    MethodBase.GetCurrentMethod().Name, ex.Message);
+            }
         }
         
         #endregion
 
         private void UpdateLineItems() {
-            dgLineItems.ItemsSource = null;
-            dgLineItems.ItemsSource = invoiceManager.GetLineItems();
-            UpdateTotal();
+            try {
+                dgLineItems.ItemsSource = null;
+                dgLineItems.ItemsSource = invoiceManager.GetLineItems();
+                UpdateTotal();
+            } catch(Exception) {
+                throw;
+            }
         }
 
         private void DeleteInvoice() {
-            if(invoiceManager != null) {
-                invoiceManager.DeleteInvoice();
+            try {
+                if(invoiceManager != null) {
+                    invoiceManager.DeleteInvoice();
+                }
+                initialInvoice = null;
+            } catch(Exception) {
+                throw;
             }
-            initialInvoice = null;
         }
 
         /// <summary>
         /// This method resets the appearance of the window to an initial state.
         /// </summary>
         private void ResetWindow() {
-            IsEditMode = false;
-            invoiceManager = null;
+            try {
+                IsEditMode = false;
+                invoiceManager = null;
 
-            btnRevert.IsEnabled = false;
-            btnSave.IsEnabled = false;
-            btnDeleteInvoice.IsEnabled = false;
-            btnEditInvoice.IsEnabled = false;
-            btnAddToInvoice.IsEnabled = false;
-            cbItemList.ItemsSource = null;
-            cbItemList.IsEnabled = false;
+                btnRevert.IsEnabled = false;
+                btnSave.IsEnabled = false;
+                btnDeleteInvoice.IsEnabled = false;
+                btnEditInvoice.IsEnabled = false;
+                btnAddToInvoice.IsEnabled = false;
+                cbItemList.ItemsSource = null;
+                cbItemList.IsEnabled = false;
 
-            btnCreateInvoice.IsEnabled = true;
-            dgLineItems.ItemsSource = null;
-            dgLineItems.IsEnabled = false;
+                btnCreateInvoice.IsEnabled = true;
+                dgLineItems.ItemsSource = null;
+                dgLineItems.IsEnabled = false;
 
-            HideEditPanels();
-            spTotalAmount.Visibility = Visibility.Hidden;
+                HideEditPanels();
+                spTotalAmount.Visibility = Visibility.Hidden;
 
-            tbInvoiceNum.Text = "TBD";
-            dpInvoiceDate.SelectedDate = DateTime.Now;
+                tbInvoiceNum.Text = "TBD";
+                dpInvoiceDate.SelectedDate = DateTime.Now;
+            } catch(Exception) {
+                throw;
+            }
         }
 
         /// <summary>
@@ -221,18 +278,22 @@ namespace FoodTruck {
         /// It disables the Create, Edit, Delete buttons.
         /// </summary>
         private void EditMode() {
-            IsEditMode = true;
-            btnCreateInvoice.IsEnabled = false;
-            btnDeleteInvoice.IsEnabled = false;
-            btnEditInvoice.IsEnabled = false;
-            btnRevert.IsEnabled = true;
-            btnSave.IsEnabled = true;
-            cbItemList.IsEnabled = true;
+            try {
+                IsEditMode = true;
+                btnCreateInvoice.IsEnabled = false;
+                btnDeleteInvoice.IsEnabled = false;
+                btnEditInvoice.IsEnabled = false;
+                btnRevert.IsEnabled = true;
+                btnSave.IsEnabled = true;
+                cbItemList.IsEnabled = true;
 
-            spInvoiceNumDate.IsEnabled = true;
-            spAddItems.IsEnabled = true;
+                spInvoiceNumDate.IsEnabled = true;
+                spAddItems.IsEnabled = true;
 
-            LoadItems();
+                LoadItems();
+            } catch(Exception ex) {
+                throw;
+            }
         }
 
         /// <summary>
@@ -243,71 +304,90 @@ namespace FoodTruck {
             if(CloseNow)
                 return true;
 
-            if(IsEditMode) {
-                var result = MessageBox.Show("There are unsaved changes.  Are you sure you want to close this window?",
-                    "Discard changes and close?", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
-                if(result == MessageBoxResult.OK) {
-                    CloseNow = true;
-                    return true;
-                } else return false;
-            }
+            try {
+                if(IsEditMode) {
+                    var result = MessageBox.Show("There are unsaved changes.  Are you sure you want to close this window?",
+                        "Discard changes and close?", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
+                    if(result == MessageBoxResult.OK) {
+                        CloseNow = true;
+                        return true;
+                    } else return false;
+                }
 
-            // If not in edit mode, close away.
-            CloseNow = true;
-            return true;
+                // If not in edit mode, close away.
+                CloseNow = true;
+                return true;
+            } catch(Exception) {
+                throw;
+            }
         }
 
         /// <summary>
         /// Creates a new invoice and allows the user to edit it.
         /// </summary>
         private void CreateInvoice() {
-            initialInvoice = null;
-            invoiceManager = new InvoiceManager(new Invoice());
-            LoadInvoice();
+            try {
+                initialInvoice = null;
+                invoiceManager = new InvoiceManager(new Invoice());
+                LoadInvoice();
+            } catch(Exception) {
+                throw;
+            }
         }
 
         /// <summary>
         /// This enables and shows the controls for the user to edit the Invoice.
         /// </summary>
         private void LoadInvoice() {
+            try {
+                invoiceManager = new InvoiceManager(initialInvoice);
 
-            invoiceManager = new InvoiceManager(initialInvoice);
+                if(initialInvoice != null) {
+                    btnDeleteInvoice.IsEnabled = true;
+                    btnEditInvoice.IsEnabled = true;
+                    dpInvoiceDate.SelectedDate = initialInvoice.InvoiceDate;
+                } else {
+                    dpInvoiceDate.SelectedDate = DateTime.Now;
+                }
 
-            if(initialInvoice != null) {
-                btnDeleteInvoice.IsEnabled = true;
-                btnEditInvoice.IsEnabled = true;
-                dpInvoiceDate.SelectedDate = initialInvoice.InvoiceDate;
-            } else {
-                dpInvoiceDate.SelectedDate = DateTime.Now;
+                ShowEditPanels();
+                spTotalAmount.Visibility = Visibility.Visible;
+
+                ShowLineItems();
+                UpdateTotal();
+
+                if(invoiceManager.CurrentInvoice.InvoiceNum == -1)
+                    tbInvoiceNum.Text = "TBD";
+                else
+                    tbInvoiceNum.Text = invoiceManager.CurrentInvoice.InvoiceNum.ToString();
+            } catch(Exception) {
+                throw;
             }
-
-            ShowEditPanels();
-            spTotalAmount.Visibility = Visibility.Visible;
-
-            ShowLineItems();
-            UpdateTotal();
-
-            if(invoiceManager.CurrentInvoice.InvoiceNum == -1)
-                tbInvoiceNum.Text = "TBD";
-            else
-                tbInvoiceNum.Text = invoiceManager.CurrentInvoice.InvoiceNum.ToString();
         }
 
         private void ShowLineItems() {
-            var lineItems = invoiceManager.GetLineItems();
-            dgLineItems.ItemsSource = lineItems;
-            dgLineItems.IsEnabled = true;
+            try {
+                var lineItems = invoiceManager.GetLineItems();
+                dgLineItems.ItemsSource = lineItems;
+                dgLineItems.IsEnabled = true;
+            } catch(Exception) {
+                throw;
+            }
         }
 
         private void UpdateTotal() {
-            if(initialInvoice == null && invoiceManager == null) {
-                tbTotal.Text = "$0.00";
-            } else if(initialInvoice == null && invoiceManager != null) {
-                tbTotal.Text = $"{invoiceManager.CurrentInvoice.TotalCharge:C}";
-            } else if(initialInvoice != null && invoiceManager == null) {
-                tbTotal.Text = $"{initialInvoice.TotalCharge:C}";
-            } else {
-                tbTotal.Text = $"{invoiceManager.CurrentInvoice.TotalCharge:C}";
+            try {
+                if(initialInvoice == null && invoiceManager == null) {
+                    tbTotal.Text = "$0.00";
+                } else if(initialInvoice == null && invoiceManager != null) {
+                    tbTotal.Text = $"{invoiceManager.CurrentInvoice.TotalCharge:C}";
+                } else if(initialInvoice != null && invoiceManager == null) {
+                    tbTotal.Text = $"{initialInvoice.TotalCharge:C}";
+                } else {
+                    tbTotal.Text = $"{invoiceManager.CurrentInvoice.TotalCharge:C}";
+                }
+            } catch(Exception) {
+                throw;
             }
         }
 
@@ -315,26 +395,38 @@ namespace FoodTruck {
         /// This method only shows the panels, it doesn't enable them.
         /// </summary>
         private void ShowEditPanels() {
-            spAddItems.Visibility = Visibility.Visible;
-            spInvoiceNumDate.Visibility = Visibility.Visible;
+            try {
+                spAddItems.Visibility = Visibility.Visible;
+                spInvoiceNumDate.Visibility = Visibility.Visible;
+            } catch(Exception) {
+                throw;
+            }
         }
 
         /// <summary>
         /// Hides AND disables the panels.
         /// </summary>
         private void HideEditPanels() {
-            spAddItems.IsEnabled = false;
-            spAddItems.Visibility = Visibility.Hidden;
-            spInvoiceNumDate.IsEnabled = false;
-            spInvoiceNumDate.Visibility = Visibility.Hidden;
+            try {
+                spAddItems.IsEnabled = false;
+                spAddItems.Visibility = Visibility.Hidden;
+                spInvoiceNumDate.IsEnabled = false;
+                spInvoiceNumDate.Visibility = Visibility.Hidden;
+            } catch(Exception) {
+                throw;
+            }
         }
 
         /// <summary>
         /// This method fills the ComboBox to allow the user to add LineItems to the invoice.
         /// </summary>
         private void LoadItems() {
-            var items = InvoiceManager.GetAllItemDescs();
-            cbItemList.ItemsSource = items;
+            try {
+                var items = InvoiceManager.GetAllItemDescs();
+                cbItemList.ItemsSource = items;
+            } catch(Exception) {
+                throw;
+            }
         }
 
         /// <summary>
@@ -342,8 +434,26 @@ namespace FoodTruck {
         /// </summary>
         /// <param name="lineItem">LineItem to remove by InvoiceManager</param>
         private void RemoveLineItem(ItemDesc lineItem) {
-            invoiceManager.RemoveLineItem(lineItem);
-            UpdateLineItems();
+            try {
+                invoiceManager.RemoveLineItem(lineItem);
+                UpdateLineItems();
+            } catch(Exception) {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// From Assignment 6P2, this method displays an exception in a Messagebox.  If there's an exception with that, it writes it to a file.
+        /// </summary>
+        /// <param name="sClass">The class where the exception occurred</param>
+        /// <param name="sMethod">The method where the exception occurred</param>
+        /// <param name="sMessage">The exception's message</param>
+        private void HandleError(string sClass, string sMethod, string sMessage) {
+            try {
+                MessageBox.Show(sClass + "." + sMethod + " -> " + sMessage);
+            } catch(Exception ex) {
+                System.IO.File.AppendAllText(@"C:\Error.txt", Environment.NewLine + "HandleError Exception: " + ex.Message);
+            }
         }
     }
 }
