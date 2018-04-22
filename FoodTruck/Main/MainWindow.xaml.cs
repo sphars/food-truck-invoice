@@ -169,9 +169,12 @@ namespace FoodTruck {
         }
 
         private void RemoveLineItem_Click(object sender, RoutedEventArgs e) {
-            Console.WriteLine("Click of remove button: " + sender.ToString() + " Events: " + e.ToString());
-        }
+            var button = sender as Button;
+            ItemDesc lineItem = (ItemDesc)button.DataContext;
 
+            RemoveLineItem(lineItem);
+        }
+        
         #endregion
 
         private void UpdateLineItems() {
@@ -332,6 +335,15 @@ namespace FoodTruck {
         private void LoadItems() {
             var items = InvoiceManager.GetAllItemDescs();
             cbItemList.ItemsSource = items;
+        }
+
+        /// <summary>
+        /// This method removes the specified lineItem from the Invoice and calls the method to update the display of LineItems.
+        /// </summary>
+        /// <param name="lineItem">LineItem to remove by InvoiceManager</param>
+        private void RemoveLineItem(ItemDesc lineItem) {
+            invoiceManager.RemoveLineItem(lineItem);
+            UpdateLineItems();
         }
     }
 }

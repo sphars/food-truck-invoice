@@ -225,17 +225,17 @@ namespace FoodTruck.Main {
         }
 
         /// <summary>
-        /// This method removes a line item by its index in the LineItems List.
+        /// This method removes a LineItem from the CurrentInvoice.
         /// </summary>
-        /// <param name="index">Index to [LineItems] of the LineItem to remove</param>
+        /// <param name="lineItem">The specified LineItem to remove</param>
         /// <returns>Returns the LineItems list, just like GetLineItems()</returns>
-        public List<ItemDesc> RemoveLineItem(int index) {
-            if (index < 0 || index >= LineItems.Count)
-                throw new Exception("Index is out of bounds for RemoveLineItem");
+        public List<ItemDesc> RemoveLineItem(ItemDesc lineItem) {
+            if(lineItem == null)
+                throw new ArgumentNullException("lineItem cannot be null");
 
             try {
-                CurrentInvoice.TotalCharge -= LineItems[index].Cost;
-                LineItems.RemoveAt(index);
+                CurrentInvoice.TotalCharge -= lineItem.Cost;
+                LineItems.Remove(lineItem);
                 return LineItems;
             } catch (Exception) {
                 throw;
