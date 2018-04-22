@@ -114,6 +114,9 @@ namespace FoodTruck
         private void selectionchanged(object sender, SelectionChangedEventArgs e)
         {
             DataGrid dataGrid = (DataGrid)sender;
+            if (dataGrid.SelectedItem == null)
+                return;
+
             ItemModel itemModel = (ItemModel)dataGrid.SelectedItem;
             ItemCodeBox.Text = itemModel.ItemCode;
             ItemDescBox.Text = itemModel.Desc;
