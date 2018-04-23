@@ -323,6 +323,17 @@ namespace FoodTruck
             }
         }
 
+        /// <summary>
+        /// This event handler is called when a user has typed a nonsensical date into the DatePicker
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void dpInvoiceDate_DateValidationError(object sender, DatePickerDateValidationErrorEventArgs e)
+        {
+            MessageBox.Show("You have entered an invalid date: " + e.Text);
+            e.ThrowException = false;
+        }
+
         #endregion
 
         /// <summary>
