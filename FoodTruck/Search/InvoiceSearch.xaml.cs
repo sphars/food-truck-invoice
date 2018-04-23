@@ -218,11 +218,12 @@ namespace FoodTruck {
             }
             catch (Exception ex)
             {
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name, MethodInfo.GetCurrentMethod().Name, ex.Message);
             }
         }
 
         /// <summary>
-        /// Handles the left arrow to close the window
+        /// Handles the left arrow to close the window. Passes back the previous invoice to main.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -230,7 +231,8 @@ namespace FoodTruck {
         {
             try
             {
-                this.Close();
+                var window = new MainWindow(previousInvoice);
+                window.Show();
             }
             catch (Exception ex)
             {
