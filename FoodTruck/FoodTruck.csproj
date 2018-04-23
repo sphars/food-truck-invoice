@@ -82,7 +82,6 @@
     <Compile Include="DataAccess.cs" />
     <Compile Include="DataTypes.cs" />
     <Compile Include="Delegates.cs" />
-    <Compile Include="InvoiceData.cs" />
     <Compile Include="Items\clsItemsLogic.cs" />
     <Compile Include="Items\clsItemsSQL.cs" />
     <Compile Include="Items\ItemModel.cs" />
