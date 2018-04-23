@@ -103,5 +103,3 @@ namespace FoodTruck
         }
     }
 }
-
-
