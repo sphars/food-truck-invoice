@@ -28,6 +28,8 @@
             <RowDefinition Height=".75*"/>
         </Grid.RowDefinitions>
 
+        <Image x:Name="imgArrowLeft" Source="/arrow-left.png" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5" MouseLeftButtonUp="imgArrowLeft_MouseLeftButtonUp" ToolTip="Return to the previous window"/>
+
         <Button x:Name="btnReset" Content="Reset" Grid.Row="0" Grid.Column="2" Width="80" Height="24" Click="btnReset_Click" VerticalAlignment="Center" HorizontalAlignment="Center" ToolTip="Show all invoices"/>
 
         <Grid Grid.Row="1" Grid.ColumnSpan="3">

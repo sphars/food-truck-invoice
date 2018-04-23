@@ -132,6 +132,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="ApplicationIcon.ico" />
+    <Resource Include="arrow-left.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Content Include="FoodTruckInvoices.mdb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

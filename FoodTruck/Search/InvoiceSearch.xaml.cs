@@ -218,9 +218,26 @@ namespace FoodTruck {
             }
             catch (Exception ex)
             {
+            }
+        }
+
+        /// <summary>
+        /// Handles the left arrow to close the window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void imgArrowLeft_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                this.Close();
+            }
+            catch (Exception ex)
+            {
                 HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name, MethodInfo.GetCurrentMethod().Name, ex.Message);
             }
         }
+
 
         /// <summary>
         /// exception handler that shows the error

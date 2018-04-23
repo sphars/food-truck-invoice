@@ -134,6 +134,16 @@ namespace FoodTruck
             var window = new MainWindow(storedInvoice);
             window.Show();
         }
+
+        /// <summary>
+        /// Handles clicking the back arrow
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void imgArrowLeft_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            this.Close();
+        }
     }
 
 

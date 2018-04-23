@@ -25,6 +25,8 @@
             <RowDefinition Height="3*"></RowDefinition>
         </Grid.RowDefinitions>
 
+        <Image x:Name="imgArrowLeft" Source="/arrow-left.png" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="36" Margin="10" MouseLeftButtonUp="imgArrowLeft_MouseLeftButtonUp" ToolTip="Return to the previous window" />
+
         <Label Content="Item Entry" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22" FontWeight="Bold" />
 
         <StackPanel Orientation="Vertical" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0">
