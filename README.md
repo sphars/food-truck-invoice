@@ -6,4 +6,6 @@
 
 This C# project is an invoice manager for a hypothetical supplier to Food Trucks.
 
+![Main Window screenshot](main-window.png)
+
 Material design theme by [http://materialdesigninxaml.net/](http://materialdesigninxaml.net/)
