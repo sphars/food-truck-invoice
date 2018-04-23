@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FoodTruck"
         mc:Ignorable="d"
-        Title="Food Truck Invoice Manager" Height="600" Width="550" WindowStartupLocation="CenterScreen"
+        Title="Food Truck Invoice Manager" Height="600" Width="600" WindowStartupLocation="CenterScreen"
+        MinHeight="430" MinWidth="600"
         
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -51,13 +52,13 @@
         </StackPanel>
         <StackPanel x:Name="spAddItems"  Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,5">
             <TextBlock Text="Items:" Margin="0,0,5,0" VerticalAlignment="Center"/>
-            <ComboBox x:Name="cbItemList" MinWidth="170" Margin="0,0,5,0" VerticalAlignment="Center" SelectionChanged="cbItemList_SelectionChanged" Width="300" ToolTip=""/>
+            <ComboBox x:Name="cbItemList" MinWidth="170" Margin="0,0,5,0" VerticalAlignment="Center" SelectionChanged="cbItemList_SelectionChanged" Width="300"/>
             <Button Content="Add to Invoice" x:Name="btnAddToInvoice" VerticalAlignment="Center" Click="btnAddToInvoice_Click" Width="125" ToolTip="Add the displayed item to the current invoice"/>
         </StackPanel>
         <DataGrid x:Name="dgLineItems" SelectionMode="Single" SelectionUnit="FullRow" Grid.Row="5" IsEnabled="False" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="False"
                   CanUserSortColumns="False" CanUserAddRows="False" IsReadOnly="True" VerticalGridLinesBrush="#FFB8B8B8" HorizontalGridLinesBrush="#FFB8B8B8">
             <DataGrid.Columns>
-                <DataGridTemplateColumn Width="20">
+                <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button Click="RemoveLineItem_Click" ToolTip="Remove this LineItem from the Invoice">X</Button>
@@ -72,7 +73,7 @@
         </DataGrid>
         <StackPanel x:Name="spTotalAmount" Orientation="Horizontal" Grid.Row="6" HorizontalAlignment="Right" Margin="0,0,50,5">
             <TextBlock Text="Total:" FontSize="18" Margin="0,0,10,0"/>
-            <TextBox Text="$0.00" x:Name="tbTotal" VerticalAlignment="Center" FontSize="16" Width="100" TextAlignment="Right" BorderThickness="0" IsReadOnly="True"/>
+            <TextBox Text="$0.00" x:Name="tbTotal" VerticalAlignment="Center" FontSize="16" Width="100" TextAlignment="Right" BorderThickness="0" IsReadOnly="True" VerticalContentAlignment="Center"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="7" Margin="0,0,50,0" HorizontalAlignment="Right" VerticalAlignment="Center">
             <Button x:Name="btnRevert" Content="Revert Changes" Width="130" Margin="0,0,5,0" IsEnabled="False" Click="btnRevert_Click" ToolTip="Revert the changes to the current invoice"/>
