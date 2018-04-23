@@ -149,13 +149,10 @@ namespace FoodTruck.Main {
                     var sql = clsMainSQL.D_LI_P_NUM.Replace("@NUM", CurrentInvoice.InvoiceNum.ToString());
                     var dataAccess = new DataAccess();
                     int rowsAffected = dataAccess.ExecuteNonQuery(sql);
-                    Console.WriteLine($"Deleted {rowsAffected} LineItem rows for InvoiceNum {CurrentInvoice.InvoiceNum}.");
 
                     // Now delete the actual Invoice:
                     sql = clsMainSQL.D_INV_P_NUM.Replace("@NUM", CurrentInvoice.InvoiceNum.ToString());
                     rowsAffected = dataAccess.ExecuteNonQuery(sql);
-
-                    Console.WriteLine($"Deleted Invoice with InvoiceNum {CurrentInvoice.InvoiceNum}");
                 }
 
                 CurrentInvoice = null;

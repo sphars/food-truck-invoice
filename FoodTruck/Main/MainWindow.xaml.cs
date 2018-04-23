@@ -282,9 +282,7 @@ namespace FoodTruck {
         /// </summary>
         private void DeleteInvoice() {
             try {
-                if(invoiceManager != null) {
-                    invoiceManager.DeleteInvoice();
-                }
+                invoiceManager?.DeleteInvoice();
                 initialInvoice = null;
             } catch(Exception) {
                 throw;
@@ -379,7 +377,7 @@ namespace FoodTruck {
         private void CreateInvoice() {
             try {
                 initialInvoice = null;
-                invoiceManager = new InvoiceManager(new Invoice());
+                invoiceManager = new InvoiceManager(null);
                 LoadInvoice();
             } catch(Exception) {
                 throw;
