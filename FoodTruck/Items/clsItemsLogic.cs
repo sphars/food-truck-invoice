@@ -31,7 +31,7 @@ namespace FoodTruck.Items
                         .Replace("@ItemCode", itemModel.ItemCode)
                         .Replace("@ItemDesc", itemModel.Desc)
                         .Replace("@Cost", itemModel.Cost.ToString());
-                    int response = db.ExecuteUpdate(sql);
+                    db.ExecuteUpdate(sql);
 
                 }
                 catch (Exception ex)
@@ -59,7 +59,7 @@ namespace FoodTruck.Items
                         .Replace("@ItemCode", itemModel.ItemCode)
                         .Replace("@ItemDesc", itemModel.Desc)
                         .Replace("@Cost", itemModel.Cost.ToString());
-                    int response = db.ExecuteDelete(sql);
+                    db.ExecuteDelete(sql);
 
                 }
                 catch (Exception ex)

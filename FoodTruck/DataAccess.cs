@@ -20,11 +20,12 @@ public class DataAccess
     /// </summary>
     public DataAccess()
     {
-        sConnectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data source= " + Directory.GetCurrentDirectory() + "\\FoodTruckInvoices.mdb";
+        sConnectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data source= " +
+            Directory.GetCurrentDirectory() + "\\FoodTruckInvoices.mdb";
     }
 
     /// <summary>
-    /// This method takes an SQL statment that is passed in and executes it.  The resulting values
+    /// This method takes an SQL statement that is passed in and executes it.  The resulting values
     /// are returned in a DataSet.  The number of rows returned from the query will be put into
     /// the reference parameter iRetVal.
     /// </summary>
@@ -63,12 +64,13 @@ public class DataAccess
         }
         catch (Exception ex)
         {
-            throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name +
+                "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
         }
     }
 
     /// <summary>
-    /// This method takes an SQL statment that is passed in and executes it.  The resulting single 
+    /// This method takes an SQL statement that is passed in and executes it.  The resulting single 
     /// value is returned.
     /// </summary>
     /// <param name="sSQL">The SQL statement to be executed.</param>
@@ -111,12 +113,13 @@ public class DataAccess
         }
         catch (Exception ex)
         {
-            throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name +
+                "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
         }
     }
 
     /// <summary>
-    /// This method takes an SQL statment that is a non query and executes it.
+    /// This method takes an SQL statement that is a non query and executes it.
     /// </summary>
     /// <param name="sSQL">The SQL statement to be executed.</param>
     /// <returns>Returns the number of rows affected by the SQL statement.</returns>
@@ -145,7 +148,8 @@ public class DataAccess
         }
         catch (Exception ex)
         {
-            throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name +
+                "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
         }
     }
 
@@ -185,11 +189,10 @@ public class DataAccess
     }
 
     /// <summary>
-    /// This method takes an insert statement, executes it, and returns the ID/primary key of the resulting row.
+    /// This method takes a delete statement and executes it in a transaction.
     /// </summary>
-    /// <param name="sSQL">The SQL INSERT statement to be executed.</param>
-    /// <returns>Returns the AutoNumber field of the inserted row</returns>
-    public int ExecuteDelete(string sSQL)
+    /// <param name="sSQL">The SQL delete statement to be executed.</param>
+    public void ExecuteDelete(string sSQL)
     {
         sSQL = sSQL.Trim();
         if (!sSQL.StartsWith("Delete", StringComparison.InvariantCultureIgnoreCase))
@@ -207,7 +210,6 @@ public class DataAccess
                 command.CommandTimeout = 0;
                 object resultObj = command.ExecuteNonQuery();
                 transaction.Commit();
-                return 1;
             }
         }
         catch (Exception ex)
@@ -215,17 +217,13 @@ public class DataAccess
             throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
                 MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
         }
-
-
-
     }
 
     /// <summary>
-    /// This method takes an insert statement, executes it, and returns the ID/primary key of the resulting row.
+    /// This method takes an update statement and executes it in a transaction.
     /// </summary>
-    /// <param name="sSQL">The SQL INSERT statement to be executed.</param>
-    /// <returns>Returns the AutoNumber field of the inserted row</returns>
-    public int ExecuteUpdate(string sSQL)
+    /// <param name="sSQL">The SQL UPDATE statement to be executed.</param>
+    public void ExecuteUpdate(string sSQL)
     {
         sSQL = sSQL.Trim();
         if (!sSQL.StartsWith("UPDATE", StringComparison.InvariantCultureIgnoreCase))
@@ -243,7 +241,6 @@ public class DataAccess
                 command.CommandTimeout = 0;
                 object resultObj = command.ExecuteNonQuery();
                 transaction.Commit();
-                return 1;
             }
         }
         catch (Exception ex)
