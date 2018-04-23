@@ -54,7 +54,7 @@
             </StackPanel>
             <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Label Content="Invoice Total" HorizontalAlignment="Center" />
-                <ComboBox x:Name="cboInvoiceTotal" VerticalAlignment="Top" Width="120" SelectionChanged="UpdateInvoiceGrid" />
+                <ComboBox x:Name="cboInvoiceTotal" VerticalAlignment="Top" Width="120" SelectionChanged="UpdateInvoiceGrid" ItemStringFormat="{}{0:c}" />
             </StackPanel>
 
             <Label x:Name="lblMessage" Grid.Row="1" Grid.ColumnSpan="3" HorizontalAlignment="Center" FontSize="10" />
