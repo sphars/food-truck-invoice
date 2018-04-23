@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Reflection;
+using System.Text.RegularExpressions;
 
 
 namespace FoodTruck
@@ -210,6 +211,91 @@ namespace FoodTruck
             catch (System.Exception ex)
             {
                 System.IO.File.AppendAllText("C:\\Error.txt", Environment.NewLine + "HandleError Exception: " + ex.Message);
+            }
+        }
+
+
+        /// <summary>
+        /// Only allow letters to be input
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txtLetterInput(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                //Only allow letters to be entered
+                if (!(e.Key >= Key.A && e.Key <= Key.Z))
+                {
+                    //Allow the user to use the backspace, delete, tab and enter
+                    if (!(e.Key == Key.Back || e.Key == Key.Delete || e.Key == Key.Tab || e.Key == Key.Enter))
+                    {
+                        //No other keys allowed besides numbers, backspace, delete, tab, and enter
+                        e.Handled = true;
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name, MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Only allow letters or numbers
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txtLetterNumberInput(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                //Only allow letters to be entered
+                if (!(e.Key >= Key.A && e.Key <= Key.Z))
+                {
+                    //Only allow numbers
+                    if (!(e.Key >= Key.D0 && e.Key <= Key.D9) && !(e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9))
+                    {
+                        //Allow the user to use the backspace, delete, tab and enter
+                        if (!(e.Key == Key.Back || e.Key == Key.Delete || e.Key == Key.Tab || e.Key == Key.Enter || e.Key == Key.Space))
+                        {
+                            //No other keys allowed besides numbers, backspace, delete, tab, and enter
+                            e.Handled = true;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name, MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
+
+        }
+
+        /// <summary>
+        /// Only allow numbers to be input in a text box
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txtNumberInput(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                //only allow numbers
+                if (!(e.Key >= Key.D0 && e.Key <= Key.D9) && !(e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9))
+                {
+                    //Allow the user to use the backspace, delete, tab and enter
+                    if (!(e.Key == Key.Back || e.Key == Key.Delete || e.Key == Key.Tab || e.Key == Key.Enter))
+                    {
+                        //No other keys allowed besides numbers, backspace, delete, tab, and enter
+                        e.Handled = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name, MethodInfo.GetCurrentMethod().Name, ex.Message);
             }
         }
 
