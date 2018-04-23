@@ -35,6 +35,11 @@ namespace FoodTruck {
         private Invoice previousInvoice;
 
         /// <summary>
+        /// This field is used by the Select Invoice button to tell the Closing event to use selectedInvoice.
+        /// </summary>
+        private bool loadSelectedInvoice;
+
+        /// <summary>
         /// Constructor for the Search Window.
         /// </summary>
         /// <param name="previousInvoice">Invoice that MainWindow was displaying before the open of this window.</param>
@@ -143,8 +148,7 @@ namespace FoodTruck {
                 //selectedInvoice = (Invoice)dtgInvoices.SelectedItem;
                 if (selectedInvoice != null)
                 {
-                    var window = new MainWindow(selectedInvoice);
-                    window.Show();
+                    loadSelectedInvoice = true;
                     this.Close();
                 }
 
@@ -208,12 +212,16 @@ namespace FoodTruck {
         {
             try
             {
-                if (selectedInvoice == null)
+                if (loadSelectedInvoice)
+                {
+                    var window = new MainWindow(selectedInvoice);
+                    window.Show();
+                }
+                else
                 {
                     var window = new MainWindow(previousInvoice);
                     window.Show();
                 }
-                else return;
 
             }
             catch (Exception ex)
@@ -223,7 +231,7 @@ namespace FoodTruck {
         }
 
         /// <summary>
-        /// Handles the left arrow to close the window. Passes back the previous invoice to main.
+        /// Handles the left arrow to close the window
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -231,8 +239,7 @@ namespace FoodTruck {
         {
             try
             {
-                var window = new MainWindow(previousInvoice);
-                window.Show();
+                this.Close();
             }
             catch (Exception ex)
             {
