@@ -1,25 +1,12 @@
 ﻿using FoodTruck.Items;
 using System;
-using System.Data;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.Reflection;
 
 
 namespace FoodTruck
 {
-
-
     /// <summary>
     /// Interaction logic for ItemEntry.xaml
     /// </summary>
@@ -27,7 +14,7 @@ namespace FoodTruck
     {
         //Used to access the database
         DataAccess db = new DataAccess();
-    
+
         public object DataSource { get; set; }
 
         /// <summary>
@@ -101,7 +88,7 @@ namespace FoodTruck
             DataGridItemEntry.ItemsSource = null;
             DataGridItemEntry.ItemsSource = clsItemsLogic.GetAllItems();
             DataGridItemEntry.SelectionChanged += selectionchanged;
-            
+
         }
 
         /// <summary>
@@ -126,7 +113,7 @@ namespace FoodTruck
             ItemDescBox.Text = itemModel.Desc;
             CostBox.Text = itemModel.Cost.ToString();
 
-           // int debug = 0;
+            // int debug = 0;
         }
 
         private void Close_Item_Entry(object sender, System.ComponentModel.CancelEventArgs e)
@@ -145,6 +132,4 @@ namespace FoodTruck
             this.Close();
         }
     }
-
-
 }

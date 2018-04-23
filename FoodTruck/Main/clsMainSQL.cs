@@ -1,8 +1,10 @@
-﻿namespace FoodTruck.Main {
+﻿namespace FoodTruck.Main
+{
     /// <summary>
     /// This class contains the SQL statements used by InvoiceManager.
     /// </summary>
-    public static class clsMainSQL {
+    public static class clsMainSQL
+    {
 
         /* The format for the string names are as follows:
          * The first group says what kind of statement it is: S=Select, I=Insert, U=Update, D=Delete

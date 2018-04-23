@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Data;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Data;
 using System.Reflection;
-
-
 
 namespace FoodTruck.Items
 {
@@ -41,7 +36,6 @@ namespace FoodTruck.Items
 
                 }
             }
-
         }
         public static void DeleteItem(ItemModel itemModel)
         {
@@ -68,7 +62,6 @@ namespace FoodTruck.Items
                     System.Windows.MessageBox.Show("You cannot delete an Item that still has references.");
                 }
             }
-
         }
 
         public static void InsertItems(ItemModel itemModel)
@@ -125,7 +118,6 @@ namespace FoodTruck.Items
                 System.Windows.MessageBox.Show(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
                 return new List<ItemModel>();
             }
-
         }
     }
 }

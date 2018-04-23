@@ -2,23 +2,18 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.Reflection;
 
-namespace FoodTruck {
+namespace FoodTruck
+{
     /// <summary>
     /// Interaction logic for InvoiceSearch.xaml
     /// </summary>
-    public partial class InvoiceSearch : Window {
+    public partial class InvoiceSearch : Window
+    {
         /// <summary>
         /// This field is the invoice selected in the UI that will be returned to MainWindow.
         /// </summary>
@@ -43,7 +38,8 @@ namespace FoodTruck {
         /// Constructor for the Search Window.
         /// </summary>
         /// <param name="previousInvoice">Invoice that MainWindow was displaying before the open of this window.</param>
-        public InvoiceSearch(Invoice previousInvoice) {
+        public InvoiceSearch(Invoice previousInvoice)
+        {
             InitializeComponent();
             this.previousInvoice = previousInvoice;
             ResetForm();
@@ -124,7 +120,8 @@ namespace FoodTruck {
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btnReset_Click(object sender, RoutedEventArgs e) {
+        private void btnReset_Click(object sender, RoutedEventArgs e)
+        {
             try
             {
                 ResetForm();
@@ -246,7 +243,6 @@ namespace FoodTruck {
                 HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name, MethodInfo.GetCurrentMethod().Name, ex.Message);
             }
         }
-
 
         /// <summary>
         /// exception handler that shows the error
